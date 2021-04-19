@@ -17,7 +17,7 @@ import model.MinesweeperBoard;
  * 
  * @author Prabhkirat Singh Bindra
  * @author James Colby
- * @author Dendon Selm Gothi
+ * @author Denson Selm Gothi
  * @author Joshua Paul Kantarges
  *
  */
