@@ -18,6 +18,7 @@ public class Cell {
 	private boolean revealed;
 	private boolean flagged;
 	private boolean mined;
+	private int neighborMines;
 	
 	/**
 	 * Constructor for cell.
@@ -29,6 +30,7 @@ public class Cell {
 		this.revealed = false;
 		this.flagged = false;
 		this.mined = false;
+		this.neighborMines = 0;
 	}
 	
 	/**
@@ -37,6 +39,14 @@ public class Cell {
 	public void reveal() {
 		
 		revealed = true;
+	}
+	
+	/**
+	 * Getter that checks if cell is revealed
+	 * @return true if revealed
+	 */
+	public boolean isRevealed() {
+		return revealed;
 	}
 	
 	/**
@@ -57,21 +67,46 @@ public class Cell {
 	}
 	
 	/**
+	 * Checks to see if cell is flagged
+	 * @return true if cell is flagged
+	 */
+	public boolean hasFlag() {
+		
+		return flagged;
+	}
+	
+	
+	/**
 	 * Adds flag to an unrevealed cell. If cell already has flag,
 	 * removes it. If cell is revealed, do nothing.
 	 */
 	public void flag() {
 		
-		if (!revealed && !flagged) {
+		if ((!revealed) && (!flagged)) {
 			
 			flagged = true;
-		}
-		
-		if (!revealed && flagged) {
-			
+		} else {
 			flagged = false;
 		}
 	}
+	
+	/**
+	 * Gets number of cell's surrounding mines
+	 * @return number of neighboring mines
+	 */
+	public int getNeighbors() {
+		return neighborMines;
+	}
+	
+	/**
+	 * Sets number of surrounding mines for cell
+	 * @param neighborCount
+	 */
+	public void setNeighbors(int neighborCount) {
+		
+		this.neighborMines = neighborCount;
+	}
+	
 	
 	
 	

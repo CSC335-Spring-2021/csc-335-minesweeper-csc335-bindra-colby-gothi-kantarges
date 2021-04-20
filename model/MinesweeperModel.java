@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Model class of the Minesweeper MVC architecture
@@ -26,21 +27,38 @@ public class MinesweeperModel extends Observable {
 	private Cell[][] grid;
 	private int time;
 	private int flagsLeft;
-
+	private int rows;
+	private int cols;
+	private int difficulty;
+	
 	/**
+	 * Constructor for model
 	 * 
+	 * Creates 
 	 * @param difficultySetting Integer representing difficulty level
 	 * of game, which changes board size and number of mines.
 	 */
-	public MinesweeperModel(int difficultySetting) {
+	public MinesweeperModel(int difficultySetting, Observer view) {
 		
 		//TODO: remove hardcoding
-		time = 0;
-		flagsLeft = TEST_MINE_COUNT;
+		this.time = 0;
+		this.flagsLeft = TEST_MINE_COUNT;
+		this.rows = TEST_SIZE;
+		this.cols = TEST_SIZE;
+		this.difficulty = difficultySetting;
 		
+		grid = new Cell[rows][cols];
 		
-		for (int i = 0; i < TEST_SIZE ; i++) {
-			for (int j = 0; j < TEST_SIZE; j++) {
+		this.addObserver(view);
+	}
+	
+	/**
+	 * Initializes grid, sets all cells to starting blank state
+	 */
+	public void initialize() {
+		
+		for (int i = 0; i < rows ; i++) {
+			for (int j = 0; j < cols; j++) {
 				
 				grid[i][j] = new Cell();
 			}
@@ -61,6 +79,17 @@ public class MinesweeperModel extends Observable {
 		
 		return true;
 	}
+	
+	/**
+	 * Returns cell object at specified row/col
+	 * @param r row to query
+	 * @param c col to query
+	 * @return Cell at row and col
+	 */
+	public Cell getCell(int r, int c) {
+		return grid[r][c];
+	}
+	
 	
 	/**
 	 * Sends updated game-state to the view
