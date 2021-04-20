@@ -55,7 +55,7 @@ public class MinesweeperModel extends Observable {
 	 * @return true if in bounds, else false
 	 */
 	public boolean isInBounds(int row, int col) {
-		
+		//TODO: Remove hardcoding
 		if (row >= TEST_SIZE || col >= TEST_SIZE) { return false; }
 		if (row < 0 || col < 0) { return false; }
 		
