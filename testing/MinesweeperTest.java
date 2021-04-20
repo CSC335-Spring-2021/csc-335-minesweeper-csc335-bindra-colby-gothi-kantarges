@@ -14,7 +14,7 @@ public class MinesweeperTest {
 	@Test
 	public void testModel() {
 
-			// TODO: setup
+		// TODO: setup
 		
 		// Test 1 ----------------------------------------------------------------//
 		
