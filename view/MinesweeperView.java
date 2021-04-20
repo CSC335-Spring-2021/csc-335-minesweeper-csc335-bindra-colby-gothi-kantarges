@@ -4,6 +4,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import model.MinesweeperBoard;
@@ -33,6 +36,11 @@ public class MinesweeperView extends Application implements Observer {
 	public void start(Stage arg0) throws Exception {
 
 		// TODO: implement GUI
+		arg0.setTitle("Minesweeper");
+		BorderPane window = new BorderPane();
+		Scene scene = new Scene(window, 500, 600, Color.GREY);
+		arg0.setScene(scene);
+		arg0.show();
 	}
 	
 	/**
