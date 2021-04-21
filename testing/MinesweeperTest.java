@@ -18,7 +18,7 @@ public class MinesweeperTest {
 	@Test
 	public void testModel() {
 
-		MinesweeperModel model = new MinesweeperModel(BEGINNER,	new Observer() {
+		MinesweeperModel model = new MinesweeperModel(new Observer() {
 			@Override
 			public void update(Observable o, Object arg) {  }
 		});

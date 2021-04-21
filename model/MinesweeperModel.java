@@ -38,14 +38,13 @@ public class MinesweeperModel extends Observable {
 	 * @param difficultySetting Integer representing difficulty level
 	 * of game, which changes board size and number of mines.
 	 */
-	public MinesweeperModel(int difficultySetting, Observer view) {
+	public MinesweeperModel(Observer view) {
 		
 		//TODO: remove hardcoding
 		this.time = 0;
 		this.flagsLeft = TEST_MINE_COUNT;
 		this.rows = TEST_SIZE;
 		this.cols = TEST_SIZE;
-		this.difficulty = difficultySetting;
 		
 		grid = new Cell[rows][cols];
 		

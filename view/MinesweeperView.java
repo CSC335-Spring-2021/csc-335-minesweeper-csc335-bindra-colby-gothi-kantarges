@@ -3,13 +3,29 @@ package view;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.MinesweeperController;
 import javafx.application.Application;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import model.MinesweeperBoard;
+import model.MinesweeperModel;
 
 /**
  * This class represents the view of the game,
@@ -27,20 +43,36 @@ import model.MinesweeperBoard;
 @SuppressWarnings("deprecation")
 public class MinesweeperView extends Application implements Observer {
 
+	//FIXME: Hardcoded global variables for board
+	private static final int ROW_SIZE = 8;
+	private static final int COL_SIZE = 8;
+	
+	// Instance of controller, that accepts constructor of model
+	// as param (which accepts difficulty setting and 
+	private MinesweeperController controller = new MinesweeperController(
+												new MinesweeperModel(this));
+	
 	/**
 	 * The entry point of the GUI that sets up the {@code Stage} of the GUI
 	 * 
-	 * @param arg0 The {@code Stage} of the game's GUI
+	 * @param stage The {@code Stage} of the game's GUI
 	 */
 	@Override
-	public void start(Stage arg0) throws Exception {
+	public void start(Stage stage) throws Exception {
 
-		// TODO: implement GUI
-		arg0.setTitle("Minesweeper");
 		BorderPane window = new BorderPane();
-		Scene scene = new Scene(window, 500, 600, Color.GREY);
-		arg0.setScene(scene);
-		arg0.show();
+		
+		BoardGridView grid = new BoardGridView(ROW_SIZE,
+											   COL_SIZE,
+											   controller
+											   );
+		
+		window.setCenter(grid);
+		
+		stage.setTitle("Minesweeper");
+		Scene scene = new Scene(window, Color.GREY);
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	/**
