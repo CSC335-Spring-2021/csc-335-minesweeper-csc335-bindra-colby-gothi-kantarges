@@ -1,5 +1,6 @@
 package controller;
 
+import model.CellState;
 import model.MinesweeperModel;
 
 /**
@@ -32,6 +33,28 @@ public class MinesweeperController {
 	public MinesweeperController(MinesweeperModel model) {
 		this.model = model;
 	}
+
+	/**
+	 * Game logic for handling click on a cell
+	 * 
+	 * @param r row of cell clicked
+	 * @param c col of cell clicked
+	 */
 	
-	// TODO: implement controller class
+	public void handleCellLeftClick(int r, int c) {
+		
+		model.changeCellModel(r, c);
+	}
+
+	/**
+	 * Checks whether cell at row/col is revealed already
+	 * 
+	 * @param r row to check
+	 * @param c col to check
+	 * @return true is cell is revealed, else false
+	 */
+	public boolean isRevealedCell(int r, int c) {
+		
+		return model.getCell(r, c).isRevealed();
+	}
 }

@@ -26,18 +26,17 @@ public class Cell {
 	 * Initially each cell is set to be unmined, unrevealed, and unflagged.
 	 */
 	public Cell() {
-		
 		this.revealed = false;
 		this.flagged = false;
 		this.mined = false;
 		this.neighborMines = 0;
 	}
+
 	
 	/**
 	 * Sets cell status to revealed
 	 */
 	public void reveal() {
-		
 		revealed = true;
 	}
 	
@@ -82,8 +81,7 @@ public class Cell {
 	 */
 	public void flag() {
 		
-		if ((!revealed) && (!flagged)) {
-			
+		if ((!revealed) && (!flagged)) {		
 			flagged = true;
 		} else {
 			flagged = false;

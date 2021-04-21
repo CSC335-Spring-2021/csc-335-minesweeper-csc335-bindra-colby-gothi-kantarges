@@ -20,5 +20,60 @@ public class MinesweeperBoard implements Serializable {
 	 */
 	private static final long serialVersionUID = -4510255117516896736L;
 
-	// TODO: implement class
+	private Cell[][] boardArrToPass;
+	private int time;
+	private int flagsLeft;
+	private int rows;
+	private int cols;
+	private int difficulty;
+
+	/**
+	 * Constructor for MinesweeperBoard save game
+	 * 
+	 * Accepts model's array of cell objects and creates 
+	 * packaged version to pass to view
+	 * 
+	 * @param passedBoard Array of current cell states
+	 * @param time left in game
+	 * @param flagsLeft to place for scoreboard
+	 * @param rows of current board
+	 * @param cols of current board
+	 * @param difficulty of current game
+	 */
+	
+	public MinesweeperBoard(Cell[][] passedBoard,
+							int time,
+							int flagsLeft,
+							int rows,
+							int cols,
+							int difficulty) {
+		this.boardArrToPass = passedBoard;
+		this.time = time;
+		this.flagsLeft = flagsLeft;
+		this.rows = rows;
+		this.cols = cols;
+		this.difficulty = difficulty;	
+	}
+	
+	/**
+	 * Simpler constructor  for passing information from model to view
+	 * 
+	 * @param passedBoard array of current cell states
+	 */
+	public MinesweeperBoard(Cell[][] passedBoard) {
+		
+		this.boardArrToPass = passedBoard;
+	}
+	
+	/**
+	 * Getter for the current state of board
+	 * 
+	 * @return Cell array that represents the state
+	 */
+	public Cell[][] getBoard(){
+		
+		return boardArrToPass;
+	}
+	
+	
 }

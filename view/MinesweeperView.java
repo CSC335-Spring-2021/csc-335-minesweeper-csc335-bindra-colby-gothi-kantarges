@@ -46,14 +46,16 @@ public class MinesweeperView extends Application implements Observer {
 	//FIXME: Hardcoded global variables for board
 	private static final int ROW_SIZE = 8;
 	private static final int COL_SIZE = 8;
+	private BoardGridView grid;
 	
 	// Instance of controller, that accepts constructor of model
 	// as param (which accepts difficulty setting and 
 	private MinesweeperController controller = new MinesweeperController(
 												new MinesweeperModel(this));
 	
+
 	/**
-	 * The entry point of the GUI that sets up the {@code Stage} of the GUI
+	 * The entry point of the GUI that sets up the {@code Stage} of the GUI    
 	 * 
 	 * @param stage The {@code Stage} of the game's GUI
 	 */
@@ -62,10 +64,7 @@ public class MinesweeperView extends Application implements Observer {
 
 		BorderPane window = new BorderPane();
 		
-		BoardGridView grid = new BoardGridView(ROW_SIZE,
-											   COL_SIZE,
-											   controller
-											   );
+		grid = new BoardGridView(ROW_SIZE,COL_SIZE,controller);
 		
 		window.setCenter(grid);
 		
@@ -76,7 +75,7 @@ public class MinesweeperView extends Application implements Observer {
 	}
 	
 	/**
-	 * This method is reponsible for updating the view whenever the model changes.
+	 * This method is responsible for updating the view whenever the model changes.
 	 * 
 	 * {@code MinesweeperView} is an {@code Observer} of {@code MinesweeperModel} and this method is called
 	 * whenever {@code MinesweeperModel} notifies its {@code Observer}s (whenever it changes).
@@ -89,7 +88,7 @@ public class MinesweeperView extends Application implements Observer {
 	public void update(Observable o, Object arg) {
 		
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
-
-		// TODO: complete method to update GUI
+		
+		grid.updateCells(mb);
 	}
 }

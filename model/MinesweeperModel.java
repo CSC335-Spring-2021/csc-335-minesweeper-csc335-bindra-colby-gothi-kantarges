@@ -33,10 +33,6 @@ public class MinesweeperModel extends Observable {
 	
 	/**
 	 * Constructor for model
-	 * 
-	 * Creates 
-	 * @param difficultySetting Integer representing difficulty level
-	 * of game, which changes board size and number of mines.
 	 */
 	public MinesweeperModel(Observer view) {
 		
@@ -47,6 +43,8 @@ public class MinesweeperModel extends Observable {
 		this.cols = TEST_SIZE;
 		
 		grid = new Cell[rows][cols];
+		
+		this.initialize();
 		
 		this.addObserver(view);
 	}
@@ -89,6 +87,14 @@ public class MinesweeperModel extends Observable {
 		return grid[r][c];
 	}
 	
+	// Dummy change cell to revealed method to test observer hookup
+	// FIXME: implement real change method
+	public void changeCellModel(int r, int c) {
+		
+		grid[r][c].reveal();
+		
+		updateView(new MinesweeperBoard(grid));
+	}
 	
 	/**
 	 * Sends updated game-state to the view
@@ -99,4 +105,5 @@ public class MinesweeperModel extends Observable {
 		setChanged();
 		notifyObservers(mb);
 	}
+
 }
