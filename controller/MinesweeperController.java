@@ -1,11 +1,10 @@
 package controller;
 
+import java.util.Random;
+
 import model.Cell;
-import model.CellState;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
-
-import java.util.Random;
 
 /**
  * Controller of MVC architecture.
@@ -44,16 +43,23 @@ public class MinesweeperController {
 	 * @param r row of cell clicked
 	 * @param c col of cell clicked
 	 */
-	
 	public void handleCellLeftClick(int r, int c) {
-		if(model.getIsFirstClick()){ //need to generate bombs
+		
+		if (model.getIsFirstClick()){		// need to generate bombs
+			
 			Random rand = new Random();
-			int mines = (model.getBoard().getCols()-1)*(model.getBoard().getRows()-1); // Formula for how many mines to place
-			while(mines != 0) {
+			
+			int mines = (model.getBoard().getCols() - 1) * (model.getBoard().getRows() - 1);		// Formula for how many mines to place
+			
+			while (mines != 0) {
+				
 				int xIndex = rand.nextInt(model.getBoard().getCols());
 				int yIndex = rand.nextInt(model.getBoard().getRows());
-				if(model.isInBounds(xIndex,yIndex) && (xIndex != r) && (yIndex != c)){
+				
+				if (model.isInBounds(xIndex,yIndex) && (xIndex != r) && (yIndex != c)) {
+					
 					Cell cell = model.getCell(xIndex,yIndex);
+					
 					cell.addMine();
 					mines--;
 				}
@@ -63,21 +69,40 @@ public class MinesweeperController {
 		
 		model.changeCellModel(r, c);
 	}
+	
+	/**
+	 * Game logic for handling a right click
+	 * 
+	 * @param r row of cell clicked
+	 * @param c col of cell clicked
+	 */
+	public void handleCellRightClick(int r, int c) {
+
+		if(model.getIsFirstClick()) {
+			
+			// TODO: add flag to the cell
+			
+			model.changeFirstClick();
+		}
+
+		model.changeCellModel(r, c);
+	}
 
 	/**
 	 * Checks whether cell at row/col is revealed already
 	 * 
 	 * @param r row to check
 	 * @param c col to check
+	 * 
 	 * @return true is cell is revealed, else false
 	 */
 	public boolean isRevealedCell(int r, int c) {
-		
 		return model.getCell(r, c).isRevealed();
 	}
 
 	/**
 	 * Gets the board from the model
+	 * 
 	 * @return MinesweeperBoard
 	 */
 	public MinesweeperBoard getBoard(){

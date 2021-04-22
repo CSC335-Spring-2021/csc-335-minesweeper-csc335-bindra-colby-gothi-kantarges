@@ -1,6 +1,5 @@
 package testing;
 
-import model.MinesweeperBoard;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -10,9 +9,12 @@ import java.util.Observer;
 import model.MinesweeperModel;
 import controller.MinesweeperController;
 
+@SuppressWarnings("deprecation")
 public class MinesweeperTest {
+	
 	//TODO: remove hardcoding
 	final static int BEGINNER = 0;
+	
 	/**
 	 * Test method for {@link MinesweeperModel}
 	 */
@@ -30,6 +32,7 @@ public class MinesweeperTest {
 		
 		// Check each cell in game to assert it is unflagged, unrevealed, unmined
 		// Then use setters to change their states, and verify it worked
+		
 		//TODO: remove hardcoding
 		for (int i = 0; i < 8 ; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -48,8 +51,7 @@ public class MinesweeperTest {
 
 			}
 		}
-		
-		
+
 		//------------------------------------------------------------------------//
 	}
 	
@@ -58,6 +60,6 @@ public class MinesweeperTest {
 	 */
 	@Test
 	public void testController() {
-		//TODO test the controller
+		// TODO: test the controller
 	}
 }

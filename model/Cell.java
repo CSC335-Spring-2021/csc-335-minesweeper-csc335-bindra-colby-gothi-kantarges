@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  *  Class representing each cell in main game grid. 
  *  
- *  Keeps track of info about cell's state, and is able to mutate
- *  this state. 
+ *  Keeps track of info about cell's state,
+ *  and is able to mutate this state.
  * 
  * @author Prabhkirat Singh Bindra
  * @author James Colby
@@ -14,84 +14,92 @@ import java.io.Serializable;
  * @author Joshua Paul Kantarges
  *
  */
-
 public class Cell implements Serializable {
+	
+	/**
+	 * generated serial version ID
+	 */
+	private static final long serialVersionUID = 5561380671575047521L;
 	
 	private boolean revealed;
 	private boolean flagged;
 	private boolean mined;
+	
 	private int neighborMines;
 	
 	/**
-	 * Constructor for cell.
+	 * Default Constructor
 	 * 
-	 * Initially each cell is set to be unmined, unrevealed, and unflagged.
+	 * Initially, each {@code Cell} is unmined, unrevealed, and unflagged.
 	 */
 	public Cell() {
-		this.revealed = false;
-		this.flagged = false;
-		this.mined = false;
+		this.revealed  = false;
+		this.flagged   = false;
+		this.mined     = false;
 		this.neighborMines = 0;
 	}
 
-	
 	/**
-	 * Sets cell status to revealed
+	 * Sets this {@code Cell}'s status to revealed
 	 */
 	public void reveal() {
 		revealed = true;
 	}
 	
 	/**
-	 * Getter that checks if cell is revealed
-	 * @return true if revealed
+	 * Getter that checks if {@code Cell} is revealed
+	 * 
+	 * @return {@code true} if revealed
 	 */
 	public boolean isRevealed() {
 		return revealed;
 	}
 	
 	/**
-	 * Adds mine to cell
+	 * Adds mine to this {@code Cell}
 	 */
 	public void addMine() {
-		
 		this.mined = true;
 	}
 	
 	/**
-	 * Checks to see if cell contains mine
-	 * @return boolean true if cell has mine, else false
+	 * Checks to see if this {@code Cell} contains mine
+	 * 
+	 * @return {@code true} if {@code Cell} has mine, {@code false} otherwise
 	 */
 	public boolean hasMine() {
-		
 		return mined;
 	}
 	
 	/**
-	 * Checks to see if cell is flagged
-	 * @return true if cell is flagged
+	 * Checks to see if this {@code Cell} is flagged
+	 * 
+	 * @return {@code true} if this {@code Cell} is flagged
 	 */
 	public boolean hasFlag() {
-		
 		return flagged;
 	}
-	
-	
+
 	/**
-	 * Adds flag to an unrevealed cell. If cell already has flag,
-	 * removes it. If cell is revealed, do nothing.
+	 * Adds flag to this {@code Cell} is it is unrevealed.
+	 * OR
+	 * If this {@code Cell} already has flag, removes it.
+	 * 
+	 * Does nothing if this {@code Cell} is already revealed.
 	 */
 	public void flag() {
 		
-		if ((!revealed) && (!flagged)) {		
+		if ((!revealed) && (!flagged)) {
 			flagged = true;
+			
 		} else {
 			flagged = false;
 		}
 	}
 	
 	/**
-	 * Gets number of cell's surrounding mines
+	 * Gets number of mines around this {@code Cell}.
+	 * 
 	 * @return number of neighboring mines
 	 */
 	public int getNeighbors() {
@@ -99,16 +107,11 @@ public class Cell implements Serializable {
 	}
 	
 	/**
-	 * Sets number of surrounding mines for cell
-	 * @param neighborCount
+	 * Sets number of mines surrounding this this {@code Cell}.
+	 * 
+	 * @param neighborCount The number of mines around this {@code Cell}
 	 */
 	public void setNeighbors(int neighborCount) {
-		
 		this.neighborMines = neighborCount;
 	}
-	
-	
-	
-	
-
 }

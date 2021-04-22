@@ -21,28 +21,28 @@ public class MinesweeperBoard implements Serializable {
 	private static final long serialVersionUID = -4510255117516896736L;
 
 	private Cell[][] boardArrToPass;
+	
 	private int time;
 	private int flagsLeft;
 	private int rows;
 	private int cols;
 	private int difficulty;
+	
 	private boolean firstClick;
 
-
 	/**
-	 * Constructor for MinesweeperBoard save game
+	 * Constructor for {@code MinesweeperBoard} save game
 	 *
 	 * Accepts model's array of cell objects and creates
 	 * packaged version to pass to view
 	 *
 	 * @param passedBoard Array of current cell states
-	 * @param time left in game
-	 * @param flagsLeft to place for scoreboard
-	 * @param rows of current board
-	 * @param cols of current board
-	 * @param difficulty of current game
+	 * @param time        left in game
+	 * @param flagsLeft   to place for scoreboard
+	 * @param rows        of current board
+	 * @param cols        of current board
+	 * @param difficulty  of current game
 	 */
-
 	public MinesweeperBoard(Cell[][] passedBoard, int time, int flagsLeft, int rows, int cols, int difficulty,boolean firstClick) {
 		this.boardArrToPass = passedBoard;
 		this.time = time;
@@ -54,27 +54,26 @@ public class MinesweeperBoard implements Serializable {
 	}
 
 	/**
-	 * Simpler constructor  for passing information from model to view
+	 * Simpler constructor for passing information from model to view
 	 *
-	 * @param passedBoard array of current cell states
+	 * @param passedBoard Array of current cell states
 	 */
 	public MinesweeperBoard(Cell[][] passedBoard) {
-
 		this.boardArrToPass = passedBoard;
 	}
 
 	/**
 	 * Getter for the current state of board
 	 *
-	 * @return Cell array that represents the state
+	 * @return {@code Cell} array that represents the state
 	 */
 	public Cell[][] getBoard(){
-
 		return boardArrToPass;
 	}
 
 	/**
 	 * Getter for time
+	 * 
 	 * @return int time
 	 */
 	public int getTime() {
@@ -83,6 +82,7 @@ public class MinesweeperBoard implements Serializable {
 
 	/**
 	 * Getter for cols
+	 * 
 	 * @return int cols
 	 */
 	public int getCols() {
@@ -91,6 +91,7 @@ public class MinesweeperBoard implements Serializable {
 
 	/**
 	 * Getter for rows
+	 * 
 	 * @return int rows
 	 */
 	public int getRows() {
@@ -99,6 +100,7 @@ public class MinesweeperBoard implements Serializable {
 
 	/**
 	 * Getter for difficulty
+	 * 
 	 * @return int difficulty
 	 */
 	public int getDifficulty() {
@@ -107,6 +109,7 @@ public class MinesweeperBoard implements Serializable {
 
 	/**
 	 * Getter for flags
+	 * 
 	 * @return int flags
 	 */
 	public int getFlagsLeft() {
@@ -114,11 +117,11 @@ public class MinesweeperBoard implements Serializable {
 	}
 
 	/**
-	 * Getter for flags
-	 * @return int flags
+	 * TODO: write description
+	 * 
+	 * @return FIXME
 	 */
 	public boolean isFirstClick() {
 		return this.firstClick;
 	}
-
 }

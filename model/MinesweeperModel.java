@@ -18,20 +18,22 @@ import java.util.Observer;
 public class MinesweeperModel extends Observable {
 	
 	//TODO: Remove hardcoded testing board size
-	final static int TEST_SIZE = 8;
+	final static int TEST_SIZE       = 8;
 	final static int TEST_MINE_COUNT = 10;
-	final static int TEST_TIME = 12;
+	final static int TEST_TIME       = 12;
 	final static int TEST_DIFFICULTY = 0;
-	/**
-	 * 2D array of Cell objects that represents game grid
-	 */
 	
+	/**
+	 * 2D array of {@code Cell}s that represents game grid
+	 */
 	private Cell[][] grid;
+	
 	private int time;
 	private int flagsLeft;
 	private int rows;
 	private int cols;
 	private int difficulty;
+	
 	private boolean firstClick;
 	
 	/**
@@ -41,9 +43,12 @@ public class MinesweeperModel extends Observable {
 
 		//TODO: Change Default values for default game
 		this.time = TEST_TIME;
+		
 		this.flagsLeft = TEST_MINE_COUNT;
+		
 		this.rows = TEST_SIZE;
 		this.cols = TEST_SIZE;
+		
 		this.difficulty = TEST_DIFFICULTY;
 		this.firstClick = true;
 		
@@ -56,22 +61,28 @@ public class MinesweeperModel extends Observable {
 
 	/**
 	 * Constructor for when there is a saved board
+	 * 
 	 * @param board saved board
-	 * @param view GUI view
+	 * @param view  GUI view
 	 */
-	public MinesweeperModel(MinesweeperBoard board, Observer view){
+	public MinesweeperModel(MinesweeperBoard board, Observer view) {
+		
 		this.grid = board.getBoard();
 		this.time = board.getTime();
+		
 		this.flagsLeft = board.getFlagsLeft();
+		
 		this.rows = board.getRows();
 		this.cols = board.getCols();
+		
 		this.difficulty = board.getDifficulty();
 		this.firstClick = board.isFirstClick();
+		
 		this.addObserver(view);
 	}
 	
 	/**
-	 * Initializes grid, sets all cells to starting blank state
+	 * Initializes grid, sets all {@code Cell}s to starting blank state
 	 */
 	public void initialize() {
 		
@@ -84,24 +95,32 @@ public class MinesweeperModel extends Observable {
 	}
 	
 	/**
-	 * Checks to see if specified cell is in game bounds
+	 * Checks to see if specified {@code Cell} is in game bounds
 	 * 
-	 * @param row of cell to check
-	 * @param col of cell to check
-	 * @return true if in bounds, else false
+	 * @param row of {@code Cell} to check
+	 * @param col of {@code Cell} to check
+	 * 
+	 * @return {@code true} if in bounds, {@code false} otherwise
 	 */
 	public boolean isInBounds(int row, int col) {
 		//TODO: Remove hardcoding
-		if (row >= TEST_SIZE || col >= TEST_SIZE) { return false; }
-		if (row < 0 || col < 0) { return false; }
-		
-		return true;
+		if (row >= TEST_SIZE || col >= TEST_SIZE) {
+			return false;
+			
+		} else if (row < 0 || col < 0) {
+			return false;
+			
+		} else {
+			return true;
+		}
 	}
 	
 	/**
-	 * Returns cell object at specified row/col
+	 * Returns the {@code Cell} at specified row/col
+	 * 
 	 * @param r row to query
 	 * @param c col to query
+	 * 
 	 * @return Cell at row and col
 	 */
 	public Cell getCell(int r, int c) {
@@ -118,7 +137,13 @@ public class MinesweeperModel extends Observable {
 	}
 
 	public MinesweeperBoard getBoard(){
-		return new MinesweeperBoard(grid,this.time,this.flagsLeft,this.rows,this.cols,this.difficulty,this.firstClick);
+		return new MinesweeperBoard(this.grid,
+									this.time,
+									this.flagsLeft,
+									this.rows,
+									this.cols,
+									this.difficulty,
+									this.firstClick);
 	}
 
 	public boolean getIsFirstClick(){
@@ -138,5 +163,4 @@ public class MinesweeperModel extends Observable {
 		setChanged();
 		notifyObservers(mb);
 	}
-
 }
