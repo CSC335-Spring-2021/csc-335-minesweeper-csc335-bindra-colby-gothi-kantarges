@@ -35,7 +35,7 @@ public class MinesweeperModel extends Observable {
 	 * Constructor for model
 	 */
 	public MinesweeperModel(Observer view) {
-		
+
 		//TODO: remove hardcoding
 		this.time = 0;
 		this.flagsLeft = TEST_MINE_COUNT;
@@ -46,6 +46,21 @@ public class MinesweeperModel extends Observable {
 		
 		this.initialize();
 		
+		this.addObserver(view);
+	}
+
+	/**
+	 * Constructor for when there is a saved board
+	 * @param board saved board
+	 * @param view GUI view
+	 */
+	public MinesweeperModel(MinesweeperBoard board, Observer view){
+		this.grid = board.getBoard();
+		this.time = board.getTime();
+		this.flagsLeft = board.getFlagsLeft();
+		this.rows = board.getRows();
+		this.cols = board.getCols();
+		this.difficulty = board.getDifficulty();
 		this.addObserver(view);
 	}
 	
@@ -95,7 +110,11 @@ public class MinesweeperModel extends Observable {
 		
 		updateView(new MinesweeperBoard(grid));
 	}
-	
+
+	public MinesweeperBoard getBoard(){
+		return new MinesweeperBoard(grid,this.time,this.flagsLeft,this.rows,this.cols,this.difficulty);
+	}
+
 	/**
 	 * Sends updated game-state to the view
 	 * 

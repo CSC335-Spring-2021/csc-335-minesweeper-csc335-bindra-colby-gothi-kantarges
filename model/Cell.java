@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  *  Class representing each cell in main game grid. 
  *  
@@ -13,7 +15,7 @@ package model;
  *
  */
 
-public class Cell {
+public class Cell implements Serializable {
 	
 	private boolean revealed;
 	private boolean flagged;

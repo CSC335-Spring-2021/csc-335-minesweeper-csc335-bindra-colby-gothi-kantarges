@@ -1,5 +1,6 @@
 package testing;
 
+import model.MinesweeperBoard;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -1,6 +1,7 @@
 package controller;
 
 import model.CellState;
+import model.MinesweeperBoard;
 import model.MinesweeperModel;
 
 /**
@@ -56,5 +57,13 @@ public class MinesweeperController {
 	public boolean isRevealedCell(int r, int c) {
 		
 		return model.getCell(r, c).isRevealed();
+	}
+
+	/**
+	 * Gets the board from the model
+	 * @return MinesweeperBoard
+	 */
+	public MinesweeperBoard getBoard(){
+		return model.getBoard();
 	}
 }
