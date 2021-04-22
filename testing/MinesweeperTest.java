@@ -58,13 +58,6 @@ public class MinesweeperTest {
 	 */
 	@Test
 	public void testController() {
-		
-		// TODO: setup
-		
-		// Test 1 ----------------------------------------------------------------//
-		
-			// TODO: write tests
-		
-		//------------------------------------------------------------------------//
+		//TODO test the controller
 	}
 }
