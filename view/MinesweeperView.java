@@ -73,7 +73,6 @@ public class MinesweeperView extends Application implements Observer {
 		}
 		this.controller = new MinesweeperController(model);
 
-
 		BorderPane window = new BorderPane();
 		
 		grid = new BoardGridView(ROW_SIZE,COL_SIZE,controller);
@@ -145,5 +144,14 @@ public class MinesweeperView extends Application implements Observer {
 			System.out.println("Could not write save_game.dat");
 			return false;
 		}
+	}
+
+	//Testing methods not to actually be sued for anything else
+	public MinesweeperController getController(){
+		return this.controller;
+	}
+
+	public MinesweeperModel getModel(){
+		return this.model;
 	}
 }

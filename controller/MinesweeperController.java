@@ -1,8 +1,11 @@
 package controller;
 
+import model.Cell;
 import model.CellState;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
+
+import java.util.Random;
 
 /**
  * Controller of MVC architecture.
@@ -43,6 +46,20 @@ public class MinesweeperController {
 	 */
 	
 	public void handleCellLeftClick(int r, int c) {
+		if(model.getIsFirstClick()){ //need to generate bombs
+			Random rand = new Random();
+			int mines = (model.getBoard().getCols()-1)*(model.getBoard().getRows()-1); // Formula for how many mines to place
+			while(mines != 0) {
+				int xIndex = rand.nextInt(model.getBoard().getCols());
+				int yIndex = rand.nextInt(model.getBoard().getRows());
+				if(model.isInBounds(xIndex,yIndex) && (xIndex != r) && (yIndex != c)){
+					Cell cell = model.getCell(xIndex,yIndex);
+					cell.addMine();
+					mines--;
+				}
+			}
+			model.changeFirstClick();
+		}
 		
 		model.changeCellModel(r, c);
 	}

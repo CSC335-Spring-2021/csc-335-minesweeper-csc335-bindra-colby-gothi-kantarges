@@ -20,6 +20,8 @@ public class MinesweeperModel extends Observable {
 	//TODO: Remove hardcoded testing board size
 	final static int TEST_SIZE = 8;
 	final static int TEST_MINE_COUNT = 10;
+	final static int TEST_TIME = 12;
+	final static int TEST_DIFFICULTY = 0;
 	/**
 	 * 2D array of Cell objects that represents game grid
 	 */
@@ -30,17 +32,20 @@ public class MinesweeperModel extends Observable {
 	private int rows;
 	private int cols;
 	private int difficulty;
+	private boolean firstClick;
 	
 	/**
 	 * Constructor for model
 	 */
 	public MinesweeperModel(Observer view) {
 
-		//TODO: remove hardcoding
-		this.time = 0;
+		//TODO: Change Default values for default game
+		this.time = TEST_TIME;
 		this.flagsLeft = TEST_MINE_COUNT;
 		this.rows = TEST_SIZE;
 		this.cols = TEST_SIZE;
+		this.difficulty = TEST_DIFFICULTY;
+		this.firstClick = true;
 		
 		grid = new Cell[rows][cols];
 		
@@ -61,6 +66,7 @@ public class MinesweeperModel extends Observable {
 		this.rows = board.getRows();
 		this.cols = board.getCols();
 		this.difficulty = board.getDifficulty();
+		this.firstClick = board.isFirstClick();
 		this.addObserver(view);
 	}
 	
@@ -112,7 +118,15 @@ public class MinesweeperModel extends Observable {
 	}
 
 	public MinesweeperBoard getBoard(){
-		return new MinesweeperBoard(grid,this.time,this.flagsLeft,this.rows,this.cols,this.difficulty);
+		return new MinesweeperBoard(grid,this.time,this.flagsLeft,this.rows,this.cols,this.difficulty,this.firstClick);
+	}
+
+	public boolean getIsFirstClick(){
+		return this.firstClick;
+	}
+
+	public void changeFirstClick(){
+		this.firstClick = false;
 	}
 
 	/**

@@ -26,6 +26,7 @@ public class MinesweeperBoard implements Serializable {
 	private int rows;
 	private int cols;
 	private int difficulty;
+	private boolean firstClick;
 
 
 	/**
@@ -42,13 +43,14 @@ public class MinesweeperBoard implements Serializable {
 	 * @param difficulty of current game
 	 */
 
-	public MinesweeperBoard(Cell[][] passedBoard, int time, int flagsLeft, int rows, int cols, int difficulty) {
+	public MinesweeperBoard(Cell[][] passedBoard, int time, int flagsLeft, int rows, int cols, int difficulty,boolean firstClick) {
 		this.boardArrToPass = passedBoard;
 		this.time = time;
 		this.flagsLeft = flagsLeft;
 		this.rows = rows;
 		this.cols = cols;
 		this.difficulty = difficulty;
+		this.firstClick = firstClick;
 	}
 
 	/**
@@ -110,4 +112,13 @@ public class MinesweeperBoard implements Serializable {
 	public int getFlagsLeft() {
 		return flagsLeft;
 	}
+
+	/**
+	 * Getter for flags
+	 * @return int flags
+	 */
+	public boolean isFirstClick() {
+		return this.firstClick;
+	}
+
 }
