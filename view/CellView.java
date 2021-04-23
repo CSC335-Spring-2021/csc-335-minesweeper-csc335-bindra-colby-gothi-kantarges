@@ -55,7 +55,7 @@ public class CellView extends StackPane {
 			nestedCell.setPadding(new Insets(5));
 			nestedCell.setBackground(new Background(new BackgroundFill(Color.web(revealedBGColor), CornerRadii.EMPTY, Insets.EMPTY)));
 			
-			Label cellLabel;
+			Label cellLabel = new Label();
 			
 			if (cell.hasMine()) {
 				
@@ -64,7 +64,11 @@ public class CellView extends StackPane {
 				
 			} else {
 				
-				cellLabel = new Label(String.valueOf(cell.getNeighbors()));
+				int numMines = cell.getNeighbors();
+				
+				if (numMines != 0) {
+					cellLabel = new Label(String.valueOf(numMines));
+				}
 			}
 			
 			nestedCell.getChildren().add(cellLabel);
