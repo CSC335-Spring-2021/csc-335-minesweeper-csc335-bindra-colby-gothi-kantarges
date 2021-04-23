@@ -64,7 +64,7 @@ public class CellView extends StackPane {
 			this.getChildren().clear();
 			
 			// display that this cell is flagged
-			if (!cell.hasFlag()) {
+			if (cell.hasFlag()) {
 				
 				Label cellLabel = new Label("F");
 				cellLabel.setTextFill(Color.RED);
