@@ -81,19 +81,15 @@ public class Cell implements Serializable {
 	}
 
 	/**
-	 * Adds flag to this {@code Cell} is it is unrevealed.
+	 * Adds flag to this {@code Cell} if it is unrevealed.
 	 * OR
 	 * If this {@code Cell} already has flag, removes it.
 	 * 
 	 * Does nothing if this {@code Cell} is already revealed.
 	 */
 	public void flag() {
-		
-		if ((!revealed) && (!flagged)) {
-			flagged = true;
-			
-		} else {
-			flagged = false;
+		if (!revealed) {
+			flagged = !flagged;
 		}
 	}
 	

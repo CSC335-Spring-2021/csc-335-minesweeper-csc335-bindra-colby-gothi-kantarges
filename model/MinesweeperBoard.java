@@ -119,7 +119,7 @@ public class MinesweeperBoard implements Serializable {
 	/**
 	 * TODO: write description
 	 * 
-	 * @return FIXME
+	 * @return TODO: write description
 	 */
 	public boolean isFirstClick() {
 		return this.firstClick;

@@ -17,7 +17,7 @@ import java.util.Observer;
 @SuppressWarnings("deprecation")
 public class MinesweeperModel extends Observable {
 	
-	//TODO: Remove hardcoded testing board size
+	// TODO: Remove hardcoded testing board size
 	final static int TEST_SIZE       = 8;
 	final static int TEST_MINE_COUNT = 10;
 	final static int TEST_TIME       = 12;
@@ -41,7 +41,9 @@ public class MinesweeperModel extends Observable {
 	 */
 	public MinesweeperModel(Observer view) {
 
-		//TODO: Change Default values for default game
+		this.addObserver(view);
+		
+		// TODO: Change Default values for default game
 		this.time = TEST_TIME;
 		
 		this.flagsLeft = TEST_MINE_COUNT;
@@ -55,8 +57,6 @@ public class MinesweeperModel extends Observable {
 		grid = new Cell[rows][cols];
 		
 		this.initialize();
-		
-		this.addObserver(view);
 	}
 
 	/**
@@ -66,6 +66,8 @@ public class MinesweeperModel extends Observable {
 	 * @param view  GUI view
 	 */
 	public MinesweeperModel(MinesweeperBoard board, Observer view) {
+
+		this.addObserver(view);
 		
 		this.grid = board.getBoard();
 		this.time = board.getTime();
@@ -78,7 +80,7 @@ public class MinesweeperModel extends Observable {
 		this.difficulty = board.getDifficulty();
 		this.firstClick = board.isFirstClick();
 		
-		this.addObserver(view);
+		updateView(board);
 	}
 	
 	/**
@@ -92,6 +94,8 @@ public class MinesweeperModel extends Observable {
 				grid[i][j] = new Cell();
 			}
 		}
+		
+		updateView(this.getBoard());
 	}
 	
 	/**
@@ -134,6 +138,19 @@ public class MinesweeperModel extends Observable {
 		grid[r][c].reveal();
 		
 		updateView(new MinesweeperBoard(grid));
+	}
+	
+	/**
+	 * places/removes flag at the given position in the game-grid
+	 * 
+	 * @param r The row at which a flag needs to be placed/removed
+	 * @param c The column at which a flag needs to be placed/removed
+	 */
+	public void toggleFlag(int r, int c) {
+		
+		grid[r][c].flag();
+		
+		updateView(this.getBoard());
 	}
 
 	public MinesweeperBoard getBoard(){

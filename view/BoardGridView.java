@@ -66,7 +66,7 @@ public class BoardGridView extends GridPane {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 
-				CellView blankCell = new CellView(controller, CELL_SIZE);
+				CellView blankCell = new CellView();
 				this.add(blankCell, i, j);
 
 				blankCell.setOnMouseClicked((event) -> {

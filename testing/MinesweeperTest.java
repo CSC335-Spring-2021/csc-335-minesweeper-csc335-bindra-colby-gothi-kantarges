@@ -12,7 +12,7 @@ import controller.MinesweeperController;
 @SuppressWarnings("deprecation")
 public class MinesweeperTest {
 	
-	//TODO: remove hardcoding
+	// TODO: remove hardcoding
 	final static int BEGINNER = 0;
 	
 	/**

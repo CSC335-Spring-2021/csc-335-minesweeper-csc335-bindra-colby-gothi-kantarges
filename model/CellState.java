@@ -6,7 +6,7 @@ package model;
  * @author Jim Colby
  *
  */
-public enum CellState {	
+public enum CellState {
 	COVERED, 
 	REVEALED,
 	FLAGGED,

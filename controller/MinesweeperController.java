@@ -38,7 +38,7 @@ public class MinesweeperController {
 	}
 
 	/**
-	 * Game logic for handling click on a cell
+	 * Game logic for handling click on a cell.
 	 * 
 	 * @param r row of cell clicked
 	 * @param c col of cell clicked
@@ -56,9 +56,9 @@ public class MinesweeperController {
 				int xIndex = rand.nextInt(model.getBoard().getCols());
 				int yIndex = rand.nextInt(model.getBoard().getRows());
 				
-				if (model.isInBounds(xIndex,yIndex) && (xIndex != r) && (yIndex != c)) {
+				if (model.isInBounds(xIndex, yIndex) && (xIndex != r) && (yIndex != c)) {
 					
-					Cell cell = model.getCell(xIndex,yIndex);
+					Cell cell = model.getCell(xIndex, yIndex);
 					
 					cell.addMine();
 					mines--;
@@ -71,21 +71,13 @@ public class MinesweeperController {
 	}
 	
 	/**
-	 * Game logic for handling a right click
+	 * Game logic for handling a right click.
 	 * 
 	 * @param r row of cell clicked
 	 * @param c col of cell clicked
 	 */
 	public void handleCellRightClick(int r, int c) {
-
-		if(model.getIsFirstClick()) {
-			
-			// TODO: add flag to the cell
-			
-			model.changeFirstClick();
-		}
-
-		model.changeCellModel(r, c);
+		model.toggleFlag(r, c);
 	}
 
 	/**
