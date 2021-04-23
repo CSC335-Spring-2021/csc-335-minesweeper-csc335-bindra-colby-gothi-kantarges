@@ -55,7 +55,19 @@ public class CellView extends StackPane {
 			nestedCell.setPadding(new Insets(5));
 			nestedCell.setBackground(new Background(new BackgroundFill(Color.web(revealedBGColor), CornerRadii.EMPTY, Insets.EMPTY)));
 			
-			nestedCell.getChildren().add(new Label(String.valueOf(cell.getNeighbors())));		// display number of neighbors
+			Label cellLabel;
+			
+			if (cell.hasMine()) {
+				
+				cellLabel = new Label("M");
+				cellLabel.setTextFill(Color.DARKBLUE);
+				
+			} else {
+				
+				cellLabel = new Label(String.valueOf(cell.getNeighbors()));
+			}
+			
+			nestedCell.getChildren().add(cellLabel);
 			
 			this.getChildren().add(nestedCell);
 			

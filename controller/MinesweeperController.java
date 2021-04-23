@@ -49,7 +49,7 @@ public class MinesweeperController {
 	 */
 	public void handleCellLeftClick(int r, int c) {
 		
-		if (model.getIsFirstClick()){		// need to generate bombs
+		if (model.getIsFirstClick()) {		// need to generate bombs
 			
 			Random rand = new Random();
 			
@@ -60,18 +60,98 @@ public class MinesweeperController {
 				int xIndex = rand.nextInt(model.getBoard().getCols());
 				int yIndex = rand.nextInt(model.getBoard().getRows());
 				
-				if (model.isInBounds(xIndex, yIndex) && (xIndex != r) && (yIndex != c)) {
+				if ((xIndex != r) && (yIndex != c)) {
 					
 					Cell cell = model.getCell(xIndex, yIndex);
 					
-					cell.addMine();
-					mines--;
+					if (!cell.hasMine()) {		// only place mine if cell does not have one already
+						cell.addMine();
+						mines--;
+					}
 				}
 			}
+			
+			for (int i = 0; i < model.getBoard().getBoard().length; i++) {
+				
+				for (int j = 0; j < model.getBoard().getBoard()[i].length; j++) {
+					
+					model.getCell(i, j).setNeighbors(this.getNeighbors(i, j));
+				}
+			}
+			
 			model.changeFirstClick();
 		}
 		
-		model.changeCellModel(r, c);
+		model.revealCell(r, c);
+	}
+	
+	/**
+	 * Returns an integer specifying the number of mines adjacent to this {@code Cell}
+	 * 
+	 * @param r row number of the {@code Cell}
+	 * @param c col number of the {@code Cell}
+	 */
+	private int getNeighbors(int r, int c) {
+		
+		int mineCount = 0;
+		
+		// check NW neighbor
+		if (model.isInBounds(r-1, c-1)) {
+			if (model.getCell(r-1, c-1).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		// check N neighbor
+		if (model.isInBounds(r-1, c)) {
+			if (model.getCell(r-1, c).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		// check NE neighbor
+		if (model.isInBounds(r-1, c+1)) {
+			if (model.getCell(r-1, c+1).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		// check W neighbor
+		if (model.isInBounds(r, c-1)) {
+			if (model.getCell(r, c-1).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		// check E neighbor
+		if (model.isInBounds(r, c+1)) {
+			if (model.getCell(r, c+1).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		// check SW neighbor
+		if (model.isInBounds(r+1, c-1)) {
+			if (model.getCell(r+1, c-1).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		// check S neighbor
+		if (model.isInBounds(r+1, c)) {
+			if (model.getCell(r+1, c).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		// check SE neighbor
+		if (model.isInBounds(r+1, c+1)) {
+			if (model.getCell(r+1, c+1).hasMine()) {
+				mineCount++;
+			}
+		}
+		
+		return mineCount;
 	}
 	
 	/**

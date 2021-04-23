@@ -91,27 +91,6 @@ public class MinesweeperModel extends Observable {
 	}
 	
 	/**
-	 * Checks to see if specified {@code Cell} is in game bounds
-	 * 
-	 * @param row of {@code Cell} to check
-	 * @param col of {@code Cell} to check
-	 * 
-	 * @return {@code true} if in bounds, {@code false} otherwise
-	 */
-	public boolean isInBounds(int row, int col) {
-		//TODO: Remove hardcoding
-		if (row >= TEST_SIZE || col >= TEST_SIZE) {
-			return false;
-			
-		} else if (row < 0 || col < 0) {
-			return false;
-			
-		} else {
-			return true;
-		}
-	}
-	
-	/**
 	 * Returns the {@code Cell} at specified row/col
 	 * 
 	 * @param r row to query
@@ -123,9 +102,34 @@ public class MinesweeperModel extends Observable {
 		return grid[r][c];
 	}
 	
-	// Dummy change cell to revealed method to test observer hookup
-	// FIXME: implement real change method
-	public void changeCellModel(int r, int c) {
+	/**
+	 * Checks to see if specified cell is in bounds
+	 * 
+	 * @param row of cell to check
+	 * @param col of cell to check
+	 * @return {@code true} if in bounds, {@code false} otherwise
+	 */
+	public boolean isInBounds(int row, int col) {
+		
+		// FIXME: Remove hardcoding
+		if (row >= TEST_SIZE || col >= TEST_SIZE) {
+			return false;
+			
+		} else if (row < 0 || col < 0) {
+			return false;
+			
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * reveals the {@code Cell} at the given position in the game-grid
+	 * 
+	 * @param r The row at which a flag needs to be placed/removed
+	 * @param c The column at which a flag needs to be placed/removed
+	 */
+	public void revealCell(int r, int c) {
 		
 		grid[r][c].reveal();
 		
