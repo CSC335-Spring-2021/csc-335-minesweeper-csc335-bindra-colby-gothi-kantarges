@@ -62,7 +62,7 @@ public class MinesweeperView extends Application implements Observer {
 		controller.initModel(board);
 
 		stage.setOnCloseRequest((event) -> {
-//			writeSaveData(controller.getBoard());
+			writeSaveData(controller.getBoard());
 		});
 	}
 	
