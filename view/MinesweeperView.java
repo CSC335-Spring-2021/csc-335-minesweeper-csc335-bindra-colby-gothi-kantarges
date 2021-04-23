@@ -6,12 +6,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
@@ -37,11 +35,9 @@ public class MinesweeperView extends Application implements Observer {
 	private static final int ROW_SIZE = 8;
 	private static final int COL_SIZE = 8;
 	
-	private BoardGridView grid;
+	private MinesweeperController controller = new MinesweeperController(new MinesweeperModel(this));
 	
-	// Controller Model and Board class instances
-	private MinesweeperController controller;
-	private MinesweeperModel model;
+	private BoardGridView grid = new BoardGridView(ROW_SIZE, COL_SIZE, controller);
 
 	/**
 	 * The entry point of the GUI that sets up the {@code Stage} of the GUI    
@@ -50,22 +46,8 @@ public class MinesweeperView extends Application implements Observer {
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
-
-		//Potentially read in dave game data
-		MinesweeperBoard board = readSaveData();
-
-		if (board == null) {									// if its null start a default game
-			this.model = new MinesweeperModel(this);
-			
-		} else {												// we have a board time to load it in to the model
-			this.model = new MinesweeperModel(board,this);
-		}
 		
-		this.controller = new MinesweeperController(model);
-
 		BorderPane window = new BorderPane();
-		
-		grid = new BoardGridView(ROW_SIZE,COL_SIZE,controller);
 
 		window.setCenter(grid);
 		
@@ -73,14 +55,14 @@ public class MinesweeperView extends Application implements Observer {
 		Scene scene = new Scene(window, Color.GREY);
 		stage.setScene(scene);
 		stage.show();
+		
+		//Potentially read in save game data
+		MinesweeperBoard board = readSaveData();
 
-		update(this.model,controller.getBoard());				// updates the GUI after a save game load
+		controller.initModel(board);
 
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent windowEvent) {
-				writeSaveData(controller.getBoard());
-			}
+		stage.setOnCloseRequest((event) -> {
+			writeSaveData(controller.getBoard());
 		});
 	}
 	
@@ -96,9 +78,7 @@ public class MinesweeperView extends Application implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
-		
 		grid.updateCells(mb);
 	}
 
@@ -119,8 +99,7 @@ public class MinesweeperView extends Application implements Observer {
 			
 		} catch (IOException | ClassNotFoundException e) {
 			
-			System.out.println("Could not find/Read save_game.dat");
-			
+			System.err.println("Could not find/Read save_game.dat");
 			return null;
 		}
 	}
@@ -143,18 +122,8 @@ public class MinesweeperView extends Application implements Observer {
 			
 		} catch (IOException e) {
 			
-			System.out.println("Could not write save_game.dat");
-			
+			System.err.println("Could not write save_game.dat");
 			return false;
 		}
-	}
-
-	// Testing methods not to actually be used for anything else
-	public MinesweeperController getController(){
-		return this.controller;
-	}
-
-	public MinesweeperModel getModel(){
-		return this.model;
 	}
 }

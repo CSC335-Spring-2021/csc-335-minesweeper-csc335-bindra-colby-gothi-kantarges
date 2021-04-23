@@ -40,59 +40,49 @@ public class MinesweeperModel extends Observable {
 	 * Constructor for model
 	 */
 	public MinesweeperModel(Observer view) {
-
-		this.addObserver(view);
-		
-		// TODO: Change Default values for default game
-		this.time = TEST_TIME;
-		
-		this.flagsLeft = TEST_MINE_COUNT;
-		
-		this.rows = TEST_SIZE;
-		this.cols = TEST_SIZE;
-		
-		this.difficulty = TEST_DIFFICULTY;
-		this.firstClick = true;
-		
 		grid = new Cell[rows][cols];
-		
-		this.initialize();
-	}
-
-	/**
-	 * Constructor for when there is a saved board
-	 * 
-	 * @param board saved board
-	 * @param view  GUI view
-	 */
-	public MinesweeperModel(MinesweeperBoard board, Observer view) {
-
 		this.addObserver(view);
-		
-		this.grid = board.getBoard();
-		this.time = board.getTime();
-		
-		this.flagsLeft = board.getFlagsLeft();
-		
-		this.rows = board.getRows();
-		this.cols = board.getCols();
-		
-		this.difficulty = board.getDifficulty();
-		this.firstClick = board.isFirstClick();
-		
-		updateView(board);
 	}
 	
 	/**
-	 * Initializes grid, sets all {@code Cell}s to starting blank state
+	 * Initializes grid.
+	 * 
+	 * Sets game-state to either blank or given saved-state
 	 */
-	public void initialize() {
+	public void initialize(MinesweeperBoard board) {
 		
-		for (int i = 0; i < rows ; i++) {
-			for (int j = 0; j < cols; j++) {
-				
-				grid[i][j] = new Cell();
+		if (board == null) {
+			
+			for (int i = 0; i < rows ; i++) {
+				for (int j = 0; j < cols; j++) {
+					
+					grid[i][j] = new Cell();
+				}
 			}
+			
+			// FIXME: Change Default values for default game
+			this.time = TEST_TIME;
+			
+			this.flagsLeft = TEST_MINE_COUNT;
+			
+			this.rows = TEST_SIZE;
+			this.cols = TEST_SIZE;
+			
+			this.difficulty = TEST_DIFFICULTY;
+			this.firstClick = true;
+			
+		} else {
+			
+			this.grid = board.getBoard();
+			this.time = board.getTime();
+			
+			this.flagsLeft = board.getFlagsLeft();
+			
+			this.rows = board.getRows();
+			this.cols = board.getCols();
+			
+			this.difficulty = board.getDifficulty();
+			this.firstClick = board.isFirstClick();
 		}
 		
 		updateView(this.getBoard());

@@ -36,6 +36,10 @@ public class MinesweeperController {
 	public MinesweeperController(MinesweeperModel model) {
 		this.model = model;
 	}
+	
+	public void initModel(MinesweeperBoard mb) {
+		this.model.initialize(mb);
+	}
 
 	/**
 	 * Game logic for handling click on a cell.

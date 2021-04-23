@@ -28,7 +28,7 @@ public class MinesweeperTest {
 		
 		// Test 1 ----------------------------------------------------------------//
 		
-		model.initialize();
+		model.initialize(null);
 		
 		// Check each cell in game to assert it is unflagged, unrevealed, unmined
 		// Then use setters to change their states, and verify it worked
