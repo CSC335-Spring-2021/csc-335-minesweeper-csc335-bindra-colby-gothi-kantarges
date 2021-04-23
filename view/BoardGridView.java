@@ -34,7 +34,7 @@ public class BoardGridView extends GridPane {
 		this.cols = cols;
 
 		// Board GridPane setup
-		this.setPadding(new Insets(8, 8, 8, 8));
+		this.setPadding(new Insets(8));
 		this.setBackground(new Background(new BackgroundFill(Color.web(boardBGColor), CornerRadii.EMPTY, Insets.EMPTY)));
 
 		// Create column and grid restraints on this

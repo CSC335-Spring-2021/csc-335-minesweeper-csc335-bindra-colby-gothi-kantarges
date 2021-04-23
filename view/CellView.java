@@ -19,8 +19,6 @@ public class CellView extends StackPane {
 	// Style variables for StackPane
 	private String cellBorderColor = "657b83";
 	private String revealedBGColor = "fdf6e3";
-	
-	private Label cellLabel;
 
 	private BorderStroke blankCellBorderStroke = new BorderStroke(Color.web(cellBorderColor),
 																  BorderStrokeStyle.SOLID,
@@ -50,8 +48,6 @@ public class CellView extends StackPane {
 		
 		if (cell.isRevealed()) {
 			
-			cellLabel = new Label(String.valueOf(cell.getNeighbors()));
-			
 			this.getChildren().clear();
 			
 			StackPane nestedCell = new StackPane();
@@ -59,16 +55,22 @@ public class CellView extends StackPane {
 			nestedCell.setPadding(new Insets(5));
 			nestedCell.setBackground(new Background(new BackgroundFill(Color.web(revealedBGColor), CornerRadii.EMPTY, Insets.EMPTY)));
 			
-			nestedCell.getChildren().add(cellLabel);
+			nestedCell.getChildren().add(new Label(String.valueOf(cell.getNeighbors())));		// display number of neighbors
 			
 			this.getChildren().add(nestedCell);
 			
 		} else {
 			
-			cellLabel = new Label("F");
-			
 			this.getChildren().clear();
-			this.getChildren().add(cellLabel);
+			
+			// display that this cell is flagged
+			if (!cell.hasFlag()) {
+				
+				Label cellLabel = new Label("F");
+				cellLabel.setTextFill(Color.RED);
+				
+				this.getChildren().add(cellLabel);
+			}
 		}
 	}
 }
