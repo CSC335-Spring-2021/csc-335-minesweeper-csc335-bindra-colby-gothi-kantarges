@@ -52,13 +52,16 @@ public class MinesweeperController {
 		if (model.getIsFirstClick()) {		// need to generate bombs
 			
 			Random rand = new Random();
+
+			int numRows = getBoard().getRows();
+			int numCols = getBoard().getCols();
 			
-			int mines = (model.getBoard().getCols() - 1) * (model.getBoard().getRows() - 1);		// Formula for how many mines to place
+			int mines = (int) Math.floor(0.15 * numRows * numCols);		// Formula for how many mines to place
 			
 			while (mines != 0) {
 				
-				int xIndex = rand.nextInt(model.getBoard().getCols());
-				int yIndex = rand.nextInt(model.getBoard().getRows());
+				int xIndex = rand.nextInt(numCols);
+				int yIndex = rand.nextInt(numRows);
 				
 				if ((xIndex != r) && (yIndex != c)) {
 					
@@ -71,9 +74,10 @@ public class MinesweeperController {
 				}
 			}
 			
-			for (int i = 0; i < model.getBoard().getBoard().length; i++) {
+			
+			for (int i = 0; i < numRows; i++) {
 				
-				for (int j = 0; j < model.getBoard().getBoard()[i].length; j++) {
+				for (int j = 0; j < numCols; j++) {
 					
 					model.getCell(i, j).setNeighbors(this.getNeighbors(i, j));
 				}
@@ -162,18 +166,6 @@ public class MinesweeperController {
 	 */
 	public void handleCellRightClick(int r, int c) {
 		model.toggleFlag(r, c);
-	}
-
-	/**
-	 * Checks whether cell at row/col is revealed already
-	 * 
-	 * @param r row to check
-	 * @param c col to check
-	 * 
-	 * @return true is cell is revealed, else false
-	 */
-	public boolean isRevealedCell(int r, int c) {
-		return model.getCell(r, c).isRevealed();
 	}
 
 	/**
