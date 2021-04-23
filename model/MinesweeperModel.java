@@ -40,7 +40,6 @@ public class MinesweeperModel extends Observable {
 	 * Constructor for model
 	 */
 	public MinesweeperModel(Observer view) {
-		grid = new Cell[rows][cols];
 		this.addObserver(view);
 	}
 	
@@ -53,6 +52,19 @@ public class MinesweeperModel extends Observable {
 		
 		if (board == null) {
 			
+			// FIXME: Change Default values for default game
+			this.time = TEST_TIME;
+						
+			this.flagsLeft = TEST_MINE_COUNT;
+						
+			this.rows = TEST_SIZE;
+			this.cols = TEST_SIZE;
+						
+			this.difficulty = TEST_DIFFICULTY;
+			this.firstClick = true;
+			
+			grid = new Cell[rows][cols];
+			
 			for (int i = 0; i < rows ; i++) {
 				for (int j = 0; j < cols; j++) {
 					
@@ -60,22 +72,10 @@ public class MinesweeperModel extends Observable {
 				}
 			}
 			
-			// FIXME: Change Default values for default game
-			this.time = TEST_TIME;
-			
-			this.flagsLeft = TEST_MINE_COUNT;
-			
-			this.rows = TEST_SIZE;
-			this.cols = TEST_SIZE;
-			
-			this.difficulty = TEST_DIFFICULTY;
-			this.firstClick = true;
-			
 		} else {
 			
-			this.grid = board.getBoard();
 			this.time = board.getTime();
-			
+		
 			this.flagsLeft = board.getFlagsLeft();
 			
 			this.rows = board.getRows();
@@ -83,6 +83,8 @@ public class MinesweeperModel extends Observable {
 			
 			this.difficulty = board.getDifficulty();
 			this.firstClick = board.isFirstClick();
+			
+			this.grid = board.getBoard();
 		}
 		
 		updateView(this.getBoard());
