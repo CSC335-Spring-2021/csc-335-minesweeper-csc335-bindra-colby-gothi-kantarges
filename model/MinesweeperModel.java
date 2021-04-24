@@ -137,6 +137,17 @@ public class MinesweeperModel extends Observable {
 	}
 	
 	/**
+	 * Checks to see if the {@code Cell} at the given position in the game-grid has a mine.
+	 * 
+	 * @param r The row at which a mine may or may not be
+	 * @param c The column at which a mine may or may not be
+	 * @return {@code true} if contains a mine, {@code false} otherwise
+	 */
+	public boolean cellHasMine(int r, int c) {
+		return grid[r][c].hasMine();
+	}
+	
+	/**
 	 * places/removes flag at the given position in the game-grid
 	 * 
 	 * @param r The row at which a flag needs to be placed/removed
