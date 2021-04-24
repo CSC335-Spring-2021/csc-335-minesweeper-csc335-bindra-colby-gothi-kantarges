@@ -51,6 +51,10 @@ public class MinesweeperView extends Application implements Observer {
 
 		window.setCenter(grid);
 		
+		InfoPanelView infoPanel = new InfoPanelView();
+		
+		window.setTop(infoPanel);
+		window.setCenter(grid);
 		stage.setTitle("Minesweeper");
 		Scene scene = new Scene(window, Color.GREY);
 		stage.setScene(scene);
