@@ -40,7 +40,7 @@ public class MinesweeperView extends Application implements Observer {
 	private BoardGridView grid = new BoardGridView(ROW_SIZE, COL_SIZE, controller);
 
 	/**
-	 * The entry point of the GUI that sets up the {@code Stage} of the GUI    
+	 * The entry point of the GUI that sets up the {@code Stage} of the GUI
 	 * 
 	 * @param stage The {@code Stage} of the game's GUI
 	 */
