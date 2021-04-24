@@ -1,6 +1,6 @@
 package view;
 
-import controller.MinesweeperController;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,12 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import model.MinesweeperBoard;
+import javafx.scene.paint.Color;
 
 /**
  * InfoPanelView is a {@code VBox} that holds the information about the 
@@ -33,11 +36,8 @@ public class InfoPanelView extends VBox {
 	private Label flagsLeftLabel;
 	
 	
-	private MinesweeperController controller;
-	
-	public InfoPanelView(MinesweeperController controller) {
-		
-		this.controller = controller;
+	public InfoPanelView() {
+
 		
 		menuBar = new MenuBar();
 		fileMenu = new Menu("File");
@@ -60,6 +60,7 @@ public class InfoPanelView extends VBox {
 		timerLabel.setAlignment(Pos.CENTER_LEFT);
 		flagsLeftLabel = new Label("10");
 		flagsLeftLabel.setAlignment(Pos.CENTER_RIGHT);
+
 		statsBox.add(timerLabel, 0, 0);
 		statsBox.add(flagsLeftLabel,1, 0);
 		
