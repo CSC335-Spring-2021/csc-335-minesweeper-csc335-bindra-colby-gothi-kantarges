@@ -49,11 +49,8 @@ public class CellView extends StackPane {
 		if (cell.isRevealed()) {
 			
 			this.getChildren().clear();
-			
-			StackPane nestedCell = new StackPane();
-			
-			nestedCell.setPadding(new Insets(5));
-			nestedCell.setBackground(new Background(new BackgroundFill(Color.web(revealedBGColor), CornerRadii.EMPTY, Insets.EMPTY)));
+
+			this.setBackground(new Background(new BackgroundFill(Color.web(revealedBGColor), CornerRadii.EMPTY, Insets.EMPTY)));
 			
 			Label cellLabel = new Label();
 			
@@ -71,9 +68,7 @@ public class CellView extends StackPane {
 				}
 			}
 			
-			nestedCell.getChildren().add(cellLabel);
-			
-			this.getChildren().add(nestedCell);
+			this.getChildren().add(cellLabel);
 			
 		} else {
 			
