@@ -86,7 +86,45 @@ public class MinesweeperController {
 			model.changeFirstClick();
 		}
 		
-		model.revealCell(r, c);
+		multipleClear(r, c);
+	}
+	
+	/**
+	 * Designed to reveal a cell if it does not contain a mine and several others if the cell 
+	 * has no neighboring mines.
+	 * @param r row of cell clicked
+	 * @param c column of cell clicked
+	 */
+	public void multipleClear(int r, int c) {
+		if (model.isInBounds(r, c)) {
+			
+			if (model.getCell(r, c).hasMine()) // Don't want to accidentally reveal a mine.
+				return;
+			
+			if (model.getCell(r, c).isRevealed()) // No need to reveal a cell again
+				return; 
+
+			if (model.getCell(r, c).getNeighbors() > 0) { // If the given cell has more than 0 mine neighbors, reveal it
+															// and return
+				model.revealCell(r, c);
+				return;
+			
+			} else {
+
+				model.revealCell(r, c);
+
+				multipleClear(r - 1, c); // North
+				multipleClear(r + 1, c); // South
+				multipleClear(r, c - 1); // West
+				multipleClear(r, c + 1); // East
+				multipleClear(r - 1, c - 1); // Northwest
+				multipleClear(r + 1, c - 1); // Southwest
+				multipleClear(r + 1, c + 1); // Southeast
+				multipleClear(r - 1, c + 1); // Northeast
+
+				return;
+			}
+		}
 	}
 	
 	/**
