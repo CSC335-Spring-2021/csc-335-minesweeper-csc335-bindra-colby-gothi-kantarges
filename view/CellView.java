@@ -29,9 +29,7 @@ public class CellView extends StackPane {
 
 	/**
 	 * Default constructor with init cell settings
-	 * 
-	 * @param controller FIXME: describe
-	 * @param cellSize   FIXME: describe
+	 *
 	 */
 	public CellView() {
 		
@@ -73,6 +71,11 @@ public class CellView extends StackPane {
 		} else {
 			
 			this.getChildren().clear();
+
+			//Reset the color of the CellView if the cell is no longer revealed
+			if(!cell.isRevealed()){
+				this.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+			}
 			
 			// display that this cell is flagged
 			if (cell.hasFlag()) {

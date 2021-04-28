@@ -1,9 +1,12 @@
 package view;
 
 
+import controller.MinesweeperController;
+import controller.ReadWrite;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -17,6 +20,15 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import model.MinesweeperBoard;
+
+import javax.swing.*;
+import javax.swing.text.View;
+import java.io.File;
+import java.util.List;
 
 /**
  * InfoPanelView is a {@code VBox} that holds the information about the 
@@ -25,10 +37,14 @@ import javafx.scene.paint.Color;
  *
  */
 public class InfoPanelView extends VBox {
+
+	private MinesweeperController controller;
+	private Stage stage;
 	
 	private MenuBar menuBar;
 	private Menu fileMenu;
 	private MenuItem newGameMenuItem;
+	private MenuItem loadGameMenuItem;
 	private MenuItem highScoresMenuItem;
 	
 	private GridPane statsBox;
@@ -36,15 +52,17 @@ public class InfoPanelView extends VBox {
 	private Label flagsLeftLabel;
 	
 	
-	public InfoPanelView() {
-
-		
+	public InfoPanelView(MinesweeperController controller, Stage stage) {
+		this.controller = controller;
+		this.stage = stage;
 		menuBar = new MenuBar();
 		fileMenu = new Menu("File");
 		menuBar.getMenus().add(fileMenu);
 		newGameMenuItem = new MenuItem("New Game");
+		loadGameMenuItem = new MenuItem("Load Game");
 		highScoresMenuItem = new MenuItem("High Scores");
-		fileMenu.getItems().addAll(newGameMenuItem, highScoresMenuItem);
+
+		fileMenu.getItems().addAll(newGameMenuItem,loadGameMenuItem, highScoresMenuItem);
 		
 		statsBox = new GridPane();
 		statsBox.setPadding(new Insets(5,5,5,5));
@@ -66,10 +84,25 @@ public class InfoPanelView extends VBox {
 		
 		
 		newGameMenuItem.setOnAction((event) -> {
-			//TODO: Implement new game creation code
-			System.out.println("Dummmy new game code!");
+			controller.initModel(null);
 		});
-		
+
+		loadGameMenuItem.setOnAction((event) -> {
+			ReadWrite rw = new ReadWrite();
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open save game");
+			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+
+			try {
+				File selectedFile = fileChooser.showOpenDialog(stage);
+				MinesweeperBoard board = rw.readSaveData(selectedFile.getPath());
+				controller.initModel(board);
+			}catch (NullPointerException e){
+				System.out.println("No file selected, default loaded.");
+			}
+		});
+
+
 		highScoresMenuItem.setOnAction((event) -> {
 			//TODO: Show high scores menu item code
 			System.out.println("Dummy high scores code");

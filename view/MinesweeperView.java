@@ -5,10 +5,12 @@ import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.ReadWrite;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import model.MinesweeperBoard;
@@ -51,7 +53,7 @@ public class MinesweeperView extends Application implements Observer {
 
 		window.setCenter(grid);
 		
-		InfoPanelView infoPanel = new InfoPanelView();
+		InfoPanelView infoPanel = new InfoPanelView(controller, stage);
 		
 		window.setTop(infoPanel);
 		window.setCenter(grid);
@@ -59,14 +61,24 @@ public class MinesweeperView extends Application implements Observer {
 		Scene scene = new Scene(window, Color.GREY);
 		stage.setScene(scene);
 		stage.show();
-		
-		//Potentially read in save game data
-		MinesweeperBoard board = readSaveData();
 
-		controller.initModel(board);
+		//Initialize game with default board
+		controller.initModel(null);
 
 		stage.setOnCloseRequest((event) -> {
-			writeSaveData(controller.getBoard());
+			ReadWrite rw = new ReadWrite();
+
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Save Game");
+			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+
+			try{
+				File selectedFile = fileChooser.showSaveDialog(stage);
+				rw.writeSaveData(controller.getBoard(),selectedFile.getPath());
+			}catch (NullPointerException e){
+				System.out.println("Saving Aborted");
+				System.exit(1);
+			}
 		});
 	}
 	
@@ -84,50 +96,5 @@ public class MinesweeperView extends Application implements Observer {
 	public void update(Observable o, Object arg) {
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
 		grid.updateCells(mb);
-	}
-
-	/**
-	 * Reads in the board save game file if available
-	 *
-	 * @return the loaded board or null if it could not load it
-	 */
-	public MinesweeperBoard readSaveData() {
-		
-		try {
-			
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save_game.dat"));
-			MinesweeperBoard board = (MinesweeperBoard) ois.readObject();
-			ois.close();
-			
-			return board;
-			
-		} catch (IOException | ClassNotFoundException e) {
-			
-			System.err.println("Could not find/Read save_game.dat");
-			return null;
-		}
-	}
-
-	/**
-	 * Writes out the board class to a save game file
-	 *
-	 * @param board
-	 * @return True if successfully wtote out the board false if an error occured
-	 */
-	public boolean writeSaveData(MinesweeperBoard board) {
-		
-		try {
-			
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save_game.dat", false));
-			oos.writeObject(board);
-			oos.close();
-			
-			return true;
-			
-		} catch (IOException e) {
-			
-			System.err.println("Could not write save_game.dat");
-			return false;
-		}
 	}
 }
