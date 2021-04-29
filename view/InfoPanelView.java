@@ -104,6 +104,7 @@ public class InfoPanelView extends VBox {
 
 		highScoresMenuItem.setOnAction((event) -> {
 
+			//TODO remove prompt to enter score should be in game win condition
 			TextInputDialog td = new TextInputDialog("Enter Your Name");
 			td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
 			td.showAndWait();
@@ -111,10 +112,16 @@ public class InfoPanelView extends VBox {
 			//Add the entry to high scores
 			controller.getHighScores().addScore(td.getEditor().getText(),controller.getBoard().getScore());
 
+			Alert alert= new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Scores");
+			alert.setHeaderText("High Scores!");
 
+			String content = "";
 			for(HighScores.ScoreEntry e : controller.getHighScores().getScores()){
-				System.out.println(e.name + " " + e.score);
+				content += e.name + "  " + e.score + "\n";
 			}
+			alert.setContentText(content);
+			alert.showAndWait();
 		});
 		this.getChildren().add(menuBar);
 		this.getChildren().add(statsBox);
