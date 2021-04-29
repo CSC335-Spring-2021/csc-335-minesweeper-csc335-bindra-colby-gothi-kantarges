@@ -8,11 +8,13 @@ import java.util.Observer;
 import controller.ReadWrite;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import model.HighScores;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
 import controller.MinesweeperController;
@@ -41,6 +43,8 @@ public class MinesweeperView extends Application implements Observer {
 	
 	private BoardGridView grid = new BoardGridView(ROW_SIZE, COL_SIZE, controller);
 
+	private ReadWrite rw = new ReadWrite();
+
 	/**
 	 * The entry point of the GUI that sets up the {@code Stage} of the GUI
 	 * 
@@ -48,7 +52,11 @@ public class MinesweeperView extends Application implements Observer {
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
-		
+
+
+		//Initialize game with default board
+		controller.initModel(null,rw.readHighScoreData());
+
 		BorderPane window = new BorderPane();
 
 		window.setCenter(grid);
@@ -62,16 +70,16 @@ public class MinesweeperView extends Application implements Observer {
 		stage.setScene(scene);
 		stage.show();
 
-		//Initialize game with default board
-		controller.initModel(null);
-
 		stage.setOnCloseRequest((event) -> {
-			ReadWrite rw = new ReadWrite();
 
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Save Game");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
+			//Write high score data
+			rw.writeHighScoreData(controller.getHighScores());
+
+			//Attempt to ask user to save game
 			try{
 				File selectedFile = fileChooser.showSaveDialog(stage);
 				rw.writeSaveData(controller.getBoard(),selectedFile.getPath());
@@ -96,5 +104,12 @@ public class MinesweeperView extends Application implements Observer {
 	public void update(Observable o, Object arg) {
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
 		grid.updateCells(mb);
+
+		//TODO Add Game win condition check here them prompt to input high score
+		//use this code
+//		TextInputDialog td = new TextInputDialog("Enter Your Name");
+//		td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
+//		td.showAndWait();
+
 	}
 }

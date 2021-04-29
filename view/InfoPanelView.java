@@ -7,10 +7,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -23,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.HighScores;
 import model.MinesweeperBoard;
 
 import javax.swing.*;
@@ -40,6 +38,7 @@ public class InfoPanelView extends VBox {
 
 	private MinesweeperController controller;
 	private Stage stage;
+
 	
 	private MenuBar menuBar;
 	private Menu fileMenu;
@@ -55,6 +54,7 @@ public class InfoPanelView extends VBox {
 	public InfoPanelView(MinesweeperController controller, Stage stage) {
 		this.controller = controller;
 		this.stage = stage;
+
 		menuBar = new MenuBar();
 		fileMenu = new Menu("File");
 		menuBar.getMenus().add(fileMenu);
@@ -84,7 +84,7 @@ public class InfoPanelView extends VBox {
 		
 		
 		newGameMenuItem.setOnAction((event) -> {
-			controller.initModel(null);
+			controller.initModel(null,controller.getHighScores());
 		});
 
 		loadGameMenuItem.setOnAction((event) -> {
@@ -96,18 +96,33 @@ public class InfoPanelView extends VBox {
 			try {
 				File selectedFile = fileChooser.showOpenDialog(stage);
 				MinesweeperBoard board = rw.readSaveData(selectedFile.getPath());
-				controller.initModel(board);
+				controller.initModel(board,controller.getHighScores());
 			}catch (NullPointerException e){
 				System.out.println("No file selected, default loaded.");
 			}
 		});
 
-
 		highScoresMenuItem.setOnAction((event) -> {
-			//TODO: Show high scores menu item code
-			System.out.println("Dummy high scores code");
+
+			//TODO remove prompt to enter score should be in game win condition
+			TextInputDialog td = new TextInputDialog("Enter Your Name");
+			td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
+			td.showAndWait();
+
+			//Add the entry to high scores
+			controller.getHighScores().addScore(td.getEditor().getText(),controller.getBoard().getScore());
+
+			Alert alert= new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Scores");
+			alert.setHeaderText("High Scores!");
+
+			String content = "";
+			for(HighScores.ScoreEntry e : controller.getHighScores().getScores()){
+				content += e.name + "  " + e.score + "\n";
+			}
+			alert.setContentText(content);
+			alert.showAndWait();
 		});
-		
 		this.getChildren().add(menuBar);
 		this.getChildren().add(statsBox);
 		

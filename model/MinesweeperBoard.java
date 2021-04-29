@@ -23,6 +23,7 @@ public class MinesweeperBoard implements Serializable {
 	private Cell[][] boardArrToPass;
 	
 	private int time;
+	private int score;
 	private int flagsLeft;
 	private int rows;
 	private int cols;
@@ -43,9 +44,10 @@ public class MinesweeperBoard implements Serializable {
 	 * @param cols        of current board
 	 * @param difficulty  of current game
 	 */
-	public MinesweeperBoard(Cell[][] passedBoard, int time, int flagsLeft, int rows, int cols, int difficulty,boolean firstClick) {
+	public MinesweeperBoard(Cell[][] passedBoard, int time,int score, int flagsLeft, int rows, int cols, int difficulty,boolean firstClick) {
 		this.boardArrToPass = passedBoard;
 		this.time = time;
+		this.score = score;
 		this.flagsLeft = flagsLeft;
 		this.rows = rows;
 		this.cols = cols;
@@ -78,6 +80,14 @@ public class MinesweeperBoard implements Serializable {
 	 */
 	public int getTime() {
 		return time;
+	}
+
+	/**
+	 * Getter for score
+	 * @return int score
+	 */
+	public int getScore(){
+		return score;
 	}
 
 	/**
