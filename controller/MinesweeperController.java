@@ -3,6 +3,7 @@ package controller;
 import java.util.Random;
 
 import model.Cell;
+import model.HighScores;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
 
@@ -37,8 +38,8 @@ public class MinesweeperController {
 		this.model = model;
 	}
 	
-	public void initModel(MinesweeperBoard mb) {
-		this.model.initialize(mb);
+	public void initModel(MinesweeperBoard mb,HighScores highScores) {
+		this.model.initialize(mb,highScores);
 	}
 
 	/**
@@ -227,5 +228,9 @@ public class MinesweeperController {
 	 */
 	public MinesweeperBoard getBoard(){
 		return model.getBoard();
+	}
+
+	public HighScores getHighScores(){
+		return model.getHighScores();
 	}
 }

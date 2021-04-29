@@ -21,14 +21,17 @@ public class MinesweeperModel extends Observable {
 	final static int TEST_SIZE       = 8;
 	final static int TEST_MINE_COUNT = 10;
 	final static int TEST_TIME       = 12;
+	final static int TEST_SCORE      = 300;
 	final static int TEST_DIFFICULTY = 0;
 	
 	/**
 	 * 2D array of {@code Cell}s that represents game grid
 	 */
 	private Cell[][] grid;
+	private HighScores highScores;
 	
 	private int time;
+	private int score;
 	private int flagsLeft;
 	private int rows;
 	private int cols;
@@ -48,12 +51,13 @@ public class MinesweeperModel extends Observable {
 	 * 
 	 * Sets game-state to either blank or given saved-state
 	 */
-	public void initialize(MinesweeperBoard board) {
+	public void initialize(MinesweeperBoard board,HighScores highScores) {
 		
 		if (board == null) {
 			
 			// FIXME: Change Default values for default game
 			this.time = TEST_TIME;
+			this.score = TEST_SCORE;
 						
 			this.flagsLeft = TEST_MINE_COUNT;
 						
@@ -75,6 +79,7 @@ public class MinesweeperModel extends Observable {
 		} else {
 			
 			this.time = board.getTime();
+			this.score = board.getScore();
 		
 			this.flagsLeft = board.getFlagsLeft();
 			
@@ -85,6 +90,13 @@ public class MinesweeperModel extends Observable {
 			this.firstClick = board.isFirstClick();
 			
 			this.grid = board.getBoard();
+		}
+
+		//Check for HighScores loaded file
+		if (highScores == null){
+			this.highScores = new HighScores();
+		}else{
+			this.highScores = highScores;
 		}
 		
 		updateView(this.getBoard());
@@ -163,6 +175,7 @@ public class MinesweeperModel extends Observable {
 	public MinesweeperBoard getBoard(){
 		return new MinesweeperBoard(this.grid,
 									this.time,
+									this.score,
 									this.flagsLeft,
 									this.rows,
 									this.cols,
@@ -186,5 +199,13 @@ public class MinesweeperModel extends Observable {
 	private void updateView(MinesweeperBoard mb) {
 		setChanged();
 		notifyObservers(mb);
+	}
+
+	/**
+	 * Returns high score object
+	 * @return
+	 */
+	public HighScores getHighScores() {
+		return highScores;
 	}
 }

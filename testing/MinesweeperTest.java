@@ -1,5 +1,6 @@
 package testing;
 
+import model.HighScores;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -28,7 +29,7 @@ public class MinesweeperTest {
 		
 		// Test 1 ----------------------------------------------------------------//
 		
-		model.initialize(null);
+		model.initialize(null,null);
 		
 		// Check each cell in game to assert it is unflagged, unrevealed, unmined
 		// Then use setters to change their states, and verify it worked
@@ -62,4 +63,26 @@ public class MinesweeperTest {
 	public void testController() {
 		// TODO: test the controller
 	}
+
+	/**
+	 * Test method for {@link model.HighScores}
+	 */
+	@Test
+	public void testHighScores() {
+		HighScores scores = new HighScores();
+		scores.addScore("JOSH3",500);
+		scores.addScore("JOSH2",700);
+		scores.addScore("JOSH1",900);
+
+		for(HighScores.ScoreEntry e : scores.getScores()){
+			System.out.println(e.name + " " + e.score);
+		}
+
+		scores.addScore("BOB",9000);
+
+		for(HighScores.ScoreEntry e : scores.getScores()){
+			System.out.println(e.name + " " + e.score);
+		}
+	}
+
 }
