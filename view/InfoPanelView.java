@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.Difficulty;
 import model.HighScores;
 import model.MinesweeperBoard;
 
@@ -84,7 +85,7 @@ public class InfoPanelView extends VBox {
 		
 		
 		newGameMenuItem.setOnAction((event) -> {
-			controller.initModel(null,controller.getHighScores());
+			controller.initModel(null, Difficulty.EASY, controller.getHighScores());
 		});
 
 		loadGameMenuItem.setOnAction((event) -> {
@@ -96,7 +97,7 @@ public class InfoPanelView extends VBox {
 			try {
 				File selectedFile = fileChooser.showOpenDialog(stage);
 				MinesweeperBoard board = rw.readSaveData(selectedFile.getPath());
-				controller.initModel(board,controller.getHighScores());
+				controller.initModel(board, controller.getDifficulty(), controller.getHighScores());
 			}catch (NullPointerException e){
 				System.out.println("No file selected, default loaded.");
 			}

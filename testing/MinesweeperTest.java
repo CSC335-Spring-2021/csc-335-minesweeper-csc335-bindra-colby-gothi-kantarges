@@ -1,5 +1,6 @@
 package testing;
 
+import model.Difficulty;
 import model.HighScores;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,14 +30,14 @@ public class MinesweeperTest {
 		
 		// Test 1 ----------------------------------------------------------------//
 		
-		model.initialize(null,null);
+		model.initialize(null,Difficulty.EASY,null);
 		
 		// Check each cell in game to assert it is unflagged, unrevealed, unmined
 		// Then use setters to change their states, and verify it worked
 		
 		//TODO: remove hardcoding
-		for (int i = 0; i < 8 ; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < Difficulty.EASY_ROW ; i++) {
+			for (int j = 0; j < Difficulty.EASY_COL; j++) {
 				
 				assertEquals(false, model.getCell(i, j).hasFlag());
 				assertEquals(false, model.getCell(i, j).hasMine());

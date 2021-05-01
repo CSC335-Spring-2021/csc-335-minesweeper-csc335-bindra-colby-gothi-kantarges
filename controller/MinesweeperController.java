@@ -38,8 +38,8 @@ public class MinesweeperController {
 		this.model = model;
 	}
 	
-	public void initModel(MinesweeperBoard mb,HighScores highScores) {
-		this.model.initialize(mb,highScores);
+	public void initModel(MinesweeperBoard mb,int difficulty, HighScores highScores) {
+		this.model.initialize(mb,difficulty, highScores);
 	}
 
 	/**
@@ -232,5 +232,17 @@ public class MinesweeperController {
 
 	public HighScores getHighScores(){
 		return model.getHighScores();
+	}
+	
+	public int getDifficulty() {
+		return model.getDifficulty();
+	}
+	
+	public int getRows() {
+		return model.getRows();
+	}
+	
+	public int getCols() {
+		return model.getCols();
 	}
 }

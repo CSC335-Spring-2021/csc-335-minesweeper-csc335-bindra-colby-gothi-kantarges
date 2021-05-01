@@ -13,7 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import model.Difficulty;
 import model.HighScores;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
@@ -34,14 +34,10 @@ import controller.MinesweeperController;
  */
 @SuppressWarnings("deprecation")
 public class MinesweeperView extends Application implements Observer {
-
-	//FIXME: Hardcoded global variables for board
-	private static final int ROW_SIZE = 8;
-	private static final int COL_SIZE = 8;
 	
 	private MinesweeperController controller = new MinesweeperController(new MinesweeperModel(this));
 	
-	private BoardGridView grid = new BoardGridView(ROW_SIZE, COL_SIZE, controller);
+	private BoardGridView grid = new BoardGridView(Difficulty.EASY_ROW, Difficulty.EASY_COL, controller);
 
 	private ReadWrite rw = new ReadWrite();
 
@@ -55,7 +51,7 @@ public class MinesweeperView extends Application implements Observer {
 
 
 		//Initialize game with default board
-		controller.initModel(null,rw.readHighScoreData());
+		controller.initModel(null,Difficulty.EASY, rw.readHighScoreData());
 
 		BorderPane window = new BorderPane();
 
@@ -103,6 +99,13 @@ public class MinesweeperView extends Application implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
+		
+		// if this is a new game (firstClick boolean is on)
+		// make a new BoardGridView set to the new size
+		if (mb.isFirstClick()) {
+			this.grid = new BoardGridView(controller.getRows(), controller.getCols(), controller);
+		}
+		
 		grid.updateCells(mb);
 
 		//TODO Add Game win condition check here them prompt to input high score

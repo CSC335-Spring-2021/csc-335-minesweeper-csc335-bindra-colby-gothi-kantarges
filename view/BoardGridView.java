@@ -32,7 +32,7 @@ public class BoardGridView extends GridPane {
 
 		this.rows = rows;
 		this.cols = cols;
-
+		
 		// Board GridPane setup
 		this.setPadding(new Insets(8));
 		this.setBackground(new Background(new BackgroundFill(Color.web(boardBGColor), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -68,7 +68,7 @@ public class BoardGridView extends GridPane {
 
 				CellView blankCell = new CellView();
 				this.add(blankCell, i, j);
-
+				System.err.println("added node at " + i + j );
 				blankCell.setOnMouseClicked((event) -> {
 
 					// Get the cellView that was the source of the click
@@ -93,7 +93,9 @@ public class BoardGridView extends GridPane {
 		// Set up a 2D array of nodes of CellView children to make it
 		// easier to update them via their directly accessing row and col
 		this.gridPaneArray = new Node[rows][cols];
+		
 		for (Node node : this.getChildren()) {
+			System.err.println("row of node is " + GridPane.getRowIndex(node) +" col of node is " + GridPane.getColumnIndex(node));
 			this.gridPaneArray[GridPane.getRowIndex(node)][GridPane.getColumnIndex(node)] = node;
 		}
 	}

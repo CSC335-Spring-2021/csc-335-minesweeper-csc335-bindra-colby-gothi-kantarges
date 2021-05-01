@@ -16,10 +16,10 @@ import java.util.Observer;
  */
 @SuppressWarnings("deprecation")
 public class MinesweeperModel extends Observable {
-	
+
 	// TODO: Remove hardcoded testing board size
-	final static int TEST_SIZE       = 8;
-	final static int TEST_MINE_COUNT = 10;
+
+
 	final static int TEST_TIME       = 12;
 	final static int TEST_SCORE      = 300;
 	final static int TEST_DIFFICULTY = 0;
@@ -51,23 +51,22 @@ public class MinesweeperModel extends Observable {
 	 * 
 	 * Sets game-state to either blank or given saved-state
 	 */
-	public void initialize(MinesweeperBoard board,HighScores highScores) {
+	public void initialize(MinesweeperBoard board, int difficulty, HighScores highScores) {
 		
 		if (board == null) {
 			
 			// FIXME: Change Default values for default game
 			this.time = TEST_TIME;
 			this.score = TEST_SCORE;
+								
+			this.rows = calculateRows(difficulty);
+			this.cols = calculateCols(difficulty);
+			this.flagsLeft = calculateFlags(difficulty);
 						
-			this.flagsLeft = TEST_MINE_COUNT;
-						
-			this.rows = TEST_SIZE;
-			this.cols = TEST_SIZE;
-						
-			this.difficulty = TEST_DIFFICULTY;
+			this.difficulty = difficulty;
 			this.firstClick = true;
 			
-			grid = new Cell[rows][cols];
+			this.grid = new Cell[rows][cols];
 			
 			for (int i = 0; i < rows ; i++) {
 				for (int j = 0; j < cols; j++) {
@@ -103,6 +102,57 @@ public class MinesweeperModel extends Observable {
 	}
 	
 	/**
+	 * Calculates columns for game based on difficulty
+	 * @param difficulty setting of game
+	 * @return number of columns for game
+	 */
+	private int calculateCols(int difficulty) {
+		int cols = -1;
+		switch(difficulty) {
+		case Difficulty.EASY:
+			cols = Difficulty.EASY_COL;
+			break;
+		case Difficulty.MEDIUM:
+			cols = Difficulty.MEDIUM_COL;
+			break;
+		case Difficulty.EXPERT:
+			cols = Difficulty.EXPERT_COL;
+			break;
+		}
+		return cols;
+	}
+
+	/**
+	 * Calculate rows for game based on difficulty
+	 * @param difficulty setting of game
+	 * @return number of columns for game
+	 */
+	private int calculateRows(int difficulty) {
+		int rows = -1;
+		switch(difficulty) {
+		case Difficulty.EASY:
+			rows = Difficulty.EASY_ROW;
+			break;
+		case Difficulty.MEDIUM:
+			rows = Difficulty.MEDIUM_ROW;
+			break;
+		case Difficulty.EXPERT:
+			rows = Difficulty.EXPERT_ROW;
+			break;
+		}
+		return rows;
+	}
+	
+	/**
+	 * Calculate flags for game based on difficulty
+	 * @param difficulty setting of game
+	 * @return number of flags/mines for game
+	 */
+	private int calculateFlags(int difficulty) {
+		return (int) Math.floor((this.rows * this.cols) * 0.15);
+	}
+
+	/**
 	 * Returns the {@code Cell} at specified row/col
 	 * 
 	 * @param r row to query
@@ -124,7 +174,7 @@ public class MinesweeperModel extends Observable {
 	public boolean isInBounds(int row, int col) {
 		
 		// FIXME: Remove hardcoding
-		if (row >= TEST_SIZE || col >= TEST_SIZE) {
+		if (row >= this.rows || col >= this.cols) {
 			return false;
 			
 		} else if (row < 0 || col < 0) {
@@ -207,5 +257,21 @@ public class MinesweeperModel extends Observable {
 	 */
 	public HighScores getHighScores() {
 		return highScores;
+	}
+	
+	/**
+	 * Return difficulty setting int of current model
+	 * @return Integer representation of difficulty
+	 */
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public int getCols() {
+		return cols;
+	}
+	
+	public int getRows() {
+		return rows;
 	}
 }
