@@ -2,6 +2,8 @@ package model;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Model class of the Minesweeper MVC architecture
@@ -27,7 +29,8 @@ public class MinesweeperModel extends Observable {
 	 */
 	private Cell[][] grid;
 	private HighScores highScores;
-
+	
+	private Timer timer;
 	private int time;
 	private int score;
 	private int flagsLeft;
@@ -56,7 +59,7 @@ public class MinesweeperModel extends Observable {
 		if (board == null) {
 
 			// FIXME: Change Default values for default game
-			this.time = TEST_TIME;
+			this.time = 0;
 			this.score = TEST_SCORE;
 
 			this.rows = calculateRows(difficulty);
@@ -97,6 +100,18 @@ public class MinesweeperModel extends Observable {
 		} else {
 			this.highScores = highScores;
 		}
+		
+		timer = new Timer();
+		TimerTask task = new TimerTask() {
+
+			@Override
+			public void run() {
+				time++;
+			}
+			
+		};
+		timer.scheduleAtFixedRate(task, 1000, 1000);
+		
 
 		updateView(this.getBoard());
 	}

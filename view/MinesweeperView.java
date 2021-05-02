@@ -129,7 +129,6 @@ public class MinesweeperView extends Application implements Observer {
 			lose.setContentText("You blew up!");
 			lose.setHeaderText("You Lose.");
 			lose.showAndWait();
-			scoreInput();
 		}
 
 	}
