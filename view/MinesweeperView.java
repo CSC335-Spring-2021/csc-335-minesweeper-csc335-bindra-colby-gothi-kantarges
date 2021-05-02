@@ -8,6 +8,7 @@ import java.util.Observer;
 import controller.ReadWrite;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -115,11 +116,30 @@ public class MinesweeperView extends Application implements Observer {
 
 		grid.updateCells(mb);
 
-		// TODO Add Game win condition check here them prompt to input high score
-		// use this code
-//		TextInputDialog td = new TextInputDialog("Enter Your Name");
-//		td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
-//		td.showAndWait();
+		if (controller.win()) {
+			Alert win = new Alert(Alert.AlertType.INFORMATION);
+			win.setTitle("WIN");
+			win.setContentText("You didn't blow up!");
+			win.setHeaderText("You Win!");
+			win.showAndWait();
+			scoreInput();
+		} else if (controller.lose()) {
+			Alert lose = new Alert(Alert.AlertType.INFORMATION);
+			lose.setTitle("FAILURE");
+			lose.setContentText("You blew up!");
+			lose.setHeaderText("You Lose.");
+			lose.showAndWait();
+			scoreInput();
+		}
 
+	}
+	
+	/**
+	 * Outputs a {@code TextInputDialog} and shows the player their score.
+	 */
+	public void scoreInput() {
+		TextInputDialog td = new TextInputDialog("Enter Your Name");
+		td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
+		td.showAndWait();
 	}
 }

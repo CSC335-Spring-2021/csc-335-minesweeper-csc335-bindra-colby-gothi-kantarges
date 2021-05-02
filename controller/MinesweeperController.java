@@ -256,5 +256,54 @@ public class MinesweeperController {
 	public int calcCols(int difficulty) {
 		return model.calculateCols(difficulty);
 	}
-
+	
+	/**
+	 * Checks if all cells without mines have been revealed.
+	 * 
+	 * @return {@code true} if all cells without mines have been revealed, {@code false} otherwise.
+	 */
+	public boolean win() {
+		int col;
+		int row = 0;
+		while (model.isInBounds(row, 0)) {
+			col = 0;
+			while (model.isInBounds(row, col)) {
+				
+				if (model.cellHasMine(row, col) && model.getCell(row, col).isRevealed()) {
+					return false;
+				}
+				
+				if (!model.cellHasMine(row, col) && !model.getCell(row, col).isRevealed()) {
+					return false;
+				}
+				
+				col++;
+			}
+			row++;
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if a cell with a mine has been revealed.
+	 * 
+	 * @return {@code true} if a cell containing a mine was revealed, {@code false} otherwise.
+	 */
+	public boolean lose() {
+		int col;
+		int row = 0;
+		while (model.isInBounds(row, 0)) {
+			col = 0;
+			while (model.isInBounds(row, col)) {
+				
+				if (model.cellHasMine(row, col) && model.getCell(row, col).isRevealed()) {
+					return true;
+				}
+				
+				col++;
+			}
+			row++;
+		}
+		return false;
+	}
 }
