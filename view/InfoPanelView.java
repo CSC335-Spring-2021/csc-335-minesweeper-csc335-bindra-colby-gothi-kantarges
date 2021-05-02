@@ -38,32 +38,45 @@ import java.util.List;
 public class InfoPanelView extends VBox {
 
 	private MinesweeperController controller;
+	private BoardGridView grid;
 	private Stage stage;
 
 	
 	private MenuBar menuBar;
 	private Menu fileMenu;
-	private MenuItem newGameMenuItem;
+	private MenuItem easyGameMenuItem;
+	private MenuItem mediumGameMenuItem;
+	private MenuItem expertGameMenuItem;
 	private MenuItem loadGameMenuItem;
 	private MenuItem highScoresMenuItem;
+	
+
 	
 	private GridPane statsBox;
 	private Label timerLabel;
 	private Label flagsLeftLabel;
 	
 	
-	public InfoPanelView(MinesweeperController controller, Stage stage) {
+	public InfoPanelView(MinesweeperController controller, MinesweeperView view) {
 		this.controller = controller;
-		this.stage = stage;
 
+		
 		menuBar = new MenuBar();
 		fileMenu = new Menu("File");
 		menuBar.getMenus().add(fileMenu);
-		newGameMenuItem = new MenuItem("New Game");
+		easyGameMenuItem = new MenuItem("Easy");
+		mediumGameMenuItem = new MenuItem("Medium");
+		expertGameMenuItem = new MenuItem("Expert");
 		loadGameMenuItem = new MenuItem("Load Game");
 		highScoresMenuItem = new MenuItem("High Scores");
+		
+		
 
-		fileMenu.getItems().addAll(newGameMenuItem,loadGameMenuItem, highScoresMenuItem);
+		fileMenu.getItems().addAll(easyGameMenuItem,
+									mediumGameMenuItem,
+									expertGameMenuItem,
+									loadGameMenuItem,
+									highScoresMenuItem);
 		
 		statsBox = new GridPane();
 		statsBox.setPadding(new Insets(5,5,5,5));
@@ -84,8 +97,18 @@ public class InfoPanelView extends VBox {
 		statsBox.add(flagsLeftLabel,1, 0);
 		
 		
-		newGameMenuItem.setOnAction((event) -> {
+		easyGameMenuItem.setOnAction((event) -> {
+			view.makeNewView(Difficulty.EASY, controller);
 			controller.initModel(null, Difficulty.EASY, controller.getHighScores());
+		});
+		mediumGameMenuItem.setOnAction((event) -> {
+			view.makeNewView(Difficulty.MEDIUM, controller);
+			controller.initModel(null, Difficulty.MEDIUM, controller.getHighScores());
+
+		});
+		expertGameMenuItem.setOnAction((event) -> {
+			view.makeNewView(Difficulty.EXPERT, controller);
+			controller.initModel(null, Difficulty.EXPERT, controller.getHighScores());
 		});
 
 		loadGameMenuItem.setOnAction((event) -> {
@@ -97,6 +120,7 @@ public class InfoPanelView extends VBox {
 			try {
 				File selectedFile = fileChooser.showOpenDialog(stage);
 				MinesweeperBoard board = rw.readSaveData(selectedFile.getPath());
+				view.makeNewView(board.getDifficulty(), controller);
 				controller.initModel(board, controller.getDifficulty(), controller.getHighScores());
 			}catch (NullPointerException e){
 				System.out.println("No file selected, default loaded.");

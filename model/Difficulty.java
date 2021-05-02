@@ -9,7 +9,7 @@ public class Difficulty {
 	public static final int EASY_COL = 9;
 	public static final int MEDIUM_ROW = 16;
 	public static final int MEDIUM_COL = 16;
-	public static final int EXPERT_ROW = 16;
-	public static final int EXPERT_COL = 30;
+	public static final int EXPERT_ROW = 20;
+	public static final int EXPERT_COL = 20;
 	
 }

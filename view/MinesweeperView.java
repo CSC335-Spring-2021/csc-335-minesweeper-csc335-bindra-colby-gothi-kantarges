@@ -20,9 +20,8 @@ import model.MinesweeperModel;
 import controller.MinesweeperController;
 
 /**
- * This class represents the view of the game,
- * and is reponsible for interacting with the user
- * and providing them information.
+ * This class represents the view of the game, and is reponsible for interacting
+ * with the user and providing them information.
  * 
  * This class implements a GUI to accomplish all of the above.
  * 
@@ -34,12 +33,14 @@ import controller.MinesweeperController;
  */
 @SuppressWarnings("deprecation")
 public class MinesweeperView extends Application implements Observer {
-	
+
 	private MinesweeperController controller = new MinesweeperController(new MinesweeperModel(this));
-	
+
 	private BoardGridView grid = new BoardGridView(Difficulty.EASY_ROW, Difficulty.EASY_COL, controller);
 
 	private ReadWrite rw = new ReadWrite();
+
+	private Stage stage;
 
 	/**
 	 * The entry point of the GUI that sets up the {@code Stage} of the GUI
@@ -49,16 +50,26 @@ public class MinesweeperView extends Application implements Observer {
 	@Override
 	public void start(Stage stage) throws Exception {
 
+		this.stage = stage;
 
-		//Initialize game with default board
-		controller.initModel(null,Difficulty.EASY, rw.readHighScoreData());
+		// Initialize game with default board
+		controller.initModel(null, Difficulty.EASY, rw.readHighScoreData());
+
+		// Create instance of game view, depending on difficulty
+		makeNewView(Difficulty.EASY, controller);
+
+	}
+
+	protected void makeNewView(int difficulty, MinesweeperController controller) {
 
 		BorderPane window = new BorderPane();
 
+		grid = new BoardGridView(controller.calcRows(difficulty), controller.calcCols(difficulty), controller);
+
 		window.setCenter(grid);
-		
-		InfoPanelView infoPanel = new InfoPanelView(controller, stage);
-		
+
+		InfoPanelView infoPanel = new InfoPanelView(controller, this);
+
 		window.setTop(infoPanel);
 		window.setCenter(grid);
 		stage.setTitle("Minesweeper");
@@ -72,44 +83,40 @@ public class MinesweeperView extends Application implements Observer {
 			fileChooser.setTitle("Save Game");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
-			//Write high score data
+			// Write high score data
 			rw.writeHighScoreData(controller.getHighScores());
 
-			//Attempt to ask user to save game
-			try{
+			// Attempt to ask user to save game
+			try {
 				File selectedFile = fileChooser.showSaveDialog(stage);
-				rw.writeSaveData(controller.getBoard(),selectedFile.getPath());
-			}catch (NullPointerException e){
+				rw.writeSaveData(controller.getBoard(), selectedFile.getPath());
+			} catch (NullPointerException e) {
 				System.out.println("Saving Aborted");
 				System.exit(1);
 			}
 		});
 	}
-	
+
 	/**
 	 * This method is responsible for updating the view whenever the model changes.
 	 * 
-	 * {@code MinesweeperView} is an {@code Observer} of {@code MinesweeperModel} and this method is called
-	 * whenever {@code MinesweeperModel} notifies its {@code Observer}s (whenever it changes).
-	 * Then, this method copies the new game board and scores provided via {@code Object args}
-	 * and changes the GUI to show this new state.
+	 * {@code MinesweeperView} is an {@code Observer} of {@code MinesweeperModel}
+	 * and this method is called whenever {@code MinesweeperModel} notifies its
+	 * {@code Observer}s (whenever it changes). Then, this method copies the new
+	 * game board and scores provided via {@code Object args} and changes the GUI to
+	 * show this new state.
 	 * 
-	 * @param arg A {@code MinesweeperBoard Object} that carries the information of the game-state updates
+	 * @param arg A {@code MinesweeperBoard Object} that carries the information of
+	 *            the game-state updates
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
-		
-		// if this is a new game (firstClick boolean is on)
-		// make a new BoardGridView set to the new size
-		if (mb.isFirstClick()) {
-			this.grid = new BoardGridView(controller.getRows(), controller.getCols(), controller);
-		}
-		
+
 		grid.updateCells(mb);
 
-		//TODO Add Game win condition check here them prompt to input high score
-		//use this code
+		// TODO Add Game win condition check here them prompt to input high score
+		// use this code
 //		TextInputDialog td = new TextInputDialog("Enter Your Name");
 //		td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
 //		td.showAndWait();

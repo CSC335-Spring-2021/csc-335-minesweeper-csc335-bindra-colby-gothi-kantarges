@@ -21,21 +21,23 @@ public class MinesweeperBoard implements Serializable {
 	private static final long serialVersionUID = -4510255117516896736L;
 
 	private Cell[][] boardArrToPass;
-	
+
 	private int time;
 	private int score;
 	private int flagsLeft;
 	private int rows;
 	private int cols;
 	private int difficulty;
-	
+
 	private boolean firstClick;
+	private boolean newGame;
+	private boolean loadGame;
 
 	/**
 	 * Constructor for {@code MinesweeperBoard} save game
 	 *
-	 * Accepts model's array of cell objects and creates
-	 * packaged version to pass to view
+	 * Accepts model's array of cell objects and creates packaged version to pass to
+	 * view
 	 *
 	 * @param passedBoard Array of current cell states
 	 * @param time        left in game
@@ -44,7 +46,8 @@ public class MinesweeperBoard implements Serializable {
 	 * @param cols        of current board
 	 * @param difficulty  of current game
 	 */
-	public MinesweeperBoard(Cell[][] passedBoard, int time,int score, int flagsLeft, int rows, int cols, int difficulty,boolean firstClick) {
+	public MinesweeperBoard(Cell[][] passedBoard, int time, int score, int flagsLeft, int rows, int cols,
+			int difficulty, boolean firstClicks) {
 		this.boardArrToPass = passedBoard;
 		this.time = time;
 		this.score = score;
@@ -69,7 +72,7 @@ public class MinesweeperBoard implements Serializable {
 	 *
 	 * @return {@code Cell} array that represents the state
 	 */
-	public Cell[][] getBoard(){
+	public Cell[][] getBoard() {
 		return boardArrToPass;
 	}
 
@@ -84,9 +87,10 @@ public class MinesweeperBoard implements Serializable {
 
 	/**
 	 * Getter for score
+	 * 
 	 * @return int score
 	 */
-	public int getScore(){
+	public int getScore() {
 		return score;
 	}
 
@@ -134,4 +138,5 @@ public class MinesweeperBoard implements Serializable {
 	public boolean isFirstClick() {
 		return this.firstClick;
 	}
+
 }
