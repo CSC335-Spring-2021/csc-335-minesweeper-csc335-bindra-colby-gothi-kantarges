@@ -3,10 +3,10 @@ package model;
 import java.io.Serializable;
 
 /**
- *  Class representing each cell in main game grid. 
+ * Class representing each cell in main game grid. 
  *  
- *  Keeps track of info about cell's state,
- *  and is able to mutate this state.
+ * Keeps track of info about cell's state,
+ * and is able to mutate this state.
  * 
  * @author Prabhkirat Singh Bindra
  * @author James Colby

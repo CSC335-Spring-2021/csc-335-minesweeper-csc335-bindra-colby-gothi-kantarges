@@ -5,19 +5,22 @@ import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
-import controller.ReadWrite;
 import javafx.application.Application;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
+
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+
 import model.Difficulty;
-import model.HighScores;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
+
+import controller.ReadWrite;
 import controller.MinesweeperController;
 
 /**
@@ -60,7 +63,6 @@ public class MinesweeperView extends Application implements Observer {
 
 		// Create instance of game view, depending on difficulty
 		makeNewView(Difficulty.EASY, controller);
-
 	}
 
 	protected void makeNewView(int difficulty, MinesweeperController controller) {
@@ -70,10 +72,11 @@ public class MinesweeperView extends Application implements Observer {
 		grid = new BoardGridView(controller.calcRows(difficulty), controller.calcCols(difficulty), controller);
 
 		window.setCenter(grid);
-
 		window.setTop(infoPanel);
 		window.setCenter(grid);
+		
 		stage.setTitle("Minesweeper");
+		
 		Scene scene = new Scene(window, Color.GREY);
 		stage.setScene(scene);
 		stage.show();
@@ -89,9 +92,12 @@ public class MinesweeperView extends Application implements Observer {
 
 			// Attempt to ask user to save game
 			try {
+				
 				File selectedFile = fileChooser.showSaveDialog(stage);
 				rw.writeSaveData(controller.getBoard(), selectedFile.getPath());
+				
 			} catch (NullPointerException e) {
+				
 				System.out.println("Saving Aborted");
 				System.exit(1);
 			}
@@ -112,6 +118,7 @@ public class MinesweeperView extends Application implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
 
 		grid.updateCells(mb);
@@ -119,32 +126,42 @@ public class MinesweeperView extends Application implements Observer {
 		infoPanel.updateFlagsLeftLabel(mb);
 		
 		if (controller.win()) {
+			
 			Alert win = new Alert(Alert.AlertType.INFORMATION);
+			
 			win.setTitle("WIN");
+			
 			win.setContentText("You didn't blow up!");
 			win.setHeaderText("You Win!");
 			win.showAndWait();
+			
 			scoreInput();
+			
 		} else if (controller.lose()) {
+			
 			Alert lose = new Alert(Alert.AlertType.INFORMATION);
+			
 			lose.setTitle("FAILURE");
+			
 			lose.setContentText("You blew up!");
 			lose.setHeaderText("You Lose.");
+			
 			lose.showAndWait();
 		}
-
 	}
 	
 	/**
 	 * Outputs a {@code TextInputDialog} and shows the player their score.
 	 */
 	public void scoreInput() {
+		
 		TextInputDialog td = new TextInputDialog("Enter Your Name");
 		td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
 		td.showAndWait();
 
-		//Add the entry to high scores
-		controller.getHighScores().addScore(td.getEditor().getText(),controller.getBoard().getScore());
+		// Add the entry to high scores
+		controller.getHighScores().addScore(td.getEditor().getText(), controller.getBoard().getScore());
+		
 		infoPanel.showHighScores();
 	}
 }

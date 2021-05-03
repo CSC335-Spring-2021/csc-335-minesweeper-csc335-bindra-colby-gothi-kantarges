@@ -24,14 +24,14 @@ public class MinesweeperBoard implements Serializable {
 
 	private int time;
 	private int score;
+	
 	private int flagsLeft;
+	
 	private int rows;
 	private int cols;
+	
 	private int difficulty;
-
 	private boolean firstClick;
-	private boolean newGame;
-	private boolean loadGame;
 
 	/**
 	 * Constructor for {@code MinesweeperBoard} save game
@@ -46,16 +46,20 @@ public class MinesweeperBoard implements Serializable {
 	 * @param cols        of current board
 	 * @param difficulty  of current game
 	 */
-	public MinesweeperBoard(Cell[][] passedBoard, int time, int score, int flagsLeft, int rows, int cols,
-			int difficulty, boolean firstClicks) {
+	public MinesweeperBoard(Cell[][] passedBoard, int time, int score, int flagsLeft, int rows, int cols, int difficulty, boolean firstClick) {
+		
 		this.boardArrToPass = passedBoard;
-		this.time = time;
+		
+		this.time  = time;
 		this.score = score;
+		
 		this.flagsLeft = flagsLeft;
+		
 		this.rows = rows;
 		this.cols = cols;
+		
 		this.difficulty = difficulty;
-		this.firstClick = firstClicks;
+		this.firstClick = firstClick;
 	}
 
 	/**
@@ -129,5 +133,4 @@ public class MinesweeperBoard implements Serializable {
 	public boolean isFirstClick() {
 		return this.firstClick;
 	}
-
 }

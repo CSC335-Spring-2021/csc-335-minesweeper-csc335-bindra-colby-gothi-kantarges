@@ -1,127 +1,133 @@
 package view;
 
-
-import controller.MinesweeperController;
-import controller.ReadWrite;
+import javafx.geometry.Pos;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
+
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.ColumnConstraints;
+
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+
 import model.Difficulty;
 import model.HighScores;
 import model.MinesweeperBoard;
 
-import javax.swing.*;
-import javax.swing.text.View;
-import java.io.File;
-import java.util.List;
+import controller.ReadWrite;
+import controller.MinesweeperController;
 
 /**
  * InfoPanelView is a {@code VBox} that holds the information about the 
- * game, how many flags are left to place, how much time is left, etc. 
+ * game, how many flags are left to place, how much time is left, etc.
+ * 
  * @author Jim Colby
  *
  */
 public class InfoPanelView extends VBox {
 
 	private MinesweeperController controller;
-	private BoardGridView grid;
+	
 	private Stage stage;
 
-	
+	private Menu   fileMenu;
 	private MenuBar menuBar;
-	private Menu fileMenu;
+	
 	private MenuItem easyGameMenuItem;
 	private MenuItem mediumGameMenuItem;
 	private MenuItem expertGameMenuItem;
 	private MenuItem loadGameMenuItem;
 	private MenuItem highScoresMenuItem;
 	
-
-	
 	private GridPane statsBox;
+	
 	private Label timerLabel;
 	private Label flagsLeftLabel;
-	
-	
+
 	public InfoPanelView(MinesweeperController controller, MinesweeperView view) {
+		
 		this.controller = controller;
 
-		
-		menuBar = new MenuBar();
+		menuBar  = new MenuBar();
 		fileMenu = new Menu("File");
+		
 		menuBar.getMenus().add(fileMenu);
-		easyGameMenuItem = new MenuItem("Easy");
+		
+		easyGameMenuItem   = new MenuItem("Easy");
 		mediumGameMenuItem = new MenuItem("Medium");
 		expertGameMenuItem = new MenuItem("Expert");
-		loadGameMenuItem = new MenuItem("Load Game");
+		loadGameMenuItem   = new MenuItem("Load Game");
 		highScoresMenuItem = new MenuItem("High Scores");
 		
-		
 		fileMenu.getItems().addAll(easyGameMenuItem,
-									mediumGameMenuItem,
-									expertGameMenuItem,
-									loadGameMenuItem,
-									highScoresMenuItem);
+								   mediumGameMenuItem,
+								   expertGameMenuItem,
+								   loadGameMenuItem,
+								   highScoresMenuItem);
 		
 		statsBox = new GridPane();
-		statsBox.setPadding(new Insets(5,5,5,5));
+		statsBox.setPadding(new Insets(5));
 		
 		for (int i = 0; i < 2; i++) {
+			
 			ColumnConstraints col = new ColumnConstraints();
+			
 			col.setPercentWidth(50);
 			col.setHalignment(HPos.CENTER);
+			
 			statsBox.getColumnConstraints().add(col);
 		}
 		
 		timerLabel = new Label("000");
 		timerLabel.setAlignment(Pos.CENTER_LEFT);
+		
 		flagsLeftLabel = new Label("10");
 		flagsLeftLabel.setAlignment(Pos.CENTER_RIGHT);
 
 		statsBox.add(timerLabel, 0, 0);
 		statsBox.add(flagsLeftLabel,1, 0);
 		
-		
 		easyGameMenuItem.setOnAction((event) -> {
+			
 			view.makeNewView(Difficulty.EASY, controller);
 			controller.initModel(null, Difficulty.EASY, controller.getHighScores());
 		});
+		
 		mediumGameMenuItem.setOnAction((event) -> {
+			
 			view.makeNewView(Difficulty.MEDIUM, controller);
 			controller.initModel(null, Difficulty.MEDIUM, controller.getHighScores());
-
 		});
+		
 		expertGameMenuItem.setOnAction((event) -> {
+			
 			view.makeNewView(Difficulty.EXPERT, controller);
 			controller.initModel(null, Difficulty.EXPERT, controller.getHighScores());
 		});
 
 		loadGameMenuItem.setOnAction((event) -> {
+			
 			ReadWrite rw = new ReadWrite();
+			
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open save game");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
 			try {
+				
 				File selectedFile = fileChooser.showOpenDialog(stage);
+				
 				MinesweeperBoard board = rw.readSaveData(selectedFile.getPath());
+				
 				view.makeNewView(board.getDifficulty(), controller);
 				controller.initModel(board, controller.getDifficulty(), controller.getHighScores());
-			}catch (NullPointerException e){
+				
+			} catch (NullPointerException e) {
+				
 				System.out.println("No file selected, default loaded.");
 			}
 		});
@@ -129,24 +135,28 @@ public class InfoPanelView extends VBox {
 		highScoresMenuItem.setOnAction((event) -> {
 			showHighScores();
 		});
+		
 		this.getChildren().add(menuBar);
 		this.getChildren().add(statsBox);
-		
 	}
 	
 	protected void updateFlagsLeftLabel(MinesweeperBoard mb) {
+		
 		flagsLeftLabel.setText(String.valueOf(mb.getFlagsLeft()));
 	}
 
 	protected void showHighScores(){
+		
 		Alert alert= new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Scores");
 		alert.setHeaderText("High Scores!");
 
 		String content = "";
-		for(HighScores.ScoreEntry e : controller.getHighScores().getScores()){
+		for (HighScores.ScoreEntry e : controller.getHighScores().getScores()) {
+			
 			content += e.name + "  " + e.score + "\n";
 		}
+		
 		alert.setContentText(content);
 		alert.showAndWait();
 	}

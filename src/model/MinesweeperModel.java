@@ -1,7 +1,7 @@
 package model;
 
-import java.util.Observable;
 import java.util.Observer;
+import java.util.Observable;
 
 /**
  * Model class of the Minesweeper MVC architecture
@@ -19,25 +19,28 @@ public class MinesweeperModel extends Observable {
 
 	// TODO: Remove hardcoded testing board info
 
-	final static int TEST_TIME = 12;
+	final static int TEST_TIME  =  12;
 	final static int TEST_SCORE = 300;
 
 	/**
 	 * 2D array of {@code Cell}s that represents game grid
 	 */
 	private Cell[][] grid;
+	
 	private HighScores highScores;
 
 	private int time;
 	private int score;
+	
 	private int flagsLeft;
+	
 	private int rows;
 	private int cols;
+	
 	private int difficulty;
-
 	private boolean firstClick;
-	private boolean newGame;
-	private boolean loadGame;
+	
+	private boolean newGame;		// FIXME: ?
 
 	/**
 	 * Constructor for model
@@ -56,16 +59,19 @@ public class MinesweeperModel extends Observable {
 		if (board == null) {
 
 			// FIXME: Change Default values for default game
-			this.time = TEST_TIME;
+			this.time  = TEST_TIME;
 			this.score = TEST_SCORE;
 
 			this.rows = calculateRows(difficulty);
 			this.cols = calculateCols(difficulty);
+			
 			this.flagsLeft = calculateFlags(difficulty);
 
 			this.difficulty = difficulty;
 			this.firstClick = true;
-			this.newGame = false;
+			
+			this.newGame = false;						// FIXME: what is this used for?
+			
 			this.grid = new Cell[rows][cols];
 
 			for (int i = 0; i < rows; i++) {
@@ -77,7 +83,7 @@ public class MinesweeperModel extends Observable {
 
 		} else {
 
-			this.time = board.getTime();
+			this.time  = board.getTime();
 			this.score = board.getScore();
 
 			this.flagsLeft = board.getFlagsLeft();
@@ -87,6 +93,8 @@ public class MinesweeperModel extends Observable {
 
 			this.difficulty = board.getDifficulty();
 			this.firstClick = board.isFirstClick();
+			
+			// FIXME: what about newGame?
 
 			this.grid = board.getBoard();
 		}
@@ -105,6 +113,7 @@ public class MinesweeperModel extends Observable {
 	 * Calculates columns for game based on difficulty
 	 * 
 	 * @param difficulty setting of game
+	 * 
 	 * @return number of columns for game
 	 */
 	public int calculateCols(int difficulty) {
@@ -112,16 +121,20 @@ public class MinesweeperModel extends Observable {
 		int cols = -1;
 		
 		switch (difficulty) {
-		case Difficulty.EASY:
-			cols = Difficulty.EASY_COL;
+		
+			case Difficulty.EASY:
+				cols = Difficulty.EASY_COL;
 			break;
-		case Difficulty.MEDIUM:
-			cols = Difficulty.MEDIUM_COL;
+			
+			case Difficulty.MEDIUM:
+				cols = Difficulty.MEDIUM_COL;
 			break;
-		case Difficulty.EXPERT:
-			cols = Difficulty.EXPERT_COL;
+			
+			case Difficulty.EXPERT:
+				cols = Difficulty.EXPERT_COL;
 			break;
 		}
+		
 		return cols;
 	}
 
@@ -129,6 +142,7 @@ public class MinesweeperModel extends Observable {
 	 * Calculate rows for game based on difficulty
 	 * 
 	 * @param difficulty setting of game
+	 * 
 	 * @return number of columns for game
 	 */
 	public int calculateRows(int difficulty) {
@@ -136,16 +150,20 @@ public class MinesweeperModel extends Observable {
 		int rows = -1;
 		
 		switch (difficulty) {
-		case Difficulty.EASY:
-			rows = Difficulty.EASY_ROW;
+		
+			case Difficulty.EASY:
+				rows = Difficulty.EASY_ROW;
 			break;
-		case Difficulty.MEDIUM:
-			rows = Difficulty.MEDIUM_ROW;
+			
+			case Difficulty.MEDIUM:
+				rows = Difficulty.MEDIUM_ROW;
 			break;
-		case Difficulty.EXPERT:
-			rows = Difficulty.EXPERT_ROW;
+			
+			case Difficulty.EXPERT:
+				rows = Difficulty.EXPERT_ROW;
 			break;
 		}
+		
 		return rows;
 	}
 
@@ -153,6 +171,7 @@ public class MinesweeperModel extends Observable {
 	 * Calculate flags for game based on difficulty
 	 * 
 	 * @param difficulty setting of game
+	 * 
 	 * @return number of flags/mines for game
 	 */
 	private int calculateFlags(int difficulty) {
@@ -176,6 +195,7 @@ public class MinesweeperModel extends Observable {
 	 * 
 	 * @param row of cell to check
 	 * @param col of cell to check
+	 * 
 	 * @return {@code true} if in bounds, {@code false} otherwise
 	 */
 	public boolean isInBounds(int row, int col) {
@@ -211,6 +231,7 @@ public class MinesweeperModel extends Observable {
 	 * 
 	 * @param r The row at which a mine may or may not be
 	 * @param c The column at which a mine may or may not be
+	 * 
 	 * @return {@code true} if contains a mine, {@code false} otherwise
 	 */
 	public boolean cellHasMine(int r, int c) {
@@ -231,21 +252,24 @@ public class MinesweeperModel extends Observable {
 			
 			// if we placed a flag, decrement the number of flags left
 			if (grid[r][c].hasFlag()) {
-				this.flagsLeft = (flagsLeft > 0) ? flagsLeft - 1 : 0;
+				
+				this.flagsLeft = (flagsLeft > 0) ? flagsLeft-1 : 0;
 			}
 			
 			// if we removed a flag, increment the number of flags left
 			if (!grid[r][c].hasFlag()) {
+				
 				this.flagsLeft++;
 			}
 			
-		}else if (flagsLeft == 0 && grid[r][c].hasFlag()) {
+		} else if ((flagsLeft == 0) && grid[r][c].hasFlag()) {
+			
 			grid[r][c].flag();
-			this.flagsLeft++;		
+			
+			this.flagsLeft++;
 		}
 			
 		updateView(this.getBoard());
-		
 	}
 	
 	public boolean hasFlag(int r, int c) {
@@ -253,8 +277,7 @@ public class MinesweeperModel extends Observable {
 	}
 
 	public MinesweeperBoard getBoard() {
-		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows, this.cols,
-				this.difficulty, this.firstClick);
+		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows, this.cols, this.difficulty, this.firstClick);
 	}
 
 	public boolean getIsFirstClick() {
@@ -301,5 +324,4 @@ public class MinesweeperModel extends Observable {
 	public int getRows() {
 		return rows;
 	}
-
 }

@@ -53,14 +53,14 @@ public class MinesweeperController {
 		
 		if (!model.hasFlag(r, c)) {
 			
-			if (model.getIsFirstClick()) { // need to generate bombs
+			if (model.getIsFirstClick()) {									// need to generate bombs
 	
 				Random rand = new Random();
 	
 				int numRows = getBoard().getRows();
 				int numCols = getBoard().getCols();
 	
-				int mines = (int) Math.floor(0.15 * numRows * numCols); // Formula for how many mines to place
+				int mines = (int) Math.floor(0.15 * numRows * numCols);		// Formula for how many mines to place
 	
 				while (mines != 0) {
 	
@@ -71,7 +71,7 @@ public class MinesweeperController {
 	
 						Cell cell = model.getCell(xIndex, yIndex);
 	
-						if (!cell.hasMine()) { // only place mine if cell does not have one already
+						if (!cell.hasMine()) {								// only place mine if cell does not have one already
 							cell.addMine();
 							mines--;
 						}
@@ -118,14 +118,14 @@ public class MinesweeperController {
 	private void multipleClear(int r, int c) {
 		if (model.isInBounds(r, c)) {
 
-			if (model.getCell(r, c).hasMine()) // Don't want to accidentally reveal a mine.
+			if (model.getCell(r, c).hasMine())					// Don't want to accidentally reveal a mine.
 				return;
 
-			if (model.getCell(r, c).isRevealed()) // No need to reveal a cell again
+			if (model.getCell(r, c).isRevealed())				// No need to reveal a cell again
 				return;
 
-			if (model.getCell(r, c).getNeighbors() > 0) { // If the given cell has more than 0 mine neighbors, reveal it
-															// and return
+			if (model.getCell(r, c).getNeighbors() > 0) {		// If the given cell has more than 0 mine neighbors, reveal it and return
+				
 				model.revealCell(r, c);
 				return;
 
@@ -133,14 +133,14 @@ public class MinesweeperController {
 
 				model.revealCell(r, c);
 
-				multipleClear(r - 1, c); // North
-				multipleClear(r + 1, c); // South
-				multipleClear(r, c - 1); // West
-				multipleClear(r, c + 1); // East
-				multipleClear(r - 1, c - 1); // Northwest
-				multipleClear(r + 1, c - 1); // Southwest
-				multipleClear(r + 1, c + 1); // Southeast
-				multipleClear(r - 1, c + 1); // Northeast
+				multipleClear(r - 1, c);			// North
+				multipleClear(r + 1, c);			// South
+				multipleClear(r, c - 1);			// West
+				multipleClear(r, c + 1);			// East
+				multipleClear(r - 1, c - 1);		// Northwest
+				multipleClear(r + 1, c - 1);		// Southwest
+				multipleClear(r + 1, c + 1);		// Southeast
+				multipleClear(r - 1, c + 1);		// Northeast
 
 				return;
 			}
