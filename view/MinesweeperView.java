@@ -21,7 +21,7 @@ import model.MinesweeperModel;
 import controller.MinesweeperController;
 
 /**
- * This class represents the view of the game, and is reponsible for interacting
+ * This class represents the view of the game, and is responsible for interacting
  * with the user and providing them information.
  * 
  * This class implements a GUI to accomplish all of the above.
@@ -39,6 +39,8 @@ public class MinesweeperView extends Application implements Observer {
 
 	private BoardGridView grid = new BoardGridView(Difficulty.EASY_ROW, Difficulty.EASY_COL, controller);
 
+	private InfoPanelView infoPanel = new InfoPanelView(controller, this);
+	
 	private ReadWrite rw = new ReadWrite();
 
 	private Stage stage;
@@ -68,8 +70,6 @@ public class MinesweeperView extends Application implements Observer {
 		grid = new BoardGridView(controller.calcRows(difficulty), controller.calcCols(difficulty), controller);
 
 		window.setCenter(grid);
-
-		InfoPanelView infoPanel = new InfoPanelView(controller, this);
 
 		window.setTop(infoPanel);
 		window.setCenter(grid);
@@ -115,7 +115,9 @@ public class MinesweeperView extends Application implements Observer {
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
 
 		grid.updateCells(mb);
-
+		
+		infoPanel.updateFlagsLeftLabel(mb);
+		
 		if (controller.win()) {
 			Alert win = new Alert(Alert.AlertType.INFORMATION);
 			win.setTitle("WIN");
@@ -129,7 +131,6 @@ public class MinesweeperView extends Application implements Observer {
 			lose.setContentText("You blew up!");
 			lose.setHeaderText("You Lose.");
 			lose.showAndWait();
-			scoreInput();
 		}
 
 	}

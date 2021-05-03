@@ -71,7 +71,6 @@ public class InfoPanelView extends VBox {
 		highScoresMenuItem = new MenuItem("High Scores");
 		
 		
-
 		fileMenu.getItems().addAll(easyGameMenuItem,
 									mediumGameMenuItem,
 									expertGameMenuItem,
@@ -151,6 +150,10 @@ public class InfoPanelView extends VBox {
 		this.getChildren().add(menuBar);
 		this.getChildren().add(statsBox);
 		
+	}
+	
+	protected void updateFlagsLeftLabel(MinesweeperBoard mb) {
+		flagsLeftLabel.setText(String.valueOf(mb.getFlagsLeft()));
 	}
 	
 }

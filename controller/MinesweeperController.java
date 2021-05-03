@@ -50,44 +50,47 @@ public class MinesweeperController {
 	 * @param c col of cell clicked
 	 */
 	public void handleCellLeftClick(int r, int c) {
-
-		if (model.getIsFirstClick()) { // need to generate bombs
-
-			Random rand = new Random();
-
-			int numRows = getBoard().getRows();
-			int numCols = getBoard().getCols();
-
-			int mines = (int) Math.floor(0.15 * numRows * numCols); // Formula for how many mines to place
-
-			while (mines != 0) {
-
-				int xIndex = rand.nextInt(numCols);
-				int yIndex = rand.nextInt(numRows);
-
-				if ((xIndex != r) && (yIndex != c)) {
-
-					Cell cell = model.getCell(xIndex, yIndex);
-
-					if (!cell.hasMine()) { // only place mine if cell does not have one already
-						cell.addMine();
-						mines--;
+		
+		if (!model.hasFlag(r, c)) {
+			
+			if (model.getIsFirstClick()) { // need to generate bombs
+	
+				Random rand = new Random();
+	
+				int numRows = getBoard().getRows();
+				int numCols = getBoard().getCols();
+	
+				int mines = (int) Math.floor(0.15 * numRows * numCols); // Formula for how many mines to place
+	
+				while (mines != 0) {
+	
+					int xIndex = rand.nextInt(numCols);
+					int yIndex = rand.nextInt(numRows);
+	
+					if ((xIndex != r) && (yIndex != c)) {
+	
+						Cell cell = model.getCell(xIndex, yIndex);
+	
+						if (!cell.hasMine()) { // only place mine if cell does not have one already
+							cell.addMine();
+							mines--;
+						}
 					}
 				}
-			}
-
-			for (int i = 0; i < numRows; i++) {
-
-				for (int j = 0; j < numCols; j++) {
-
-					model.getCell(i, j).setNeighbors(this.getNeighbors(i, j));
+	
+				for (int i = 0; i < numRows; i++) {
+	
+					for (int j = 0; j < numCols; j++) {
+	
+						model.getCell(i, j).setNeighbors(this.getNeighbors(i, j));
+					}
 				}
+	
+				model.changeFirstClick();
 			}
-
-			model.changeFirstClick();
+	
+			reveal(r, c);
 		}
-
-		reveal(r, c);
 	}
 
 	/**
