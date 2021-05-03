@@ -55,7 +55,7 @@ public class MinesweeperBoard implements Serializable {
 		this.rows = rows;
 		this.cols = cols;
 		this.difficulty = difficulty;
-		this.firstClick = firstClick;
+		this.firstClick = firstClicks;
 	}
 
 	/**
