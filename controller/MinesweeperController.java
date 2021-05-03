@@ -287,6 +287,17 @@ public class MinesweeperController {
 		return true;
 	}
 	
+	public int getTime() {
+		return model.getTime();
+	}
+	
+	/**
+	 * Calls model's increment timer method
+	 */
+	public void incrementTimer() {
+		model.incrementTimer();
+	}
+	
 	/**
 	 * Checks if a cell with a mine has been revealed.
 	 * 

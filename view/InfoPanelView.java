@@ -3,6 +3,10 @@ package view;
 
 import controller.MinesweeperController;
 import controller.ReadWrite;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 import model.Difficulty;
 import model.HighScores;
 import model.MinesweeperBoard;
@@ -40,7 +45,7 @@ public class InfoPanelView extends VBox {
 	private MinesweeperController controller;
 	private BoardGridView grid;
 	private Stage stage;
-
+	
 	
 	private MenuBar menuBar;
 	private Menu fileMenu;
@@ -49,7 +54,7 @@ public class InfoPanelView extends VBox {
 	private MenuItem expertGameMenuItem;
 	private MenuItem loadGameMenuItem;
 	private MenuItem highScoresMenuItem;
-	
+	private Timeline timeline;
 
 	
 	private GridPane statsBox;
@@ -69,6 +74,14 @@ public class InfoPanelView extends VBox {
 		expertGameMenuItem = new MenuItem("Expert");
 		loadGameMenuItem = new MenuItem("Load Game");
 		highScoresMenuItem = new MenuItem("High Scores");
+//		timeline = new Timeline(new KeyFrame(
+//								Duration.seconds(1),
+//								ae -> incrementTimerLabel()));
+		timeline = new Timeline(new KeyFrame(Duration.seconds(1), 
+				new KeyValue(timerLabel.textProperty(),"test")));
+		
+		
+		timeline.setCycleCount(Animation.INDEFINITE);
 		
 		
 		fileMenu.getItems().addAll(easyGameMenuItem,
@@ -87,7 +100,7 @@ public class InfoPanelView extends VBox {
 			statsBox.getColumnConstraints().add(col);
 		}
 		
-		timerLabel = new Label("000");
+		timerLabel = new Label(String.valueOf(controller.getTime()));
 		timerLabel.setAlignment(Pos.CENTER_LEFT);
 		flagsLeftLabel = new Label("10");
 		flagsLeftLabel.setAlignment(Pos.CENTER_RIGHT);
@@ -132,6 +145,11 @@ public class InfoPanelView extends VBox {
 		this.getChildren().add(menuBar);
 		this.getChildren().add(statsBox);
 		
+		timeline.play();
+	}
+	
+	private void incrementTimer() {
+		controller.incrementTimer();
 	}
 	
 	protected void updateFlagsLeftLabel(MinesweeperBoard mb) {

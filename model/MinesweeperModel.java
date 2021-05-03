@@ -19,7 +19,7 @@ public class MinesweeperModel extends Observable {
 
 	// TODO: Remove hardcoded testing board info
 
-	final static int TEST_TIME = 12;
+	final static int TEST_TIME = 0;
 	final static int TEST_SCORE = 300;
 
 	/**
@@ -285,6 +285,19 @@ public class MinesweeperModel extends Observable {
 		return highScores;
 	}
 
+	/**
+	 * Returns current time of new or loaded model
+	 * @return int representation of time
+	 */
+	public int getTime() {
+		return time;
+	}
+	
+	public void incrementTimer() {
+		time++;
+		updateView(this.getBoard());
+	}
+	
 	/**
 	 * Return difficulty setting int of current model
 	 * 
