@@ -2,8 +2,8 @@ package view;
 
 import java.io.*;
 
-import java.util.Observable;
 import java.util.Observer;
+import java.util.Observable;
 
 import javafx.application.Application;
 

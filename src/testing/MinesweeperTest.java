@@ -3,8 +3,8 @@ package testing;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.Observable;
 import java.util.Observer;
+import java.util.Observable;
 
 import model.Difficulty;
 import model.HighScores;
