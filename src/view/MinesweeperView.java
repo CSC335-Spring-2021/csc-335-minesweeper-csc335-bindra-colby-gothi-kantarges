@@ -84,7 +84,7 @@ public class MinesweeperView extends Application implements Observer {
 		stage.setOnCloseRequest((event) -> {
 
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("save_game");
+			fileChooser.setTitle("Save Game");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
 			// Write high score data
