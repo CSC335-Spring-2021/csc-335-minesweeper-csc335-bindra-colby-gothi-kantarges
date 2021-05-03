@@ -3,6 +3,7 @@ package controller;
 import java.util.Random;
 
 import model.Cell;
+import model.GameState;
 import model.HighScores;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
@@ -51,10 +52,10 @@ public class MinesweeperController {
 	 */
 	public void handleCellLeftClick(int r, int c) {
 		
-		if (!model.hasFlag(r, c)) {
+		if (!model.hasFlag(r, c) && model.getGameState() != GameState.OVER) {
 			
 			if (model.getIsFirstClick()) { // need to generate bombs
-	
+				model.setGameState(GameState.START_GAME);
 				Random rand = new Random();
 	
 				int numRows = getBoard().getRows();
@@ -224,7 +225,11 @@ public class MinesweeperController {
 	 * @param c col of cell clicked
 	 */
 	public void handleCellRightClick(int r, int c) {
-		model.toggleFlag(r, c);
+		
+		if (model.getGameState() != GameState.OVER) {
+			model.toggleFlag(r, c);
+		}
+		
 	}
 
 	/**
@@ -284,20 +289,10 @@ public class MinesweeperController {
 			}
 			row++;
 		}
+		
 		return true;
 	}
-	
-	public int getTime() {
-		return model.getTime();
-	}
-	
-	/**
-	 * Calls model's increment timer method
-	 */
-	public void incrementTimer() {
-		model.incrementTimer();
-	}
-	
+
 	/**
 	 * Checks if a cell with a mine has been revealed.
 	 * 
@@ -320,4 +315,33 @@ public class MinesweeperController {
 		}
 		return false;
 	}
+	
+	
+	public int getTime() {
+		return model.getTime();
+	}
+	
+	/**
+	 * Calls model's increment timer method
+	 */
+	public void incrementTimer() {
+		model.incrementTimer();
+	}
+	
+	/**
+	 * Gets current state of game: unstarted, playing, or over
+	 * @return int representation of game state
+	 */
+	public int getGameState() {
+		return model.getGameState();
+	}
+	
+	/**
+	 * Changes play state of model
+	 * @param gameState int representation of state to change to
+	 */
+	public void setGameState(int gameState) {
+		model.setGameState(gameState);
+	}
+	
 }

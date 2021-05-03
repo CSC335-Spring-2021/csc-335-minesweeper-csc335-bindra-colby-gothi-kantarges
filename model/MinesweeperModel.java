@@ -35,9 +35,10 @@ public class MinesweeperModel extends Observable {
 	private int cols;
 	private int difficulty;
 
+	private int gameState;
+	
 	private boolean firstClick;
-	private boolean newGame;
-	private boolean loadGame;
+
 
 	/**
 	 * Constructor for model
@@ -62,10 +63,9 @@ public class MinesweeperModel extends Observable {
 			this.rows = calculateRows(difficulty);
 			this.cols = calculateCols(difficulty);
 			this.flagsLeft = calculateFlags(difficulty);
-
+			this.gameState = GameState.UNSTARTED;
 			this.difficulty = difficulty;
 			this.firstClick = true;
-			this.newGame = false;
 			this.grid = new Cell[rows][cols];
 
 			for (int i = 0; i < rows; i++) {
@@ -81,7 +81,7 @@ public class MinesweeperModel extends Observable {
 			this.score = board.getScore();
 
 			this.flagsLeft = board.getFlagsLeft();
-
+			this.gameState = board.getGameState();
 			this.rows = board.getRows();
 			this.cols = board.getCols();
 
@@ -254,7 +254,7 @@ public class MinesweeperModel extends Observable {
 
 	public MinesweeperBoard getBoard() {
 		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows, this.cols,
-				this.difficulty, this.firstClick);
+				this.difficulty, this.firstClick, this.gameState);
 	}
 
 	public boolean getIsFirstClick() {
@@ -265,6 +265,14 @@ public class MinesweeperModel extends Observable {
 		this.firstClick = false;
 	}
 
+	public int getGameState() {
+		return gameState;
+	}
+	
+	public void setGameState(int state) {
+		this.gameState = state;
+	}
+	
 	/**
 	 * Sends updated game-state to the view
 	 * 

@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import model.Difficulty;
+import model.GameState;
 import model.HighScores;
 import model.MinesweeperBoard;
 
@@ -43,7 +44,6 @@ import java.util.List;
 public class InfoPanelView extends VBox {
 
 	private MinesweeperController controller;
-	private BoardGridView grid;
 	private Stage stage;
 	
 	
@@ -58,7 +58,7 @@ public class InfoPanelView extends VBox {
 
 	
 	private GridPane statsBox;
-	private Label timerLabel;
+	private Label timerLabel = new Label(String.valueOf(0));
 	private Label flagsLeftLabel;
 	
 	
@@ -74,15 +74,12 @@ public class InfoPanelView extends VBox {
 		expertGameMenuItem = new MenuItem("Expert");
 		loadGameMenuItem = new MenuItem("Load Game");
 		highScoresMenuItem = new MenuItem("High Scores");
-//		timeline = new Timeline(new KeyFrame(
-//								Duration.seconds(1),
-//								ae -> incrementTimerLabel()));
-		timeline = new Timeline(new KeyFrame(Duration.seconds(1), 
-				new KeyValue(timerLabel.textProperty(),"test")));
+		timeline = new Timeline(new KeyFrame(
+								Duration.seconds(1),
+								ae -> incrementTimer()));
 		
 		
 		timeline.setCycleCount(Animation.INDEFINITE);
-		
 		
 		fileMenu.getItems().addAll(easyGameMenuItem,
 									mediumGameMenuItem,
@@ -100,7 +97,7 @@ public class InfoPanelView extends VBox {
 			statsBox.getColumnConstraints().add(col);
 		}
 		
-		timerLabel = new Label(String.valueOf(controller.getTime()));
+//		timerLabel = new Label(String.valueOf(controller.getTime()));
 		timerLabel.setAlignment(Pos.CENTER_LEFT);
 		flagsLeftLabel = new Label("10");
 		flagsLeftLabel.setAlignment(Pos.CENTER_RIGHT);
@@ -142,10 +139,18 @@ public class InfoPanelView extends VBox {
 		highScoresMenuItem.setOnAction((event) -> {
 			showHighScores();
 		});
+		
 		this.getChildren().add(menuBar);
 		this.getChildren().add(statsBox);
 		
-		timeline.play();
+	}
+	
+	private void startTimer(Timeline tl) {
+		tl.play();
+	}
+	
+	public void stopTime() {
+		timeline.stop();
 	}
 	
 	private void incrementTimer() {
@@ -154,6 +159,22 @@ public class InfoPanelView extends VBox {
 	
 	protected void updateFlagsLeftLabel(MinesweeperBoard mb) {
 		flagsLeftLabel.setText(String.valueOf(mb.getFlagsLeft()));
+	}
+	
+	protected void updateTimer(MinesweeperBoard mb) {
+		
+		if (mb.getGameState() == GameState.START_GAME) {
+			startTimer(timeline);
+			controller.setGameState(GameState.PLAYING);
+		}
+		
+		if (mb.getGameState() == GameState.PLAYING) {
+			timerLabel.setText(String.valueOf(mb.getTime()));
+		}
+		
+		if (mb.getGameState() == GameState.OVER) {
+			stopTime();
+		}
 	}
 
 	protected void showHighScores(){
@@ -165,6 +186,7 @@ public class InfoPanelView extends VBox {
 		for(HighScores.ScoreEntry e : controller.getHighScores().getScores()){
 			content += e.name + "  " + e.score + "\n";
 		}
+		
 		alert.setContentText(content);
 		alert.showAndWait();
 	}
