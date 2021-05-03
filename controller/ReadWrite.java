@@ -1,9 +1,9 @@
 package controller;
 
+import java.io.*;
+
 import model.HighScores;
 import model.MinesweeperBoard;
-
-import java.io.*;
 
 public class ReadWrite {
 
@@ -59,7 +59,8 @@ public class ReadWrite {
      *
      * @return the loaded scores or null if it could not load it
      */
-    public HighScores readHighScoreData(){
+    public HighScores readHighScoreData() {
+    	
         try {
 
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("high_scores.dat"));

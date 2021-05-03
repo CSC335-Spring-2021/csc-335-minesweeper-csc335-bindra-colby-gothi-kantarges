@@ -29,10 +29,12 @@ public class BoardGridView extends GridPane {
 	private Node[][] gridPaneArray = null;
 
 	public BoardGridView(int rows, int cols, MinesweeperController controller) {
+		
 		initGrid(rows,cols, controller);
 	}
 	
 	public void initGrid(int rows, int cols, MinesweeperController controller) {
+		
 		this.rows = rows;
 		this.cols = cols;
 		
@@ -48,6 +50,7 @@ public class BoardGridView extends GridPane {
 			row.setMaxHeight(CELL_SIZE);
 			row.setPrefHeight(CELL_SIZE);
 			row.setMinHeight(CELL_SIZE);
+			
 			row.setValignment(VPos.CENTER);
 
 			this.getRowConstraints().add(row);
@@ -60,6 +63,7 @@ public class BoardGridView extends GridPane {
 			col.setMaxWidth(CELL_SIZE);
 			col.setPrefWidth(CELL_SIZE);
 			col.setMinWidth(CELL_SIZE);
+			
 			col.setHalignment(HPos.CENTER);
 
 			this.getColumnConstraints().add(col);
@@ -77,16 +81,18 @@ public class BoardGridView extends GridPane {
 					// Get the cellView that was the source of the click
 					CellView clickedCell = (CellView) event.getSource();
 
-					// Parse it's row and column information
+					// Parse its row and column information
 					int r = GridPane.getRowIndex(clickedCell);
 					int c = GridPane.getColumnIndex(clickedCell);
 
 					// parse whether click was left click or right click
 					if (event.getButton() == MouseButton.PRIMARY) {
+						
 						controller.handleCellLeftClick(r, c);
 					}
 
 					if (event.getButton() == MouseButton.SECONDARY) {
+						
 						controller.handleCellRightClick(r, c);
 					}
 				});
@@ -110,8 +116,7 @@ public class BoardGridView extends GridPane {
 
 				Node node = this.gridPaneArray[i][j];
 
-				// CellView decides what to show based on state of
-				// model's cell at same row/col
+				// CellView decides what to show based on state of model's cell at same row/col
 				((CellView) node).updateCellView(mb.getBoard()[i][j]);
 			}
 		}

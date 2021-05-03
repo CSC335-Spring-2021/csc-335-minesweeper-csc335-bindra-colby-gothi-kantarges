@@ -1,6 +1,7 @@
 package view;
 
 import javafx.geometry.Insets;
+
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -32,7 +33,6 @@ public class CellView extends StackPane {
 	 *
 	 */
 	public CellView() {
-		
 		this.setPadding(new Insets(2));
 		this.setBorder(blankCellBorder);
 	}
@@ -72,8 +72,8 @@ public class CellView extends StackPane {
 			
 			this.getChildren().clear();
 
-			//Reset the color of the CellView if the cell is no longer revealed
-			if(!cell.isRevealed()){
+			// Reset the color of the CellView if the cell is no longer revealed
+			if (!cell.isRevealed()){
 				this.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 			}
 			

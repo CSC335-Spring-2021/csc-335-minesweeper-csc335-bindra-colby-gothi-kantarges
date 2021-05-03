@@ -1,14 +1,15 @@
 package testing;
 
-import model.Difficulty;
-import model.HighScores;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.Observable;
 import java.util.Observer;
 
+import model.Difficulty;
+import model.HighScores;
 import model.MinesweeperModel;
+
 import controller.MinesweeperController;
 
 @SuppressWarnings("deprecation")
@@ -62,28 +63,32 @@ public class MinesweeperTest {
 	 */
 	@Test
 	public void testController() {
+		
 		// TODO: test the controller
 	}
 
 	/**
-	 * Test method for {@link model.HighScores}
+	 * Test method for {@link HighScores}
 	 */
 	@Test
 	public void testHighScores() {
+		
 		HighScores scores = new HighScores();
-		scores.addScore("JOSH3",500);
-		scores.addScore("JOSH2",700);
-		scores.addScore("JOSH1",900);
+		
+		scores.addScore("JOSH3", 500);
+		scores.addScore("JOSH2", 700);
+		scores.addScore("JOSH1", 900);
 
-		for(HighScores.ScoreEntry e : scores.getScores()){
+		for (HighScores.ScoreEntry e : scores.getScores()){
+			
 			System.out.println(e.name + " " + e.score);
 		}
 
-		scores.addScore("BOB",9000);
+		scores.addScore("BOB", 9000);
 
-		for(HighScores.ScoreEntry e : scores.getScores()){
+		for(HighScores.ScoreEntry e : scores.getScores()) {
+			
 			System.out.println(e.name + " " + e.score);
 		}
 	}
-
 }
