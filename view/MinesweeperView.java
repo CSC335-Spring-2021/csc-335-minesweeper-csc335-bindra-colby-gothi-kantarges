@@ -142,5 +142,9 @@ public class MinesweeperView extends Application implements Observer {
 		TextInputDialog td = new TextInputDialog("Enter Your Name");
 		td.setHeaderText("Your Score is  " + controller.getBoard().getScore());
 		td.showAndWait();
+
+		//Add the entry to high scores
+		controller.getHighScores().addScore(td.getEditor().getText(),controller.getBoard().getScore());
+		infoPanel.showHighScores();
 	}
 }
