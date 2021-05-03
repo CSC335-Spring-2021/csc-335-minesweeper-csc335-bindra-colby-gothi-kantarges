@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
 import model.Difficulty;
+import model.GameState;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
 
@@ -121,33 +122,37 @@ public class MinesweeperView extends Application implements Observer {
 		
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
 
-		grid.updateCells(mb);
-		
-		infoPanel.updateFlagsLeftLabel(mb);
 		
 		if (controller.win()) {
 			
+			controller.setGameState(GameState.OVER);
+			
+			infoPanel.stopTime();
+			
 			Alert win = new Alert(Alert.AlertType.INFORMATION);
-			
 			win.setTitle("WIN");
-			
 			win.setContentText("You didn't blow up!");
 			win.setHeaderText("You Win!");
 			win.showAndWait();
 			
 			scoreInput();
-			
 		} else if (controller.lose()) {
 			
+			controller.setGameState(GameState.OVER);
+			
+			infoPanel.stopTime();
+			
 			Alert lose = new Alert(Alert.AlertType.INFORMATION);
-			
 			lose.setTitle("FAILURE");
-			
 			lose.setContentText("You blew up!");
 			lose.setHeaderText("You Lose.");
-			
 			lose.showAndWait();
 		}
+		
+		grid.updateCells(mb);
+		
+		infoPanel.updateFlagsLeftLabel(mb);
+		infoPanel.updateTimer(mb);
 	}
 	
 	/**

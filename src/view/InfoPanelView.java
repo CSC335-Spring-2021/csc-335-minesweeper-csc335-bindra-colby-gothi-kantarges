@@ -1,6 +1,9 @@
 package view;
 
 import javafx.geometry.Pos;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 
@@ -10,11 +13,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 
 import model.Difficulty;
+import model.GameState;
 import model.HighScores;
 import model.MinesweeperBoard;
 
@@ -31,21 +36,22 @@ import controller.MinesweeperController;
 public class InfoPanelView extends VBox {
 
 	private MinesweeperController controller;
-	
 	private Stage stage;
-
-	private Menu   fileMenu;
-	private MenuBar menuBar;
 	
+	
+	private MenuBar menuBar;
+	private Menu fileMenu;
 	private MenuItem easyGameMenuItem;
 	private MenuItem mediumGameMenuItem;
 	private MenuItem expertGameMenuItem;
 	private MenuItem loadGameMenuItem;
 	private MenuItem highScoresMenuItem;
 	
-	private GridPane statsBox;
+	private Timeline timeline;
+	private Label timerLabel = new Label(String.valueOf(0));
 	
-	private Label timerLabel;
+	private GridPane statsBox;
+
 	private Label flagsLeftLabel;
 
 	public InfoPanelView(MinesweeperController controller, MinesweeperView view) {
@@ -69,6 +75,11 @@ public class InfoPanelView extends VBox {
 								   loadGameMenuItem,
 								   highScoresMenuItem);
 		
+		timeline = new Timeline(new KeyFrame(
+				Duration.seconds(1),
+				ae -> incrementTimer()));		
+		timeline.setCycleCount(Animation.INDEFINITE);
+		
 		statsBox = new GridPane();
 		statsBox.setPadding(new Insets(5));
 		
@@ -82,7 +93,7 @@ public class InfoPanelView extends VBox {
 			statsBox.getColumnConstraints().add(col);
 		}
 		
-		timerLabel = new Label("000");
+
 		timerLabel.setAlignment(Pos.CENTER_LEFT);
 		
 		flagsLeftLabel = new Label("10");
@@ -143,6 +154,36 @@ public class InfoPanelView extends VBox {
 	protected void updateFlagsLeftLabel(MinesweeperBoard mb) {
 		
 		flagsLeftLabel.setText(String.valueOf(mb.getFlagsLeft()));
+	}
+	
+	
+	private void startTimer(Timeline tl) {
+		tl.play();
+	}
+	
+	public void stopTime() {
+		timeline.stop();
+	}
+	
+	private void incrementTimer() {
+		controller.incrementTimer();
+	}
+	
+	
+	protected void updateTimer(MinesweeperBoard mb) {
+		
+		if (mb.getGameState() == GameState.START_GAME) {
+			startTimer(timeline);
+			controller.setGameState(GameState.PLAYING);
+		}
+		
+		if (mb.getGameState() == GameState.PLAYING) {
+			timerLabel.setText(String.valueOf(mb.getTime()));
+		}
+		
+		if (mb.getGameState() == GameState.OVER) {
+			stopTime();
+		}
 	}
 
 	protected void showHighScores(){

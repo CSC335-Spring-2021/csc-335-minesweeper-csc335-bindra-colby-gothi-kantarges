@@ -19,28 +19,25 @@ public class MinesweeperModel extends Observable {
 
 	// TODO: Remove hardcoded testing board info
 
-	final static int TEST_TIME  =  12;
+
 	final static int TEST_SCORE = 300;
 
 	/**
 	 * 2D array of {@code Cell}s that represents game grid
 	 */
 	private Cell[][] grid;
-	
 	private HighScores highScores;
 
 	private int time;
 	private int score;
-	
 	private int flagsLeft;
-	
 	private int rows;
 	private int cols;
-	
 	private int difficulty;
-	private boolean firstClick;
+
+	private int gameState;
 	
-	private boolean newGame;		// FIXME: ?
+	private boolean firstClick;
 
 	/**
 	 * Constructor for model
@@ -59,19 +56,17 @@ public class MinesweeperModel extends Observable {
 		if (board == null) {
 
 			// FIXME: Change Default values for default game
-			this.time  = TEST_TIME;
+			this.time = 0;
 			this.score = TEST_SCORE;
 
 			this.rows = calculateRows(difficulty);
 			this.cols = calculateCols(difficulty);
-			
 			this.flagsLeft = calculateFlags(difficulty);
-
+			this.gameState = GameState.UNSTARTED;
 			this.difficulty = difficulty;
 			this.firstClick = true;
-			
-			this.newGame = false;						// FIXME: what is this used for?
-			
+			this.grid = new Cell[rows][cols];
+
 			this.grid = new Cell[rows][cols];
 
 			for (int i = 0; i < rows; i++) {
@@ -277,7 +272,8 @@ public class MinesweeperModel extends Observable {
 	}
 
 	public MinesweeperBoard getBoard() {
-		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows, this.cols, this.difficulty, this.firstClick);
+		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows, this.cols,
+				this.difficulty, this.firstClick, this.gameState);
 	}
 
 	public boolean getIsFirstClick() {
@@ -307,7 +303,28 @@ public class MinesweeperModel extends Observable {
 	public HighScores getHighScores() {
 		return highScores;
 	}
+	
+	/**
+	 * Returns current time of new or loaded model
+	 * @return int representation of time
+	 */
+	public int getTime() {
+		return time;
+	}
+	
+	public void incrementTimer() {
+		time++;
+		updateView(this.getBoard());
+	}
 
+	public int getGameState() {
+		return gameState;
+	}
+	
+	public void setGameState(int state) {
+		this.gameState = state;
+	}
+	
 	/**
 	 * Return difficulty setting int of current model
 	 * 
