@@ -59,15 +59,6 @@ public class MinesweeperBoard implements Serializable {
 	}
 
 	/**
-	 * Simpler constructor for passing information from model to view
-	 *
-	 * @param passedBoard Array of current cell states
-	 */
-	public MinesweeperBoard(Cell[][] passedBoard) {
-		this.boardArrToPass = passedBoard;
-	}
-
-	/**
 	 * Getter for the current state of board
 	 *
 	 * @return {@code Cell} array that represents the state

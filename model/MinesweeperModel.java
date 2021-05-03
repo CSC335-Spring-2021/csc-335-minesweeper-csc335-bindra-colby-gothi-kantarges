@@ -202,7 +202,7 @@ public class MinesweeperModel extends Observable {
 
 		grid[r][c].reveal();
 
-		updateView(new MinesweeperBoard(grid));
+		updateView(this.getBoard());
 	}
 
 	/**
@@ -225,9 +225,31 @@ public class MinesweeperModel extends Observable {
 	 */
 	public void toggleFlag(int r, int c) {
 
-		grid[r][c].flag();
-
+		if (flagsLeft > 0) {
+			
+			grid[r][c].flag();
+			
+			// if we placed a flag, decrement the number of flags left
+			if (grid[r][c].hasFlag()) {
+				this.flagsLeft = (flagsLeft > 0) ? flagsLeft - 1 : 0;
+			}
+			
+			// if we removed a flag, increment the number of flags left
+			if (!grid[r][c].hasFlag()) {
+				this.flagsLeft++;
+			}
+			
+		}else if (flagsLeft == 0 && grid[r][c].hasFlag()) {
+			grid[r][c].flag();
+			this.flagsLeft++;		
+		}
+			
 		updateView(this.getBoard());
+		
+	}
+	
+	public boolean hasFlag(int r, int c) {
+		return grid[r][c].hasFlag();
 	}
 
 	public MinesweeperBoard getBoard() {
