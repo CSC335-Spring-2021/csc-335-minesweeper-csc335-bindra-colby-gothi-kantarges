@@ -93,6 +93,17 @@ public class MinesweeperModel extends Observable {
 
 			this.grid = board.getBoard();
 		}
+		
+		timer = new Timer();
+		TimerTask task = new TimerTask() {
+
+			@Override
+			public void run() {
+				time++;
+				updateView(getBoard());
+			}
+			
+		};
 
 		// Check for HighScores loaded file
 		if (highScores == null) {
@@ -101,19 +112,8 @@ public class MinesweeperModel extends Observable {
 			this.highScores = highScores;
 		}
 		
-		timer = new Timer();
-		TimerTask task = new TimerTask() {
-
-			@Override
-			public void run() {
-				time++;
-			}
-			
-		};
-		timer.scheduleAtFixedRate(task, 1000, 1000);
-		
-
 		updateView(this.getBoard());
+		timer.scheduleAtFixedRate(task, 1000, 1000);
 	}
 
 	/**
@@ -293,6 +293,10 @@ public class MinesweeperModel extends Observable {
 
 	public int getRows() {
 		return rows;
+	}
+	
+	public int getTime() {
+		return time;
 	}
 
 }

@@ -153,4 +153,8 @@ public class InfoPanelView extends VBox {
 		
 	}
 	
+	public void updateTime(int newTime) {
+		timerLabel.setText(((Integer) newTime).toString());
+	}
+	
 }

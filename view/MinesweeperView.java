@@ -42,6 +42,8 @@ public class MinesweeperView extends Application implements Observer {
 	private ReadWrite rw = new ReadWrite();
 
 	private Stage stage;
+	
+	private InfoPanelView infoPanel;
 
 	/**
 	 * The entry point of the GUI that sets up the {@code Stage} of the GUI
@@ -69,7 +71,7 @@ public class MinesweeperView extends Application implements Observer {
 
 		window.setCenter(grid);
 
-		InfoPanelView infoPanel = new InfoPanelView(controller, this);
+		infoPanel = new InfoPanelView(controller, this);
 
 		window.setTop(infoPanel);
 		window.setCenter(grid);
@@ -113,9 +115,12 @@ public class MinesweeperView extends Application implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
-
+		
 		grid.updateCells(mb);
-
+		
+		if (infoPanel != null)
+			infoPanel.updateTime(controller.getTime());
+		
 		if (controller.win()) {
 			Alert win = new Alert(Alert.AlertType.INFORMATION);
 			win.setTitle("WIN");

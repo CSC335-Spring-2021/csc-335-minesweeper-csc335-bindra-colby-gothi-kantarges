@@ -306,4 +306,8 @@ public class MinesweeperController {
 		}
 		return false;
 	}
+	
+	public int getTime() {
+		return model.getTime();
+	}
 }
