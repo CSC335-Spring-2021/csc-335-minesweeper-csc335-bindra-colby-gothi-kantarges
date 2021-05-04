@@ -75,18 +75,18 @@ public class MinesweeperTest {
 		
 		HighScores scores = new HighScores();
 		
-		scores.addScore("JOSH3", 500);
-		scores.addScore("JOSH2", 700);
-		scores.addScore("JOSH1", 900);
+		scores.addScore("JOSH3", 500, 0);
+		scores.addScore("JOSH2", 700, 0);
+		scores.addScore("JOSH1", 900, 0);
 
-		for (HighScores.ScoreEntry e : scores.getScores()){
+		for (HighScores.ScoreEntry e : scores.getScores(0)){
 			
 			System.out.println(e.name + " " + e.score);
 		}
 
-		scores.addScore("BOB", 9000);
+		scores.addScore("BOB", 9000, 0);
 
-		for(HighScores.ScoreEntry e : scores.getScores()) {
+		for(HighScores.ScoreEntry e : scores.getScores(0)) {
 			
 			System.out.println(e.name + " " + e.score);
 		}

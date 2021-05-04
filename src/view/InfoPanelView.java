@@ -187,13 +187,22 @@ public class InfoPanelView extends VBox {
 	}
 
 	protected void showHighScores(){
+		int difficulty = controller.getDifficulty();
+		String header = "High Scores!";
+		
+		if (difficulty == Difficulty.EASY)
+			header = "Easy " + header;
+		else if (difficulty == Difficulty.MEDIUM)
+			header = "Medium " + header;
+		else if (difficulty == Difficulty.EXPERT)
+			header = "Expert " + header;
 		
 		Alert alert= new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Scores");
-		alert.setHeaderText("High Scores!");
+		alert.setHeaderText(header);
 
 		String content = "";
-		for (HighScores.ScoreEntry e : controller.getHighScores().getScores()) {
+		for (HighScores.ScoreEntry e : controller.getHighScores().getScores(controller.getDifficulty())) {
 			
 			content += e.name + "  " + e.score + "\n";
 		}

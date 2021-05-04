@@ -12,18 +12,38 @@ public class HighScores implements Serializable {
      */
     private static final long serialVersionUID = -8510255117516896366L;
 
-    private Queue<ScoreEntry> scores;
+    private Queue<ScoreEntry> easyScores;
+    private Queue<ScoreEntry> medScores;
+    private Queue<ScoreEntry> expertScores;
 
     public HighScores() {
     	
-        scores = new PriorityQueue<>();
+        easyScores = new PriorityQueue<>();
 
         // Add 5 dummy scores
-        scores.add(new ScoreEntry("JEFF", 000));
-        scores.add(new ScoreEntry("ABEL", 000));
-        scores.add(new ScoreEntry("MARK", 000));
-        scores.add(new ScoreEntry("JOEY", 000));
-        scores.add(new ScoreEntry("KADE", 000));
+        easyScores.add(new ScoreEntry("JEFF", 000));
+        easyScores.add(new ScoreEntry("ABEL", 000));
+        easyScores.add(new ScoreEntry("MARK", 000));
+        easyScores.add(new ScoreEntry("JOEY", 000));
+        easyScores.add(new ScoreEntry("KADE", 000));
+        
+        medScores = new PriorityQueue<>();
+
+        // Add 5 dummy scores
+        medScores.add(new ScoreEntry("JEFF", 000));
+        medScores.add(new ScoreEntry("ABEL", 000));
+        medScores.add(new ScoreEntry("MARK", 000));
+        medScores.add(new ScoreEntry("JOEY", 000));
+        medScores.add(new ScoreEntry("KADE", 000));
+        
+        expertScores = new PriorityQueue<>();
+
+        // Add 5 dummy scores
+        expertScores.add(new ScoreEntry("JEFF", 000));
+        expertScores.add(new ScoreEntry("ABEL", 000));
+        expertScores.add(new ScoreEntry("MARK", 000));
+        expertScores.add(new ScoreEntry("JOEY", 000));
+        expertScores.add(new ScoreEntry("KADE", 000));
     }
 
     /**
@@ -31,10 +51,15 @@ public class HighScores implements Serializable {
      * 
      * @param name
      * @param score
+     * @param difficulty
      */
-    public void addScore(String name, int score) {
-    	
-        scores.add(new ScoreEntry(name, score));
+    public void addScore(String name, int score, int difficulty) {
+        if (difficulty == Difficulty.EASY)
+        	easyScores.add(new ScoreEntry(name, score));
+        else if (difficulty == Difficulty.MEDIUM)
+        	medScores.add(new ScoreEntry(name, score));
+        else if (difficulty == Difficulty.EXPERT)
+        	expertScores.add(new ScoreEntry(name, score));
     }
 
     /**
@@ -42,7 +67,15 @@ public class HighScores implements Serializable {
      * 
      * @return array of scores
      */
-    public ScoreEntry[] getScores() {
+    public ScoreEntry[] getScores(int difficulty) {
+    	
+    	Queue<ScoreEntry> scores;
+		if (difficulty == Difficulty.EASY)
+    		scores = easyScores;
+		else if (difficulty == Difficulty.MEDIUM)
+			scores = medScores;
+		else
+			scores = expertScores;
     	
         ScoreEntry[] retval = new ScoreEntry[5];
 
