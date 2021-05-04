@@ -3,6 +3,7 @@ package controller;
 import java.util.Random;
 
 import model.Cell;
+import model.GameState;
 import model.HighScores;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
@@ -51,16 +52,16 @@ public class MinesweeperController {
 	 */
 	public void handleCellLeftClick(int r, int c) {
 		
-		if (!model.hasFlag(r, c)) {
+		if (!model.hasFlag(r, c) && model.getGameState() != GameState.OVER) {
 			
-			if (model.getIsFirstClick()) {									// need to generate bombs
-	
+			if (model.getIsFirstClick()) { // need to generate bombs
+				model.setGameState(GameState.START_GAME);
 				Random rand = new Random();
 	
 				int numRows = getBoard().getRows();
 				int numCols = getBoard().getCols();
 	
-				int mines = (int) Math.floor(0.15 * numRows * numCols);		// Formula for how many mines to place
+				int mines = (int) Math.floor(0.15 * numRows * numCols); // Formula for how many mines to place
 	
 				while (mines != 0) {
 	
@@ -71,7 +72,7 @@ public class MinesweeperController {
 	
 						Cell cell = model.getCell(xIndex, yIndex);
 	
-						if (!cell.hasMine()) {								// only place mine if cell does not have one already
+						if (!cell.hasMine()) { // only place mine if cell does not have one already
 							cell.addMine();
 							mines--;
 						}
@@ -91,6 +92,20 @@ public class MinesweeperController {
 	
 			reveal(r, c);
 		}
+	}
+	
+	/**
+	 * Game logic for handling a right click.
+	 * 
+	 * @param r row of cell clicked
+	 * @param c col of cell clicked
+	 */
+	public void handleCellRightClick(int r, int c) {
+		
+		if (model.getGameState() != GameState.OVER) {
+			model.toggleFlag(r, c);
+		}
+		
 	}
 
 	/**
@@ -217,15 +232,7 @@ public class MinesweeperController {
 		return mineCount;
 	}
 
-	/**
-	 * Game logic for handling a right click.
-	 * 
-	 * @param r row of cell clicked
-	 * @param c col of cell clicked
-	 */
-	public void handleCellRightClick(int r, int c) {
-		model.toggleFlag(r, c);
-	}
+
 
 	/**
 	 * Gets the board from the model
@@ -308,5 +315,32 @@ public class MinesweeperController {
 			row++;
 		}
 		return false;
+	}
+	
+	public int getTime() {
+		return model.getTime();
+	}
+	
+	/**
+	 * Calls model's increment timer method
+	 */
+	public void incrementTimer() {
+		model.incrementTimer();
+	}
+	
+	/**
+	 * Gets current state of game: unstarted, playing, or over
+	 * @return int representation of game state
+	 */
+	public int getGameState() {
+		return model.getGameState();
+	}
+	
+	/**
+	 * Changes play state of model
+	 * @param gameState int representation of state to change to
+	 */
+	public void setGameState(int gameState) {
+		model.setGameState(gameState);
 	}
 }

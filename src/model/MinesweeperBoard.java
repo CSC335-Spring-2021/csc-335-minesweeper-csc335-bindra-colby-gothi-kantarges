@@ -21,17 +21,18 @@ public class MinesweeperBoard implements Serializable {
 	private static final long serialVersionUID = -4510255117516896736L;
 
 	private Cell[][] boardArrToPass;
-
+	
 	private int time;
 	private int score;
-	
 	private int flagsLeft;
-	
 	private int rows;
 	private int cols;
-	
 	private int difficulty;
+
+	private int gameState;
+	
 	private boolean firstClick;
+
 
 	/**
 	 * Constructor for {@code MinesweeperBoard} save game
@@ -46,21 +47,20 @@ public class MinesweeperBoard implements Serializable {
 	 * @param cols        of current board
 	 * @param difficulty  of current game
 	 */
-	public MinesweeperBoard(Cell[][] passedBoard, int time, int score, int flagsLeft, int rows, int cols, int difficulty, boolean firstClick) {
+	public MinesweeperBoard(Cell[][] passedBoard, int time, int score, int flagsLeft, int rows, int cols,
+			int difficulty, boolean firstClicks, int gameState) {
 		
 		this.boardArrToPass = passedBoard;
-		
-		this.time  = time;
+		this.time = time;
 		this.score = score;
-		
 		this.flagsLeft = flagsLeft;
-		
 		this.rows = rows;
 		this.cols = cols;
-		
 		this.difficulty = difficulty;
-		this.firstClick = firstClick;
+		this.firstClick = firstClicks;
+		this.gameState = gameState;
 	}
+
 
 	/**
 	 * Getter for the current state of board
@@ -125,6 +125,16 @@ public class MinesweeperBoard implements Serializable {
 		return flagsLeft;
 	}
 
+
+	/**
+	 * Getter for state of gameplay 
+	 * 
+	 * @return integer representation of play state
+	 */
+	public int getGameState() {
+		return gameState;
+	}
+	
 	/**
 	 * TODO: write description
 	 * 
