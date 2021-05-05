@@ -123,6 +123,8 @@ public class MinesweeperView extends Application implements Observer {
 	public void update(Observable o, Object arg) {
 		
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
+		
+		grid.updateCells(mb);
 
 		if (controller.win()) {
 			
@@ -150,8 +152,6 @@ public class MinesweeperView extends Application implements Observer {
 			lose.setHeaderText("You Lose.");
 			lose.showAndWait();
 		}
-		
-		grid.updateCells(mb);
 		
 		infoPanel.updateFlagsLeftLabel(mb);
 		infoPanel.updateTimer(mb);
