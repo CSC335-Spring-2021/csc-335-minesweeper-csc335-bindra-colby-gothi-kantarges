@@ -120,8 +120,10 @@ public class InfoPanelView extends VBox {
 			controller.initModel(null, Difficulty.EXPERT, controller.getHighScores());
 		});
 
+		//TODO: Load game timer logic
+		
 		loadGameMenuItem.setOnAction((event) -> {
-			
+
 			ReadWrite rw = new ReadWrite();
 			
 			FileChooser fileChooser = new FileChooser();
