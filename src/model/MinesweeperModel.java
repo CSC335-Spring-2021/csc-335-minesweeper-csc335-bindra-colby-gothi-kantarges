@@ -318,6 +318,17 @@ public class MinesweeperModel extends Observable {
 		return highScores;
 	}
 
+	/**
+	 * Returns current time of new or loaded model
+	 * @return int representation of time
+	 */
+	public int getTime() {
+		return time;
+	}
+
+	/**
+	 * increments the timer one second
+	 */
 	public void incrementTimer() {
 		time++;
 		updateView(this.getBoard());
@@ -348,4 +359,19 @@ public class MinesweeperModel extends Observable {
 		return difficulty;
 	}
 
+	/**
+	 * gets the columns
+	 * @return
+	 */
+	public int getCols() {
+		return cols;
+	}
+
+	/**
+	 * gets the rows
+	 * @return
+	 */
+	public int getRows() {
+		return rows;
+	}
 }
