@@ -16,8 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
-import model.Difficulty;
 import model.GameState;
+import model.Difficulty;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
 

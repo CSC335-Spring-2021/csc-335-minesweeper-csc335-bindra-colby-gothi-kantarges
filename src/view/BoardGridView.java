@@ -1,18 +1,19 @@
 package view;
 
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.geometry.Insets;
 
 import javafx.scene.Node;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.input.MouseButton;
+
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.ColumnConstraints;
 
 import model.MinesweeperBoard;
 import controller.MinesweeperController;
