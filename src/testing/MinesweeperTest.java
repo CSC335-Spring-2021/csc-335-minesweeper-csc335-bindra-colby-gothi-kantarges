@@ -15,9 +15,6 @@ import controller.MinesweeperController;
 @SuppressWarnings("deprecation")
 public class MinesweeperTest {
 	
-	// TODO: remove hardcoding
-	final static int BEGINNER = 0;
-	
 	/**
 	 * Test method for {@link MinesweeperModel}
 	 */
@@ -31,29 +28,79 @@ public class MinesweeperTest {
 		
 		// Test 1 ----------------------------------------------------------------//
 		
-		model.initialize(null,Difficulty.EASY,null);
-		
-		// Check each cell in game to assert it is unflagged, unrevealed, unmined
-		// Then use setters to change their states, and verify it worked
-		
-		// TODO: remove hardcoding
-		for (int i = 0; i < Difficulty.EASY_ROW ; i++) {
-			for (int j = 0; j < Difficulty.EASY_COL; j++) {
-				
-				assertEquals(false, model.getCell(i, j).hasFlag());
-				assertEquals(false, model.getCell(i, j).hasMine());
-				assertEquals(0, model.getCell(i, j).getNeighbors());
-				
-				model.getCell(i, j).flag();
-				model.getCell(i, j).addMine();
-				model.getCell(i, j).setNeighbors(8);
-				
-				assertEquals(true, model.getCell(i, j).hasFlag());
-				assertEquals(true, model.getCell(i, j).hasMine());
-				assertEquals(8, model.getCell(i, j).getNeighbors());
-
+			model.initialize(null, Difficulty.EASY, null);
+			
+			// Check each cell in game to assert it is unflagged, unrevealed, unmined
+			// Then use setters to change their states, and verify it worked
+			
+			for (int i = 0; i < Difficulty.EASY_ROW ; i++) {
+				for (int j = 0; j < Difficulty.EASY_COL; j++) {
+					
+					assertEquals(false, model.getCell(i, j).hasFlag());
+					assertEquals(false, model.getCell(i, j).hasMine());
+					assertEquals(0, model.getCell(i, j).getNeighbors());
+					
+					model.getCell(i, j).flag();
+					model.getCell(i, j).addMine();
+					model.getCell(i, j).setNeighbors(8);
+					
+					assertEquals(true, model.getCell(i, j).hasFlag());
+					assertEquals(true, model.getCell(i, j).hasMine());
+					assertEquals(8, model.getCell(i, j).getNeighbors());
+				}
 			}
-		}
+
+		//------------------------------------------------------------------------//
+		
+		// Test 2 ----------------------------------------------------------------//
+		
+			model.initialize(null, Difficulty.MEDIUM, null);
+			
+			// Check each cell in game to assert it is unflagged, unrevealed, unmined
+			// Then use setters to change their states, and verify it worked
+			
+			for (int i = 0; i < Difficulty.MEDIUM_ROW ; i++) {
+				for (int j = 0; j < Difficulty.MEDIUM_COL; j++) {
+					
+					assertEquals(false, model.getCell(i, j).hasFlag());
+					assertEquals(false, model.getCell(i, j).hasMine());
+					assertEquals(0, model.getCell(i, j).getNeighbors());
+					
+					model.getCell(i, j).flag();
+					model.getCell(i, j).addMine();
+					model.getCell(i, j).setNeighbors(8);
+					
+					assertEquals(true, model.getCell(i, j).hasFlag());
+					assertEquals(true, model.getCell(i, j).hasMine());
+					assertEquals(8, model.getCell(i, j).getNeighbors());
+				}
+			}
+
+		//------------------------------------------------------------------------//
+			
+		// Test 3 ----------------------------------------------------------------//
+		
+			model.initialize(null, Difficulty.EXPERT, null);
+			
+			// Check each cell in game to assert it is unflagged, unrevealed, unmined
+			// Then use setters to change their states, and verify it worked
+			
+			for (int i = 0; i < Difficulty.EXPERT_ROW ; i++) {
+				for (int j = 0; j < Difficulty.EXPERT_COL; j++) {
+					
+					assertEquals(false, model.getCell(i, j).hasFlag());
+					assertEquals(false, model.getCell(i, j).hasMine());
+					assertEquals(0, model.getCell(i, j).getNeighbors());
+					
+					model.getCell(i, j).flag();
+					model.getCell(i, j).addMine();
+					model.getCell(i, j).setNeighbors(8);
+					
+					assertEquals(true, model.getCell(i, j).hasFlag());
+					assertEquals(true, model.getCell(i, j).hasMine());
+					assertEquals(8, model.getCell(i, j).getNeighbors());
+				}
+			}
 
 		//------------------------------------------------------------------------//
 	}
@@ -64,7 +111,90 @@ public class MinesweeperTest {
 	@Test
 	public void testController() {
 		
-		// TODO: test the controller
+		MinesweeperModel model = new MinesweeperModel(new Observer() {
+			@Override
+			public void update(Observable o, Object arg) {  }
+		});
+		
+		MinesweeperController controller = new MinesweeperController(model);
+
+		// Test 1 ----------------------------------------------------------------//
+		
+			controller.initModel(null, Difficulty.EASY, null);
+			
+			// Check each cell in game to assert it is unflagged, unrevealed, unmined
+			// Then use setters to change their states, and verify it worked
+			
+			for (int i = 0; i < Difficulty.EASY_ROW ; i++) {
+				for (int j = 0; j < Difficulty.EASY_COL; j++) {
+					
+					assertEquals(false, model.getCell(i, j).hasFlag());
+					assertEquals(false, model.getCell(i, j).hasMine());
+					assertEquals(0, model.getCell(i, j).getNeighbors());
+					
+					model.getCell(i, j).flag();
+					model.getCell(i, j).addMine();
+					model.getCell(i, j).setNeighbors(8);
+					
+					assertEquals(true, model.getCell(i, j).hasFlag());
+					assertEquals(true, model.getCell(i, j).hasMine());
+					assertEquals(8, model.getCell(i, j).getNeighbors());
+				}
+			}
+
+		//------------------------------------------------------------------------//
+		
+		// Test 2 ----------------------------------------------------------------//
+		
+			controller.initModel(null, Difficulty.MEDIUM, null);
+			
+			// Check each cell in game to assert it is unflagged, unrevealed, unmined
+			// Then use setters to change their states, and verify it worked
+			
+			for (int i = 0; i < Difficulty.MEDIUM_ROW ; i++) {
+				for (int j = 0; j < Difficulty.MEDIUM_COL; j++) {
+					
+					assertEquals(false, model.getCell(i, j).hasFlag());
+					assertEquals(false, model.getCell(i, j).hasMine());
+					assertEquals(0, model.getCell(i, j).getNeighbors());
+					
+					model.getCell(i, j).flag();
+					model.getCell(i, j).addMine();
+					model.getCell(i, j).setNeighbors(8);
+					
+					assertEquals(true, model.getCell(i, j).hasFlag());
+					assertEquals(true, model.getCell(i, j).hasMine());
+					assertEquals(8, model.getCell(i, j).getNeighbors());
+				}
+			}
+
+		//------------------------------------------------------------------------//
+			
+		// Test 3 ----------------------------------------------------------------//
+		
+			controller.initModel(null, Difficulty.EXPERT, null);
+			
+			// Check each cell in game to assert it is unflagged, unrevealed, unmined
+			// Then use setters to change their states, and verify it worked
+			
+			for (int i = 0; i < Difficulty.EXPERT_ROW ; i++) {
+				for (int j = 0; j < Difficulty.EXPERT_COL; j++) {
+					
+					assertEquals(false, model.getCell(i, j).hasFlag());
+					assertEquals(false, model.getCell(i, j).hasMine());
+					assertEquals(0, model.getCell(i, j).getNeighbors());
+					
+					model.getCell(i, j).flag();
+					model.getCell(i, j).addMine();
+					model.getCell(i, j).setNeighbors(8);
+					
+					assertEquals(true, model.getCell(i, j).hasFlag());
+					assertEquals(true, model.getCell(i, j).hasMine());
+					assertEquals(8, model.getCell(i, j).getNeighbors());
+				}
+			}
+
+		//------------------------------------------------------------------------//
 	}
 
 	/**
