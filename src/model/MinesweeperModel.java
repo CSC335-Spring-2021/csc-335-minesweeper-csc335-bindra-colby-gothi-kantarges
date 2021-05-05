@@ -79,8 +79,8 @@ public class MinesweeperModel extends Observable {
 		} else {
 
 			this.time  = board.getTime();
-			this.score = board.getScore();
-
+			this.score = board.getScore(); 
+			this.gameState = GameState.START_GAME;
 			this.flagsLeft = board.getFlagsLeft();
 
 			this.rows = board.getRows();
@@ -88,9 +88,6 @@ public class MinesweeperModel extends Observable {
 
 			this.difficulty = board.getDifficulty();
 			this.firstClick = board.isFirstClick();
-			
-			// FIXME: what about newGame?
-
 			this.grid = board.getBoard();
 		}
 
