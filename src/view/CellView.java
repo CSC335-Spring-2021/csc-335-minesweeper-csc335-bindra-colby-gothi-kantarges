@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 
 import model.Cell;
 
@@ -24,6 +25,8 @@ public class CellView extends StackPane {
 	private ImageView six   = new ImageView(CellImages.six);
 	private ImageView seven = new ImageView(CellImages.seven);
 	private ImageView eight = new ImageView(CellImages.eight);
+	
+	private MediaPlayer explosionPlayer = new MediaPlayer(CellSounds.explosion);
 
 	/**
 	 * Default constructor with init cell settings
@@ -46,7 +49,7 @@ public class CellView extends StackPane {
 
 			if (cell.hasMine()) {
 				
-				CellSounds.mediaPlayer.play();
+				explosionPlayer.play();
 				
 				this.getChildren().add(mine);
 				

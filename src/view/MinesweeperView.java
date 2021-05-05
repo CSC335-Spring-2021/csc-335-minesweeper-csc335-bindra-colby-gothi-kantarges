@@ -16,8 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
-import model.Difficulty;
 import model.GameState;
+import model.Difficulty;
 import model.MinesweeperBoard;
 import model.MinesweeperModel;
 
@@ -84,25 +84,28 @@ public class MinesweeperView extends Application implements Observer {
 
 		stage.setOnCloseRequest((event) -> {
 
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Save Game");
-			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+			if (controller.getGameState() != GameState.OVER) {
 			
-			infoPanel.stopTime();
-			
-			// Write high score data
-			rw.writeHighScoreData(controller.getHighScores());
-
-			// Attempt to ask user to save game
-			try {
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Save Game");
+				fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 				
-				File selectedFile = fileChooser.showSaveDialog(stage);
-				rw.writeSaveData(controller.getBoard(), selectedFile.getPath());
+				infoPanel.stopTime();
 				
-			} catch (NullPointerException e) {
-				
-				System.out.println("Saving Aborted");
-				System.exit(1);
+				// Write high score data
+				rw.writeHighScoreData(controller.getHighScores());
+	
+				// Attempt to ask user to save game
+				try {
+					
+					File selectedFile = fileChooser.showSaveDialog(stage);
+					rw.writeSaveData(controller.getBoard(), selectedFile.getPath());
+					
+				} catch (NullPointerException e) {
+					
+					System.out.println("Saving Aborted");
+					System.exit(1);
+				}
 			}
 		});
 	}

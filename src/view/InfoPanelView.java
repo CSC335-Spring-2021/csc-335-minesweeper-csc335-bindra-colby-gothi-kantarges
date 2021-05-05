@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import javafx.util.Duration;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,8 +18,6 @@ import javafx.scene.layout.ColumnConstraints;
 
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
-
-import javafx.util.Duration;
 
 import model.GameState;
 import model.Difficulty;
