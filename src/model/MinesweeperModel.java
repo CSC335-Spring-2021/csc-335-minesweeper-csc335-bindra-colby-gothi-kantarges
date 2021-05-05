@@ -199,7 +199,6 @@ public class MinesweeperModel extends Observable {
 	 */
 	public boolean isInBounds(int row, int col) {
 
-		// FIXME: Remove hardcoding
 		if (row >= this.rows || col >= this.cols) {
 			return false;
 
