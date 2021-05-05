@@ -45,7 +45,9 @@ public class CellView extends StackPane {
 			this.getChildren().clear();
 
 			if (cell.hasMine()) {
-
+				
+				CellSounds.mediaPlayer.play();
+				
 				this.getChildren().add(mine);
 				
 			} else {

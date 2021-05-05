@@ -24,21 +24,22 @@ public class MinesweeperBoard implements Serializable {
 	
 	private int time;
 	private int score;
+	
 	private int flagsLeft;
+	
 	private int rows;
 	private int cols;
-	private int difficulty;
-
-	private int gameState;
 	
+	private int difficulty;
 	private boolean firstClick;
 
+	private int gameState;
 
 	/**
 	 * Constructor for {@code MinesweeperBoard} save game
 	 *
-	 * Accepts model's array of cell objects and creates packaged version to pass to
-	 * view
+	 * Accepts model's array of cell objects and creates
+	 * a packaged version to pass to the view
 	 *
 	 * @param passedBoard Array of current cell states
 	 * @param time        left in game
@@ -47,20 +48,23 @@ public class MinesweeperBoard implements Serializable {
 	 * @param cols        of current board
 	 * @param difficulty  of current game
 	 */
-	public MinesweeperBoard(Cell[][] passedBoard, int time, int score, int flagsLeft, int rows, int cols,
-			int difficulty, boolean firstClicks, int gameState) {
+	public MinesweeperBoard(Cell[][] passedBoard, int time, int score, int flagsLeft, int rows, int cols, int difficulty, boolean firstClick, int gameState) {
 		
 		this.boardArrToPass = passedBoard;
-		this.time = time;
+		
+		this.time  = time;
 		this.score = score;
+		
 		this.flagsLeft = flagsLeft;
+		
 		this.rows = rows;
 		this.cols = cols;
+		
 		this.difficulty = difficulty;
-		this.firstClick = firstClicks;
+		this.firstClick = firstClick;
+		
 		this.gameState = gameState;
 	}
-
 
 	/**
 	 * Getter for the current state of board
@@ -124,7 +128,6 @@ public class MinesweeperBoard implements Serializable {
 	public int getFlagsLeft() {
 		return flagsLeft;
 	}
-
 
 	/**
 	 * Getter for state of gameplay 

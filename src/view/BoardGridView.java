@@ -85,12 +85,13 @@ public class BoardGridView extends GridPane {
 					int r = GridPane.getRowIndex(clickedCell);
 					int c = GridPane.getColumnIndex(clickedCell);
 
-					// parse whether click was left click or right click
+					// left click
 					if (event.getButton() == MouseButton.PRIMARY) {
 						
 						controller.handleCellLeftClick(r, c);
 					}
 
+					// right click
 					if (event.getButton() == MouseButton.SECONDARY) {
 						
 						controller.handleCellRightClick(r, c);
