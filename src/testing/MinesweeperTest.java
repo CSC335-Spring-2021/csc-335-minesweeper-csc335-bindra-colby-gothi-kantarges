@@ -16,7 +16,22 @@ import model.MinesweeperBoard;
 import model.MinesweeperModel;
 
 import controller.MinesweeperController;
+import controller.ReadWrite;
 
+/**
+ * Testing suite for Minesweeper
+ * 
+ * NOTE: The controller tests cover only {@link MinesweeperController} and not the whole package.
+ * 		 Thus, {@link ReadWrite} is not covered by this testing suite.
+ * 		 On the package, 85.1 % coverage is achieved.
+ * 		 However, the actual coverage on the controller is 99.4 % ({@link ReadWrite} excluded).
+ * 
+ * @author Prabhkirat Singh Bindra
+ * @author James Colby
+ * @author Denson Selm Gothi
+ * @author Joshua Paul Kantarges
+ *
+ */
 @SuppressWarnings("deprecation")
 public class MinesweeperTest {
 	
