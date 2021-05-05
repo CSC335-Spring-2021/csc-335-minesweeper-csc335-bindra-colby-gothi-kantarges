@@ -16,7 +16,11 @@ import javafx.scene.paint.Color;
 
 import model.MinesweeperBoard;
 import controller.MinesweeperController;
+import model.MinesweeperModel;
 
+/**
+ * Represents and implements the view / GUI for the boards grid of cells
+ */
 public class BoardGridView extends GridPane {
 
 	private int rows;
@@ -28,11 +32,23 @@ public class BoardGridView extends GridPane {
 
 	private Node[][] gridPaneArray = null;
 
+	/**
+	 * Default Constructor, takes board size and controller object
+	 * @param rows
+	 * @param cols
+	 * @param controller
+	 */
 	public BoardGridView(int rows, int cols, MinesweeperController controller) {
 		
 		initGrid(rows,cols, controller);
 	}
-	
+
+	/**
+	 * Initializes the grid
+	 * @param rows
+	 * @param cols
+	 * @param controller
+	 */
 	public void initGrid(int rows, int cols, MinesweeperController controller) {
 		
 		this.rows = rows;
@@ -109,7 +125,11 @@ public class BoardGridView extends GridPane {
 			this.gridPaneArray[GridPane.getRowIndex(node)][GridPane.getColumnIndex(node)] = node;
 		}
 	}
-	
+
+	/**
+	 * Updates the views cells taking a {@link MinesweeperBoard} to read data from
+	 * @param mb MinesweeperBoard
+	 */
 	public void updateCells(MinesweeperBoard mb) {
 		
 		for (int i = 0; i < rows; i++) {

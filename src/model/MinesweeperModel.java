@@ -5,9 +5,8 @@ import java.util.Observable;
 
 /**
  * Model class of the Minesweeper MVC architecture
- * 
- * TODO: brief description
- * 
+ *
+ *
  * @author Prabhkirat Singh Bindra
  * @author James Colby
  * @author Denson Selm Gothi
@@ -16,10 +15,6 @@ import java.util.Observable;
  */
 @SuppressWarnings("deprecation")
 public class MinesweeperModel extends Observable {
-
-	// TODO: Remove hardcoded testing board info
-
-	final static int TEST_SCORE = 300;
 
 	/**
 	 * 2D array of {@code Cell}s that represents game grid
@@ -56,9 +51,8 @@ public class MinesweeperModel extends Observable {
 
 		if (board == null) {
 
-			// FIXME: Change Default values for default game
 			this.time  = 0;
-			this.score = TEST_SCORE;
+			this.score = 0;
 
 			this.rows = calculateRows(difficulty);
 			this.cols = calculateCols(difficulty);
@@ -199,7 +193,6 @@ public class MinesweeperModel extends Observable {
 	 */
 	public boolean isInBounds(int row, int col) {
 
-		// FIXME: Remove hardcoding
 		if (row >= this.rows || col >= this.cols) {
 			return false;
 
@@ -270,20 +263,37 @@ public class MinesweeperModel extends Observable {
 			
 		updateView(this.getBoard());
 	}
-	
+
+	/**
+	 * Returns wether a given row and column has a flag set
+	 * @param r row
+	 * @param c col
+	 * @return
+	 */
 	public boolean hasFlag(int r, int c) {
 		return grid[r][c].hasFlag();
 	}
 
+	/**
+	 * Creates a MinesweeperBoard to be used for saving and updating the view
+	 * @return
+	 */
 	public MinesweeperBoard getBoard() {
 		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows,
 									this.cols, this.difficulty, this.firstClick, this.gameState);
 	}
 
+	/**
+	 * Returns whether it is the first click
+	 * @return
+	 */
 	public boolean getIsFirstClick() {
 		return this.firstClick;
 	}
 
+	/**
+	 * Called when the first click happens to set it to false
+	 */
 	public void changeFirstClick() {
 		this.firstClick = false;
 	}
@@ -307,24 +317,24 @@ public class MinesweeperModel extends Observable {
 	public HighScores getHighScores() {
 		return highScores;
 	}
-	
-	/**
-	 * Returns current time of new or loaded model
-	 * @return int representation of time
-	 */
-	public int getTime() {
-		return time;
-	}
-	
+
 	public void incrementTimer() {
 		time++;
 		updateView(this.getBoard());
 	}
 
+	/**
+	 * returns the games current game state {@link GameState}
+	 * @return
+	 */
 	public int getGameState() {
 		return gameState;
 	}
-	
+
+	/**
+	 * sets the game state {@link GameState}
+	 * @param state
+	 */
 	public void setGameState(int state) {
 		this.gameState = state;
 	}
@@ -338,11 +348,4 @@ public class MinesweeperModel extends Observable {
 		return difficulty;
 	}
 
-	public int getCols() {
-		return cols;
-	}
-
-	public int getRows() {
-		return rows;
-	}
 }

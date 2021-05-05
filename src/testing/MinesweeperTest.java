@@ -9,15 +9,11 @@ import java.util.Observable;
 import model.Difficulty;
 import model.HighScores;
 import model.MinesweeperModel;
-
 import controller.MinesweeperController;
 
 @SuppressWarnings("deprecation")
 public class MinesweeperTest {
-	
-	// TODO: remove hardcoding
-	final static int BEGINNER = 0;
-	
+
 	/**
 	 * Test method for {@link MinesweeperModel}
 	 */
@@ -35,8 +31,7 @@ public class MinesweeperTest {
 		
 		// Check each cell in game to assert it is unflagged, unrevealed, unmined
 		// Then use setters to change their states, and verify it worked
-		
-		// TODO: remove hardcoding
+
 		for (int i = 0; i < Difficulty.EASY_ROW ; i++) {
 			for (int j = 0; j < Difficulty.EASY_COL; j++) {
 				

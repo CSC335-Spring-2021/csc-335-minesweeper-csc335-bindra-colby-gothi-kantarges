@@ -66,6 +66,11 @@ public class MinesweeperView extends Application implements Observer {
 		makeNewView(Difficulty.EASY, controller);
 	}
 
+	/**
+	 * Makes the main view of the game
+	 * @param difficulty
+	 * @param controller
+	 */
 	protected void makeNewView(int difficulty, MinesweeperController controller) {
 
 		BorderPane window = new BorderPane();

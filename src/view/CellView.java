@@ -6,7 +6,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import model.Cell;
+import model.MinesweeperModel;
 
+/**
+ * Represents the cell in each grid location in the {@link BoardGridView}
+ */
 public class CellView extends StackPane {
 	
 	private ImageView unclicked = new ImageView(CellImages.unclicked);

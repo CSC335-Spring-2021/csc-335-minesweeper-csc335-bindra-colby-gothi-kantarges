@@ -20,10 +20,7 @@ import javafx.stage.FileChooser;
 
 import javafx.util.Duration;
 
-import model.GameState;
-import model.Difficulty;
-import model.HighScores;
-import model.MinesweeperBoard;
+import model.*;
 
 import controller.ReadWrite;
 import controller.MinesweeperController;
@@ -57,6 +54,11 @@ public class InfoPanelView extends VBox {
 
 	private Label flagsLeftLabel;
 
+	/**
+	 * Default constructor
+	 * @param controller
+	 * @param view
+	 */
 	public InfoPanelView(MinesweeperController controller, MinesweeperView view) {
 		
 		this.controller = controller;
@@ -120,8 +122,6 @@ public class InfoPanelView extends VBox {
 			controller.initModel(null, Difficulty.EXPERT, controller.getHighScores());
 		});
 
-		//TODO: Load game timer logic
-		
 		loadGameMenuItem.setOnAction((event) -> {
 
 			ReadWrite rw = new ReadWrite();
@@ -152,24 +152,42 @@ public class InfoPanelView extends VBox {
 		this.getChildren().add(menuBar);
 		this.getChildren().add(statsBox);
 	}
-	
+
+	/**
+	 * Updates the label telling how many flags are left
+	 * @param mb {@link MinesweeperBoard}
+	 */
 	protected void updateFlagsLeftLabel(MinesweeperBoard mb) {
 		
 		flagsLeftLabel.setText(String.valueOf(mb.getFlagsLeft()));
 	}
-	
+
+	/**
+	 * Starts the timer
+	 * @param tl Timeline object
+	 */
 	private void startTimer(Timeline tl) {
 		tl.play();
 	}
-	
+
+	/**
+	 * Stops the timer
+	 */
 	public void stopTime() {
 		timeline.stop();
 	}
-	
+
+	/**
+	 * Increments the timer one second
+	 */
 	private void incrementTimer() {
 		controller.incrementTimer();
 	}
-	
+
+	/**
+	 * Sets up the timer from various game states
+	 * @param mb {@link MinesweeperBoard}
+	 */
 	protected void updateTimer(MinesweeperBoard mb) {
 		
 		if (mb.getGameState() == GameState.START_GAME) {
@@ -186,6 +204,9 @@ public class InfoPanelView extends VBox {
 		}
 	}
 
+	/**
+	 * Displays the Highscores window based off the current difficulty
+	 */
 	protected void showHighScores(){
 		int difficulty = controller.getDifficulty();
 		String header = "Best Times!";

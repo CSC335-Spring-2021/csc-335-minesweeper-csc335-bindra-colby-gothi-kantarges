@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Stores the correlations between difficulty integers and variable names
+ */
 public class Difficulty {
 	
 	public static final int EASY   = 0;

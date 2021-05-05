@@ -2,6 +2,9 @@ package view;
 
 import javafx.scene.image.Image;
 
+/**
+ * References to images used by the view
+ */
 public class CellImages {
 	
 	static Image unclicked = new Image("file:images/unclicked.png", 26, 26, true, true, false);
