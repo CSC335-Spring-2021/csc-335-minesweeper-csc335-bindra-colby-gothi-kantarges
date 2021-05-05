@@ -7,7 +7,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 
 import model.Cell;
+import model.MinesweeperModel;
 
+/**
+ * Represents the cell in each grid location in the {@link BoardGridView}
+ */
 public class CellView extends StackPane {
 	
 	private ImageView unclicked = new ImageView(CellImages.unclicked);

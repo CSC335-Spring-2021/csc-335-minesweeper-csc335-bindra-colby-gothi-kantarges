@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.Queue;
 import java.util.PriorityQueue;
 
+/**
+ * Represents the Highscores game object used to store and provide the highscores
+ */
 public class HighScores implements Serializable {
 
     /**
@@ -16,6 +19,9 @@ public class HighScores implements Serializable {
     private Queue<ScoreEntry> medScores;
     private Queue<ScoreEntry> expertScores;
 
+    /**
+     * Main constructor
+     */
     public HighScores() {
     	
         easyScores = new PriorityQueue<>();
@@ -93,6 +99,9 @@ public class HighScores implements Serializable {
         return retval;
     }
 
+    /**
+     * The data type used to represent the score and name pairs within the Highscores priority queue
+     */
     public class ScoreEntry implements Comparable, Serializable {		// FIXME: parameterize with a generic type
     	
         /**
@@ -103,11 +112,21 @@ public class HighScores implements Serializable {
 		public String  name;
         public Integer score;
 
+        /**
+         * Default constructor
+         * @param name
+         * @param score
+         */
         public ScoreEntry(String name, int score) {
             this.name  = name;
             this.score = score;
         }
 
+        /**
+         * used to compare ScoreEntry objects in the priority queue
+         * @param o
+         * @return
+         */
         @Override
         public int compareTo(Object o) {
             return -(((ScoreEntry) o).score - this.score);				// we want to order based on least amount of time taken

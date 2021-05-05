@@ -246,10 +246,18 @@ public class MinesweeperController {
 		return model.getBoard();
 	}
 
+	/**
+	 * Gets the highscores object from the model
+	 * @return Highscores
+	 */
 	public HighScores getHighScores() {
 		return model.getHighScores();
 	}
 
+	/**
+	 * Gets the difficulty integer
+	 * @return
+	 */
 	public int getDifficulty() {
 		return model.getDifficulty();
 	}
@@ -266,6 +274,11 @@ public class MinesweeperController {
 		return model.calculateRows(difficulty);
 	}
 
+	/**
+	 * Takes in a difficulty and calculates the boards columns
+	 * @param difficulty
+	 * @return int num of columns
+	 */
 	public int calcCols(int difficulty) {
 		return model.calculateCols(difficulty);
 	}
@@ -331,18 +344,22 @@ public class MinesweeperController {
 		
 		return false;
 	}
-	
+
+	/**
+	 * Gets the current time from the model
+	 * @return
+	 */
 	public int getTime() {
 		return model.getTime();
 	}
-	
+
 	/**
 	 * Calls model's increment timer method
 	 */
 	public void incrementTimer() {
 		model.incrementTimer();
 	}
-	
+
 	/**
 	 * Gets current state of game: unstarted, playing, or over
 	 * @return int representation of game state
@@ -350,7 +367,7 @@ public class MinesweeperController {
 	public int getGameState() {
 		return model.getGameState();
 	}
-	
+
 	/**
 	 * Changes play state of model
 	 * @param gameState int representation of state to change to

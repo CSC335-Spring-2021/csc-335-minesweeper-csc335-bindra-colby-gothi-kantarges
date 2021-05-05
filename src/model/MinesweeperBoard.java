@@ -5,8 +5,6 @@ import java.io.Serializable;
 /**
  * Class that can hold the state of the game board and is {@code Serializable}
  *
- * TODO: brief description
- *
  * @author Prabhkirat Singh Bindra
  * @author James Colby
  * @author Denson Selm Gothi
@@ -139,9 +137,9 @@ public class MinesweeperBoard implements Serializable {
 	}
 	
 	/**
-	 * TODO: write description
+	 * Getter for whether it is the first click of the game
 	 * 
-	 * @return TODO: write description
+	 * @return true or false
 	 */
 	public boolean isFirstClick() {
 		return this.firstClick;
