@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 import java.util.Queue;
+import java.util.Collections;
 import java.util.PriorityQueue;
 
 public class HighScores implements Serializable {
@@ -18,32 +19,32 @@ public class HighScores implements Serializable {
 
     public HighScores() {
     	
-        easyScores = new PriorityQueue<>();
+        easyScores = new PriorityQueue<>(Collections.reverseOrder());
 
         // Add 5 dummy scores
-        easyScores.add(new ScoreEntry("JEFF", 000));
-        easyScores.add(new ScoreEntry("ABEL", 000));
-        easyScores.add(new ScoreEntry("MARK", 000));
-        easyScores.add(new ScoreEntry("JOEY", 000));
-        easyScores.add(new ScoreEntry("KADE", 000));
+        easyScores.add(new ScoreEntry("JEFF", 999));
+        easyScores.add(new ScoreEntry("ABEL", 999));
+        easyScores.add(new ScoreEntry("MARK", 999));
+        easyScores.add(new ScoreEntry("JOEY", 999));
+        easyScores.add(new ScoreEntry("KADE", 999));
         
-        medScores = new PriorityQueue<>();
+        medScores = new PriorityQueue<>(Collections.reverseOrder());
 
         // Add 5 dummy scores
-        medScores.add(new ScoreEntry("JEFF", 000));
-        medScores.add(new ScoreEntry("ABEL", 000));
-        medScores.add(new ScoreEntry("MARK", 000));
-        medScores.add(new ScoreEntry("JOEY", 000));
-        medScores.add(new ScoreEntry("KADE", 000));
+        medScores.add(new ScoreEntry("JEFF", 999));
+        medScores.add(new ScoreEntry("ABEL", 999));
+        medScores.add(new ScoreEntry("MARK", 999));
+        medScores.add(new ScoreEntry("JOEY", 999));
+        medScores.add(new ScoreEntry("KADE", 999));
         
-        expertScores = new PriorityQueue<>();
+        expertScores = new PriorityQueue<>(Collections.reverseOrder());
 
         // Add 5 dummy scores
-        expertScores.add(new ScoreEntry("JEFF", 000));
-        expertScores.add(new ScoreEntry("ABEL", 000));
-        expertScores.add(new ScoreEntry("MARK", 000));
-        expertScores.add(new ScoreEntry("JOEY", 000));
-        expertScores.add(new ScoreEntry("KADE", 000));
+        expertScores.add(new ScoreEntry("JEFF", 999));
+        expertScores.add(new ScoreEntry("ABEL", 999));
+        expertScores.add(new ScoreEntry("MARK", 999));
+        expertScores.add(new ScoreEntry("JOEY", 999));
+        expertScores.add(new ScoreEntry("KADE", 999));
     }
 
     /**

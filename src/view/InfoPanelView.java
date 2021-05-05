@@ -188,7 +188,7 @@ public class InfoPanelView extends VBox {
 
 	protected void showHighScores(){
 		int difficulty = controller.getDifficulty();
-		String header = "High Scores!";
+		String header = "Best Times!";
 		
 		if (difficulty == Difficulty.EASY)
 			header = "Easy " + header;
@@ -202,9 +202,10 @@ public class InfoPanelView extends VBox {
 		alert.setHeaderText(header);
 
 		String content = "";
-		for (HighScores.ScoreEntry e : controller.getHighScores().getScores(controller.getDifficulty())) {
-			
-			content += e.name + "  " + e.score + "\n";
+		HighScores.ScoreEntry[] entries = controller.getHighScores().getScores(controller.getDifficulty());
+		for (int i = 0; i < 5; i++) {
+			HighScores.ScoreEntry e = entries[i];
+			content += (i+1) + ".  " + e.name + ":  " + e.score + " seconds\n";
 		}
 		
 		alert.setContentText(content);
