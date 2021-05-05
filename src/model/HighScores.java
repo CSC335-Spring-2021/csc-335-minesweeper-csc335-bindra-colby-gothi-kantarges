@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 
 import java.util.Queue;
-import java.util.Collections;
 import java.util.PriorityQueue;
 
 /**
@@ -25,7 +24,7 @@ public class HighScores implements Serializable {
      */
     public HighScores() {
     	
-        easyScores = new PriorityQueue<>(Collections.reverseOrder());
+        easyScores = new PriorityQueue<>();
 
         // Add 5 dummy scores
         easyScores.add(new ScoreEntry("JEFF", 999));
@@ -34,7 +33,7 @@ public class HighScores implements Serializable {
         easyScores.add(new ScoreEntry("JOEY", 999));
         easyScores.add(new ScoreEntry("KADE", 999));
         
-        medScores = new PriorityQueue<>(Collections.reverseOrder());
+        medScores = new PriorityQueue<>();
 
         // Add 5 dummy scores
         medScores.add(new ScoreEntry("JEFF", 999));
@@ -43,7 +42,7 @@ public class HighScores implements Serializable {
         medScores.add(new ScoreEntry("JOEY", 999));
         medScores.add(new ScoreEntry("KADE", 999));
         
-        expertScores = new PriorityQueue<>(Collections.reverseOrder());
+        expertScores = new PriorityQueue<>();
 
         // Add 5 dummy scores
         expertScores.add(new ScoreEntry("JEFF", 999));
@@ -130,7 +129,7 @@ public class HighScores implements Serializable {
          */
         @Override
         public int compareTo(Object o) {
-            return ((ScoreEntry) o).score - this.score;
+            return -(((ScoreEntry) o).score - this.score);				// we want to order based on least amount of time taken
         }
     }
 }
