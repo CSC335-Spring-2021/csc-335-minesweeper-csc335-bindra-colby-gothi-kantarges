@@ -54,14 +54,16 @@ public class MinesweeperController {
 		
 		if (!model.hasFlag(r, c) && model.getGameState() != GameState.OVER) {
 			
-			if (model.getIsFirstClick()) { // need to generate bombs
+			if (model.getIsFirstClick()) {									// need to generate bombs
+				
 				model.setGameState(GameState.START_GAME);
+				
 				Random rand = new Random();
 	
 				int numRows = getBoard().getRows();
 				int numCols = getBoard().getCols();
 	
-				int mines = (int) Math.floor(0.15 * numRows * numCols); // Formula for how many mines to place
+				int mines = (int) Math.floor(0.15 * numRows * numCols);		// Formula for how many mines to place
 	
 				while (mines != 0) {
 	
@@ -72,7 +74,7 @@ public class MinesweeperController {
 	
 						Cell cell = model.getCell(xIndex, yIndex);
 	
-						if (!cell.hasMine()) { // only place mine if cell does not have one already
+						if (!cell.hasMine()) {								// only place mine if cell does not have one already
 							cell.addMine();
 							mines--;
 						}
@@ -80,7 +82,6 @@ public class MinesweeperController {
 				}
 	
 				for (int i = 0; i < numRows; i++) {
-	
 					for (int j = 0; j < numCols; j++) {
 	
 						model.getCell(i, j).setNeighbors(this.getNeighbors(i, j));
@@ -105,7 +106,6 @@ public class MinesweeperController {
 		if (model.getGameState() != GameState.OVER) {
 			model.toggleFlag(r, c);
 		}
-		
 	}
 
 	/**
@@ -116,11 +116,15 @@ public class MinesweeperController {
 	 * @param c column to be revealed
 	 */
 	public void reveal(int r, int c) {
+		
 		if (model.cellHasMine(r, c)) {
+			
 			model.revealCell(r, c);
 			return;
-		} else
+			
+		} else {
 			multipleClear(r, c);
+		}
 	}
 
 	/**
@@ -131,6 +135,7 @@ public class MinesweeperController {
 	 * @param c column of cell clicked
 	 */
 	private void multipleClear(int r, int c) {
+		
 		if (model.isInBounds(r, c)) {
 
 			if (model.getCell(r, c).hasMine())					// Don't want to accidentally reveal a mine.
@@ -156,7 +161,7 @@ public class MinesweeperController {
 				multipleClear(r + 1, c - 1);		// Southwest
 				multipleClear(r + 1, c + 1);		// Southeast
 				multipleClear(r - 1, c + 1);		// Northeast
-
+				
 				return;
 			}
 		}
@@ -232,8 +237,6 @@ public class MinesweeperController {
 		return mineCount;
 	}
 
-
-
 	/**
 	 * Gets the board from the model
 	 * 
@@ -273,10 +276,14 @@ public class MinesweeperController {
 	 * @return {@code true} if all cells without mines have been revealed, {@code false} otherwise.
 	 */
 	public boolean win() {
+		
 		int col;
 		int row = 0;
+		
 		while (model.isInBounds(row, 0)) {
+			
 			col = 0;
+			
 			while (model.isInBounds(row, col)) {
 				
 				if (model.cellHasMine(row, col) && model.getCell(row, col).isRevealed()) {
@@ -289,8 +296,10 @@ public class MinesweeperController {
 				
 				col++;
 			}
+			
 			row++;
 		}
+		
 		return true;
 	}
 	
@@ -300,10 +309,14 @@ public class MinesweeperController {
 	 * @return {@code true} if a cell containing a mine was revealed, {@code false} otherwise.
 	 */
 	public boolean lose() {
+		
 		int col;
 		int row = 0;
+		
 		while (model.isInBounds(row, 0)) {
+			
 			col = 0;
+			
 			while (model.isInBounds(row, col)) {
 				
 				if (model.cellHasMine(row, col) && model.getCell(row, col).isRevealed()) {
@@ -312,8 +325,10 @@ public class MinesweeperController {
 				
 				col++;
 			}
+			
 			row++;
 		}
+		
 		return false;
 	}
 	

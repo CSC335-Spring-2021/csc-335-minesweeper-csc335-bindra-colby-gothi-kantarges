@@ -19,7 +19,6 @@ public class MinesweeperModel extends Observable {
 
 	// TODO: Remove hardcoded testing board info
 
-
 	final static int TEST_SCORE = 300;
 
 	/**
@@ -30,14 +29,16 @@ public class MinesweeperModel extends Observable {
 
 	private int time;
 	private int score;
+	
 	private int flagsLeft;
+	
 	private int rows;
 	private int cols;
+	
 	private int difficulty;
+	private boolean firstClick;
 
 	private int gameState;
-	
-	private boolean firstClick;
 
 	/**
 	 * Constructor for model
@@ -56,16 +57,18 @@ public class MinesweeperModel extends Observable {
 		if (board == null) {
 
 			// FIXME: Change Default values for default game
-			this.time = 0;
+			this.time  = 0;
 			this.score = TEST_SCORE;
 
 			this.rows = calculateRows(difficulty);
 			this.cols = calculateCols(difficulty);
+			
 			this.flagsLeft = calculateFlags(difficulty);
-			this.gameState = GameState.UNSTARTED;
+
 			this.difficulty = difficulty;
 			this.firstClick = true;
-			this.grid = new Cell[rows][cols];
+			
+			this.gameState = GameState.UNSTARTED;
 
 			this.grid = new Cell[rows][cols];
 
@@ -80,7 +83,7 @@ public class MinesweeperModel extends Observable {
 
 			this.time  = board.getTime();
 			this.score = board.getScore(); 
-			this.gameState = GameState.START_GAME;
+			
 			this.flagsLeft = board.getFlagsLeft();
 
 			this.rows = board.getRows();
@@ -88,12 +91,16 @@ public class MinesweeperModel extends Observable {
 
 			this.difficulty = board.getDifficulty();
 			this.firstClick = board.isFirstClick();
+
+			this.gameState = GameState.START_GAME;
+			
 			this.grid = board.getBoard();
 		}
 
 		// Check for HighScores loaded file
 		if (highScores == null) {
 			this.highScores = new HighScores();
+			
 		} else {
 			this.highScores = highScores;
 		}
@@ -269,8 +276,8 @@ public class MinesweeperModel extends Observable {
 	}
 
 	public MinesweeperBoard getBoard() {
-		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows, this.cols,
-				this.difficulty, this.firstClick, this.gameState);
+		return new MinesweeperBoard(this.grid, this.time, this.score, this.flagsLeft, this.rows,
+									this.cols, this.difficulty, this.firstClick, this.gameState);
 	}
 
 	public boolean getIsFirstClick() {

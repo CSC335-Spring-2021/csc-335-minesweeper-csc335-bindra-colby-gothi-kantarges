@@ -87,7 +87,9 @@ public class MinesweeperView extends Application implements Observer {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Save Game");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+			
 			infoPanel.stopTime();
+			
 			// Write high score data
 			rw.writeHighScoreData(controller.getHighScores());
 
@@ -122,7 +124,6 @@ public class MinesweeperView extends Application implements Observer {
 		
 		MinesweeperBoard mb = (MinesweeperBoard) arg;
 
-		
 		if (controller.win()) {
 			
 			controller.setGameState(GameState.OVER);
@@ -136,6 +137,7 @@ public class MinesweeperView extends Application implements Observer {
 			win.showAndWait();
 			
 			scoreInput();
+			
 		} else if (controller.lose()) {
 			
 			controller.setGameState(GameState.OVER);

@@ -1,9 +1,12 @@
 package view;
 
-import javafx.geometry.Pos;
-import javafx.animation.Animation;
+import java.io.File;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.Animation;
+
+import javafx.geometry.Pos;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 
@@ -13,13 +16,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.stage.FileChooser;
 
-import java.io.File;
+import javafx.util.Duration;
 
-import model.Difficulty;
 import model.GameState;
+import model.Difficulty;
 import model.HighScores;
 import model.MinesweeperBoard;
 
@@ -37,10 +39,10 @@ public class InfoPanelView extends VBox {
 
 	private MinesweeperController controller;
 	private Stage stage;
-	
-	
-	private MenuBar menuBar;
+
 	private Menu fileMenu;
+	private MenuBar menuBar;
+	
 	private MenuItem easyGameMenuItem;
 	private MenuItem mediumGameMenuItem;
 	private MenuItem expertGameMenuItem;
@@ -48,6 +50,7 @@ public class InfoPanelView extends VBox {
 	private MenuItem highScoresMenuItem;
 	
 	private Timeline timeline;
+	
 	private Label timerLabel = new Label(String.valueOf(0));
 	
 	private GridPane statsBox;
@@ -75,9 +78,7 @@ public class InfoPanelView extends VBox {
 								   loadGameMenuItem,
 								   highScoresMenuItem);
 		
-		timeline = new Timeline(new KeyFrame(
-				Duration.seconds(1),
-				ae -> incrementTimer()));		
+		timeline = new Timeline(new KeyFrame(Duration.seconds(1), (ae) -> { incrementTimer(); }));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		
 		statsBox = new GridPane();
@@ -92,7 +93,6 @@ public class InfoPanelView extends VBox {
 			
 			statsBox.getColumnConstraints().add(col);
 		}
-		
 
 		timerLabel.setAlignment(Pos.CENTER_LEFT);
 		
@@ -158,7 +158,6 @@ public class InfoPanelView extends VBox {
 		flagsLeftLabel.setText(String.valueOf(mb.getFlagsLeft()));
 	}
 	
-	
 	private void startTimer(Timeline tl) {
 		tl.play();
 	}
@@ -170,7 +169,6 @@ public class InfoPanelView extends VBox {
 	private void incrementTimer() {
 		controller.incrementTimer();
 	}
-	
 	
 	protected void updateTimer(MinesweeperBoard mb) {
 		
