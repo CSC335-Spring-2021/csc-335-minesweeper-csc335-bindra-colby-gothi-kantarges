@@ -1,3 +1,5 @@
 /bin/
 /save_game.dat
 /high_scores.dat
+.idea/
+*.iml
